@@ -1,0 +1,45 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata:
+  name: xdatabases.innoq.com
+spec:
+  group: innoq.com
+  names:
+    kind: XDatabase
+    plural: xdatabases
+  defaultCompositionRef:
+    name: xdatabases.aws.innoq.com
+  claimNames:
+    kind: DatabaseClaim
+    plural: databaseclaims
+  connectionSecretKeys:
+  - username
+  - password
+  - endpoint
+  - port
+  versions:
+  - name: v1alpha1
+    served: true
+    referenceable: true
+    schema:
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            properties:
+              parameters:
+                type: object
+                properties:
+                  storageGB:
+                    type: integer
+                  version:
+                    type: string
+                    enum:
+                    - "11"
+                    - "12"
+                    default: "12"
+                required:
+                - storageGB
+            required:
+            - parameters

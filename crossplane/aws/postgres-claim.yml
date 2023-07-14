@@ -1,0 +1,13 @@
+apiVersion: innoq.com/v1alpha1
+kind: DatabaseClaim
+metadata:
+  name: my-db
+  namespace: default
+spec:
+  parameters:
+    storageGB: 20
+    version: "11"
+  writeConnectionSecretToRef:
+    name: db-conn
+
+#The developer can only set the storage size and the engine version.
