@@ -68,3 +68,12 @@ jobs:
           echo 'Start Build'
           mvn compile jib:build
           echo 'Build complete'
+     # Replace CONTAINER_REGISTRY & IMAGE_TAG  in all the manifest files
+    - uses: cschleiden/replace-tokens@v1
+      with:
+        tokenPrefix: '${'
+        tokenSuffix: '}'
+        files: '["helm/values.yaml"]'
+      env:
+        CONTAINER_REGISTRY: ${{ secrets.AZURE_CONTAINER_REGISTRY }}
+        IMAGE_TAG: ${{ env.IMAGE_TAG }}
