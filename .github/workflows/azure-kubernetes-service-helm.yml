@@ -43,6 +43,7 @@ env:
   AZURE_CONTAINER_REGISTRY: "randmeth"
   CONTAINER_NAME: "campaigns"
   RESOURCE_GROUP: "platform-engineering-sg"
+  IMAGE_TAG: "latest"
 
 
 jobs:
@@ -53,13 +54,13 @@ jobs:
  
     - uses: azure/login@v1
       with:
-        # creds: ${{ secrets.AZURE_CREDENTIALS }}
-        client-id: ${{ secrets.AZURE_CLIENT_ID }}
-        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        # client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        # tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        # subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
     
     - run: |
-         export CONTAINER_REGISTRY=randmeth
+         export CONTAINER_REGISTRY=${{ env.AZURE_CONTAINER_REGISTRY}}
          export IMAGE_TAG=${{ env.IMAGE_TAG }}
          echo 'Install ACR AAD credential helper and login'
           curl -L https://aka.ms/acr/installaad/bash | /bin/bash
