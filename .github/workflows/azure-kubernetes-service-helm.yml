@@ -43,8 +43,7 @@ env:
   AZURE_CONTAINER_REGISTRY: "randmeth"
   CONTAINER_NAME: "campaigns"
   RESOURCE_GROUP: "platform-engineering-sg"
-  CHART_PATH: "your-chart-path"
-  CHART_OVERRIDE_PATH: "your-chart-override-path"
+
 
 jobs:
   buildImage:
