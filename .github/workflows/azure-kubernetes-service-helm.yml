@@ -73,7 +73,7 @@ jobs:
       with:
         tokenPrefix: '${'
         tokenSuffix: '}'
-        files: '["helm/vaddlues.yaml"]'
+        files: '["helm/values.yaml"]'
       env:
-        CONTAINER_REGISsTRY: ${{ secrets.AZURE_CONTAINER_REGISTRY }}
+        CONTAINER_REGISTRY: ${{ secrets.AZURE_CONTAINER_REGISTRY }}
         IMAGE_TAG: ${{ env.IMAGE_TAG }}
