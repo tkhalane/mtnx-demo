@@ -12,6 +12,21 @@ env:
   IMAGE_TAG: "latest"
 
 jobs:
+  update-values:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Update image tag
+        uses: fjogeleit/yaml-update-action@main
+        with:
+          valueFile: values.yaml
+          propertyPath: image.tag
+          value: ${{ github.sha }}
+      - name: Commit and push changes
+        run: |
+          git add .
+          git commit -m "Update Helm values"
+          git push
   build:
     runs-on: ubuntu-latest
     steps:
@@ -34,20 +49,20 @@ jobs:
            mvn compile jib:build
            echo 'Build complete'
 
-      - name: Update Helm Values
-        id: update-helm-values
-        run: |
-          sed -i 's|image:.*|image: "your-docker-image:latest"|' helm/values.yaml
-          cat helm/values.yaml
+      # - name: Update Helm Values
+      #   id: update-helm-values
+      #   run: |
+      #     sed -i 's|image:.*|image: "your-docker-image:latest"|' helm/values.yaml
+      #     cat helm/values.yaml
 
-      - name: Commit Changes
-        run: |
-          echo "${{ github.actor }}"
-          git config user.name "${{ github.actor }}"
-          git config user.email "${{ github.actor }}@users.noreply.github.com"
-          git add helm/values.yaml
-          git commit -m "Update Docker image in Helm values file"
-          git push
+      # - name: Commit Changes
+      #   run: |
+      #     echo "${{ github.actor }}"
+      #     git config user.name "${{ github.actor }}"
+      #     git config user.email "${{ github.actor }}@users.noreply.github.com"
+      #     git add helm/values.yaml
+      #     git commit -m "Update Docker image in Helm values file"
+      #     git push
     # runs-on: ubuntu-latest
 
     # steps:
