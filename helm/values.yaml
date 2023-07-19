@@ -1,6 +1,6 @@
 replicaCount: 1
 image:
-  repository: ${CONTAINER_REGISTRY}.azurecr.io/spring-boot-starter-parent-campaigns:${IMAGE_TAG}
+  repository: randmeth.azurecr.io/spring-boot-starter-parent-campaigns
   pullPolicy: Always
   tag: 54d9109d56461115ef4536e71e1be25dbef9a105
 fullnameOverride: randmeth-campaigns
