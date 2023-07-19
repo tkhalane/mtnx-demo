@@ -42,8 +42,6 @@ jobs:
 
       - name: Commit Changes
         run: |
-          git config user.name "${{ github.actor }}"
-          git config user.email "tkhalane@gmail.com"
           git add helm/values.yaml
           git commit -m "Update Docker image in Helm values file"
           git push
