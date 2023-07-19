@@ -21,10 +21,14 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       - run: |
+          export CONTAINER_REGISTRY=${{ env.AZURE_CONTAINER_REGISTRY}}
+          export IMAGE_TAG=${{ env.IMAGE_TAG }}
           echo 'Install ACR AAD credential helper and login'
           curl -L https://aka.ms/acr/installaad/bash | /bin/bash
           az acr login -n randmeth
+          echo 'Start Build'
           mvn compile jib:build
+          echo 'Build complete'
       - name: Checkout Helm Chart
         uses: actions/checkout@v3
       - name: Update Image Version in the related HelmChart values.yaml
