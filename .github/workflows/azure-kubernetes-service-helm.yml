@@ -1,37 +1,3 @@
-# This workflow will build and push an application to a Azure Kubernetes Service (AKS) cluster when you push your code
-#
-# This workflow assumes you have already created the target AKS cluster and have created an Azure Container Registry (ACR)
-# The ACR should be attached to the AKS cluster
-# For instructions see:
-#   - https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough-portal
-#   - https://docs.microsoft.com/en-us/azure/container-registry/container-registry-get-started-portal
-#   - https://learn.microsoft.com/en-us/azure/aks/cluster-container-registry-integration?tabs=azure-cli#configure-acr-integration-for-existing-aks-clusters
-#   - https://github.com/Azure/aks-create-action
-#
-# To configure this workflow:
-#
-# 1. Set the following secrets in your repository (instructions for getting these
-#    https://docs.microsoft.com/en-us/azure/developer/github/connect-from-azure?tabs=azure-cli%2Clinux)):
-#    - AZURE_CLIENT_ID
-#    - AZURE_TENANT_ID
-#    - AZURE_SUBSCRIPTION_ID
-#
-# 2. Set the following environment variables (or replace the values below):
-#    - AZURE_CONTAINER_REGISTRY (name of your container registry / ACR)
-#    - CONTAINER_NAME (name of the container image you would like to push up to your ACR)
-#    - RESOURCE_GROUP (where your cluster is deployed)
-#    - CLUSTER_NAME (name of your AKS cluster)
-#    - IMAGE_PULL_SECRET_NAME (name of the ImagePullSecret that will be created to pull your ACR image)
-#
-# 3. Choose the appropriate render engine for the bake step https://github.com/Azure/k8s-bake. The config below assumes Helm.
-#    Set your helmChart, overrideFiles, overrides, and helm-version to suit your configuration.
-#    - CHART_PATH (path to your helm chart)
-#    - CHART_OVERRIDE_PATH (path to your helm chart with override values)
-#
-# For more information on GitHub Actions for Azure, refer to https://github.com/Azure/Actions
-# For more samples to get started with GitHub Action workflows to deploy to Azure, refer to https://github.com/Azure/actions-workflow-samples
-# For more options with the actions used below please refer to https://github.com/Azure/login
-
 name: Build and deploy an app to AKS with Helm
 
 on:
@@ -45,35 +11,60 @@ env:
   RESOURCE_GROUP: "platform-engineering-sg"
   IMAGE_TAG: "latest"
 
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
- 
-    - uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
-        # client-id: ${{ secrets.AZURE_CLIENT_ID }}
-        # tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-        # subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-    
-    - run: |
-         export CONTAINER_REGISTRY=${{ env.AZURE_CONTAINER_REGISTRY}}
-         export IMAGE_TAG=${{ env.IMAGE_TAG }}
-         echo 'Install ACR AAD credential helper and login'
-          curl -L https://aka.ms/acr/installaad/bash | /bin/bash
-          az acr login -n randmeth
-          echo 'Start Build'
-          mvn compile jib:build
-          echo 'Build complete'
-     # Replace CONTAINER_REGISTRY & IMAGE_TAG  in all the manifest files
-    - uses: cschleiden/replace-tokens@v1
-      with:
-        tokenPrefix: '${'
-        tokenSuffix: '}'
-        files: '["helm/values.yaml"]'
-      env:
-        CONTAINER_REGISTRY: ${{ secrets.AZURE_CONTAINER_REGISTRY }}
-        IMAGE_TAG: ${{ env.IMAGE_TAG }}
+      - uses: actions/checkout@master
+
+      - uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          # client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          # tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          # subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - run: |
+          export CONTAINER_REGISTRY=${{ env.AZURE_CONTAINER_REGISTRY}}
+          export IMAGE_TAG=${{ env.IMAGE_TAG }}
+          echo 'Install ACR AAD credential helper and login'
+           curl -L https://aka.ms/acr/installaad/bash | /bin/bash
+           az acr login -n randmeth
+           echo 'Start Build'
+           mvn compile jib:build
+           echo 'Build complete'
+        # Replace CONTAINER_REGISTRY & IMAGE_TAG  in all the manifest files
+      # - uses: cschleiden/replace-tokens@v1
+      #   with:
+      #     tokenPrefix: "${"
+      #     tokenSuffix: "}"
+      #     files: '["helm/values.yaml"]'
+      #   env:
+      #     CONTAINER_REGISTRY: ${{ secrets.AZURE_CONTAINER_REGISTRY }}
+      #     IMAGE_TAG: ${{ env.IMAGE_TAG }}
+      # - name: Checkout main
+      #   uses: actions/checkout@v2
+      #   with:
+      #     repository: github.com/tkhalane/mtnx-demo.git
+      #     persist-credentials: false
+      #     fetch-depth: 0
+      # - name: Update manifests
+      #   run: |
+      #     sleep 1
+      #     git config --global user.name "${{ secrets.GH_ORG }}"
+      #     git add .
+      #     git commit -m "Promoting devops-toolkit ${{ github.sha }}"
+      # - name: Push prod
+      #   uses: ad-m/github-push-action@master
+      #   with:
+      #     github_token: ${{ secrets.GH_TOKEN }}
+      #     repository: ${{ secrets.GH_ORG }}/devspace-vcluster-argocd-prod
+      - uses: azure/k8s-bake@v2.4
+        with:
+          renderEngine: "helm"
+          helmChart: "./helm/"
+          overrideFiles: "./helm/values.yaml"
+          overrides: |
+            replicaCount:2
+          helm-version: "latest"
+        id: bake
