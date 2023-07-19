@@ -21,12 +21,14 @@ jobs:
         with:
           valueFile: helm/values.yaml
           propertyPath: image.tag
-          value: something
+          value: ${{ github.sha }}
       - name: Commit and push changes
         run: |
           git add .
           git commit -m "Update Helm values"
           git push
+      - name: Helm upgrade
+        run: helm upgrade my-chart . --values helm/values.yaml
   build:
     runs-on: ubuntu-latest
     steps:
