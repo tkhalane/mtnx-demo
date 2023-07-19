@@ -61,8 +61,8 @@ jobs:
         with:
           valueFile: "helm/values.yaml"
           propertyPath: "image.tag"
-          value: "${{ steps.image.outputs.version }}"
+          value: "${{ env.IMAGE_TAG }}"
           branch: main
           targetBranch: main
           createPR: false
-          message: "Update Image Version to ${{ steps.image.outputs.version }}"
+          message: "Update Image Version to ${{ env.IMAGE_TAG }}"

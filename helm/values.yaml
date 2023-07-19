@@ -1,5 +1,6 @@
 replicaCount: 1
-image:
+
+image: 
   repository: ${CONTAINER_REGISTRY}.azurecr.io/spring-boot-starter-parent-campaigns:${IMAGE_TAG}
   pullPolicy: Always
   tag: ''
