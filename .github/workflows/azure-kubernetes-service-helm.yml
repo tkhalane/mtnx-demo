@@ -33,38 +33,28 @@ jobs:
            echo 'Start Build'
            mvn compile jib:build
            echo 'Build complete'
-        # Replace CONTAINER_REGISTRY & IMAGE_TAG  in all the manifest files
-      # - uses: cschleiden/replace-tokens@v1
-      #   with:
-      #     tokenPrefix: "${"
-      #     tokenSuffix: "}"
-      #     files: '["helm/values.yaml"]'
-      #   env:
-      #     CONTAINER_REGISTRY: ${{ secrets.AZURE_CONTAINER_REGISTRY }}
-      #     IMAGE_TAG: ${{ env.IMAGE_TAG }}
-      # - name: Checkout main
-      #   uses: actions/checkout@v2
-      #   with:
-      #     repository: github.com/tkhalane/mtnx-demo.git
-      #     persist-credentials: false
-      #     fetch-depth: 0
-      # - name: Update manifests
-      #   run: |
-      #     sleep 1
-      #     git config --global user.name "${{ secrets.GH_ORG }}"
-      #     git add .
-      #     git commit -m "Promoting devops-toolkit ${{ github.sha }}"
-      # - name: Push prod
-      #   uses: ad-m/github-push-action@master
-      #   with:
-      #     github_token: ${{ secrets.GH_TOKEN }}
-      #     repository: ${{ secrets.GH_ORG }}/devspace-vcluster-argocd-prod
-      - uses: azure/k8s-bake@v2.4
-        with:
-          renderEngine: "helm"
-          helmChart: "./helm/"
-          overrideFiles: "./helm/values.yaml"
-          overrides: |
-            replicaCount:2
-          helm-version: "latest"
-        id: bake
+  update-helm-values:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Install Helm
+        run: |
+          curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+          helm version --short
+
+      - name: Update Helm Values
+        id: update-helm-values
+        run: |
+          sed -i 's|image:.*|image: "your-docker-image:latest"|' helm/values.yaml
+          cat helm/values.yaml
+
+      - name: Commit Changes
+        run: |
+          git config user.name "${{ github.actor }}"
+          git config user.email "tkhalane@gmail.com"
+          git add path/to/values.yaml
+          git commit -m "Update Docker image in Helm values file"
+          git push
