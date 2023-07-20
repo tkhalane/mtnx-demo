@@ -1,0 +1,26 @@
+name: Create GitHub Repository
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  create_repo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Create GitHub Repository
+        run: |
+          REPO_NAME="created_with_gh"
+          GH_USERNAME="tkhalane"
+          GH_TOKEN="${{ secrets.ORG_TOKEN }}"
+
+          curl -X POST "https://api.github.com/user/repos" \
+            -H "Authorization: token $GH_TOKEN" \
+            -d '{"name": "'"$REPO_NAME"'", "private": false}'
+
+      # Add any additional steps or actions you need for your workflow
