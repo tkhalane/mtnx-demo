@@ -26,4 +26,4 @@ jobs:
           portUserInputs: ${{ toJson(fromJson(inputs.port_payload).payload.properties) }}
           cookiecutterTemplate: https://github.com/lacion/cookiecutter-golang
           blueprintIdentifier: "microservice"
-          organizationName: INSERT_ORG_NAME
+          organizationName: tkhalane
