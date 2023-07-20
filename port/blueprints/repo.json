@@ -1,0 +1,40 @@
+{
+    "identifier": "mtnmicroservice",
+    "title": "MTNMicroservice",
+    "icon": "Git",
+    "schema": {
+      "properties": {
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "url": {
+          "title": "URL",
+          "format": "url",
+          "type": "string"
+        },
+        "readme": {
+          "title": "README",
+          "type": "string",
+          "format": "markdown",
+          "icon": "Book"
+        }
+      },
+      "required": []
+    },
+    "mirrorProperties": {
+      "name": {
+        "title": "name",
+        "path": "emptyrepo.description"
+      }
+    },
+    "calculationProperties": {},
+    "relations": {
+      "emptyrepo": {
+        "title": "emptyrepo",
+        "target": "mtnmicroservice",
+        "required": false,
+        "many": false
+      }
+    }
+  }
