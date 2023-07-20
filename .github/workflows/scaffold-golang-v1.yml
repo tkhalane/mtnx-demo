@@ -1,5 +1,3 @@
-name: Scaffold new service repository from Cookiecutter
-
 on:
   workflow_dispatch:
     inputs:
@@ -18,23 +16,20 @@ jobs:
   scaffold:
     runs-on: ubuntu-latest
     steps:
-      - name: Add log to Port action
-        uses: port-labs/port-github-action@v1
-        with:
-          clientId: ${{ secrets.PORT_CLIENT_ID }}
-          clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
-          operation: PATCH_RUN
-          runId: ${{ fromJson(inputs.port_payload).context.runId }}
-          logMessage: "Scaffolding a new repository from Cookiecutter template 🏃‍♂️"
-      - uses: tkhalane/cookiecutter-gha@v7
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - uses: port-labs/cookiecutter-gha@v1
         with:
           portClientId: ${{ secrets.PORT_CLIENT_ID }}
           portClientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
           token: ${{ secrets.ORG_TOKEN }}
           portRunId: ${{ fromJson(inputs.port_payload).context.runId }}
+          # repositoryName: bssp
           repositoryName: ${{ fromJson(inputs.port_payload).payload.properties.name }}
-          portUserInputs: ${{ toJson(fromJson(inputs.port_payload).payload.properties.options) }}
-          #   cookiecutterTemplate: ${{ fromJson(inputs.port_payload).payload.properties.template }}
+          portUserInputs: ${{ toJson(fromJson(inputs.port_payload).payload.properties) }}
           cookiecutterTemplate: https://github.com/lacion/cookiecutter-golang
           blueprintIdentifier: "microservice"
           organizationName: tkhalane
+        env:
+          fd: df
