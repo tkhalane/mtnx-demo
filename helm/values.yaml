@@ -2,7 +2,7 @@ replicaCount: 1
 image:
   repository: randmeth.azurecr.io/spring-boot-starter-parent-campaigns
   pullPolicy: Always
-  tag: 2572787adbf82155d5e948603b23321cd115f431
+  tag: 859764c12ba391c990bdce219d25f21cf4fed233
 fullnameOverride: randmeth-campaigns
 serviceAccount:
   create: true
