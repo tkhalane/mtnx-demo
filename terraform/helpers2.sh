@@ -1,6 +1,11 @@
 # create role assignment between acr and aks
 az aks update -n docatalog -g devops-catalog-aks --attach-acr devopscatalogaks
 
+
+# use existing aks 
+az account set --subscription 85933884-f6aa-4035-a09c-03e9776d31cd
+az aks get-credentials --resource-group platform-engineering-sg --name platform-eng
+
 # destroy targeted resources only
 terraform destroy --var k8s_version=<version> --target azurerm_kubernetes_cluster.primary
 
@@ -12,6 +17,7 @@ docker tag tii/go-demo-9 devopscatalogaks.azurecr.io/go-demo-9:latest
 docker push devopscatalogaks.azurecr.io/go-demo-9:latest
 
 az acr build --image azure-vote-front:v1 --registry devopscatalogaks --file Dockerfile .
+
 
 ## DOCKER 
 docker image ls 
