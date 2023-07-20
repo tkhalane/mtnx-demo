@@ -18,15 +18,15 @@ jobs:
     steps:
       - name: extract variables
         uses: port-labs/cookiecutter-gha@v1
-
-      - name: Checkout repository
-        uses: actions/checkout@v2
         with:
           portClientId: ${{ secrets.PORT_CLIENT_ID }}
           portClientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
           token: ${{ secrets.ORG_TOKEN }}
         env:
           REPO_NAME: ${{ fromJson(inputs.port_payload).payload.properties.name }}
+
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
       - name: Create GitHub Repository
         run: |
