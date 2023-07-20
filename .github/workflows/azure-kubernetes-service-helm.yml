@@ -14,28 +14,28 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
+    # steps:
+    #   - uses: actions/checkout@master
 
-      - uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-      - run: |
-          export CONTAINER_REGISTRY=${{ env.AZURE_CONTAINER_REGISTRY}}
-          export IMAGE_TAG=${{ github.sha }} 
-          echo 'Install ACR AAD credential helper and login'
-          curl -L https://aka.ms/acr/installaad/bash | /bin/bash
-          az acr login -n randmeth
-          mvn compile jib:build
-      - name: Checkout Helm Chart
-        uses: actions/checkout@v3
-      - name: Update Image Version in the related HelmChart values.yaml
-        uses: fjogeleit/yaml-update-action@main
-        with:
-          valueFile: "helm/values.yaml"
-          propertyPath: "image.tag"
-          value: "${{ env.IMAGE_TAG }}"
-          branch: main
-          targetBranch: main
-          createPR: false
-          message: "Update Image Version to ${{ env.IMAGE_TAG }}"
+    #   - uses: azure/login@v1
+    #     with:
+    #       creds: ${{ secrets.AZURE_CREDENTIALS }}
+    #   - run: |
+    #       export CONTAINER_REGISTRY=${{ env.AZURE_CONTAINER_REGISTRY}}
+    #       export IMAGE_TAG=${{ github.sha }}
+    #       echo 'Install ACR AAD credential helper and login'
+    #       curl -L https://aka.ms/acr/installaad/bash | /bin/bash
+    #       az acr login -n randmeth
+    #       mvn compile jib:build
+    #   - name: Checkout Helm Chart
+    #     uses: actions/checkout@v3
+    #   - name: Update Image Version in the related HelmChart values.yaml
+    #     uses: fjogeleit/yaml-update-action@main
+    #     with:
+    #       valueFile: "helm/values.yaml"
+    #       propertyPath: "image.tag"
+    #       value: "${{ env.IMAGE_TAG }}"
+    #       branch: main
+    #       targetBranch: main
+    #       createPR: false
+    #       message: "Update Image Version to ${{ env.IMAGE_TAG }}"

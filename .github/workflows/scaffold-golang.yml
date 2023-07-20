@@ -16,14 +16,27 @@ jobs:
   scaffold:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Create GitHub Repository
+        run: |
+          REPO_NAME=${{ fromJson(inputs.port_payload).payload.properties.name }}
+          GH_USERNAME="tkhalane"
+          GH_TOKEN="${{ secrets.ORG_TOKEN }}"
+
+          curl -X POST "https://api.github.com/user/repos" \
+            -H "Authorization: token $GH_TOKEN" \
+            -d '{"name": "'"$REPO_NAME"'", "private": false}'
+
       - uses: port-labs/cookiecutter-gha@v1
         with:
           portClientId: ${{ secrets.PORT_CLIENT_ID }}
           portClientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
           token: ${{ secrets.ORG_TOKEN }}
           portRunId: ${{ fromJson(inputs.port_payload).context.runId }}
-          repositoryName: bssp
-          # repositoryName: ${{ fromJson(inputs.port_payload).payload.properties.name }}
+          # repositoryName: bssp
+          repositoryName: ${{ fromJson(inputs.port_payload).payload.properties.name }}
           portUserInputs: ${{ toJson(fromJson(inputs.port_payload).payload.properties) }}
           cookiecutterTemplate: https://github.com/lacion/cookiecutter-golang
           blueprintIdentifier: "microservice"
