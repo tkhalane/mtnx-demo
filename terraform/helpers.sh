@@ -143,7 +143,10 @@ cat nginx.conf
 http://20.241.133.148:8080/api/v1/campaigns
 
 #### argo cd #####
+#https://argo-cd.readthedocs.io/en/stable/getting_started/?_gl=1*11oktsg*_ga*MTgxMTQwOTU3MC4xNjg5OTYzMDYw*_ga_5Z1VTPDL73*MTY4OTk2MzA1OS4xLjEuMTY4OTk2MzE1OC4wLjAuMA..
 helm repo add argo https://argoproj.github.io/argo-helm
+kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 # password = KuT9MLefVE8IZoNe replaced with Password01#
@@ -158,21 +161,17 @@ kubectl port-forward service/argo-cd-argocd-server -n argocd 8080:443
 
 #    and then open the browser on http://localhost:8080 and accept the certificate
 
-# alternatively 
+#2, alternatively 
 #To access the Argo CD web UI from outside the cluster, you need to expose the service.
-kubectl patch svc argo-cd-argocd-server  -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
-kubectl get svc argo-cd-argocd-server -n argocd -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
+kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
+kubectl get svc argocd-server -n argocd -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
 
 https://20.231.250.3/settings
 # after installing argocd via brew, and running the above, logged in with
 export LB_HOST=above ip
 argocd login --insecure --username admin --password Password01# --grpc-web argocd.$LB_HOST.nip.io
 # to deploy from git
-argocd app create randmeth-campaigns \
-    --repo https://github.com/tkhalane/randmeth-campaigns.git \
-    --path helm \
-    --dest-server https://kubernetes.default.svc \
-    --dest-namespace randmeth
+argocd app create randmeth-campaigns --repo https://github.com/tkhalane/mtnx-demo.git --path helm --dest-server https://kubernetes.default.svc --dest-namespace mtnx
 
 #azure devops quirks
 # used this token to create a repository on argocd ui following this https://argo-cd.readthedocs.io/en/stable/user-guide/private-repositories/

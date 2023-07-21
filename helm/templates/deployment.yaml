@@ -3,12 +3,12 @@ kind: Deployment
 metadata:
   name: {{ include "helm.fullname" .}}
   labels:
-    app: randmeth-campaigns
-  namespace: randmeth
+    app: mtnx-demo
+  namespace: mtnx
 spec:
   selector:
     matchLabels:
-      app: randmeth-campaigns
+      app: mtnx-demo
   replicas: {{.Values.replicaCount}}
   strategy:
     rollingUpdate:
@@ -18,7 +18,7 @@ spec:
   template:
     metadata:
       labels:
-        app: randmeth-campaigns
+        app: mtnx-demo
     spec:
       containers:
         - name: {{ include "helm.fullname" .}}

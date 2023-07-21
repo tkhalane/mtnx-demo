@@ -1,5 +1,5 @@
 apiVersion: v2
-name: randmeth-campaigns
+name: mtnx-demo
 description: A Helm chart for Kubernetes
 
 # A chart can be either an 'application' or a 'library' chart.
@@ -33,5 +33,5 @@ appVersion: "latest"
 #  docker push  tkhalane/randmeth:latest
 #helm uninstall release1  
 #helm package helm
-#helm install release1 randmeth-campaigns-0.1.0.tgz
-#minikube service randmeth-campaigns -n randmeth
+#helm install release1 mtnx-demo-0.1.0.tgz
+#minikube service mtnx-demo -n randmeth

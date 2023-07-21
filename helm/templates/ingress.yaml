@@ -1,21 +1,21 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: randmeth-campaigns
-  namespace: randmeth
+  name: mtnx-demo
+  namespace: mtnx
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
 spec:
   rules:
-    - host: 
+    - host:
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: randmeth-campaigns
+                name: mtnx-demo
                 port:
                   number: 8080
 
