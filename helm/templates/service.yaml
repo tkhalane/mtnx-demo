@@ -4,10 +4,10 @@ metadata:
   name: mtnx-demo
   namespace: mtnx
 spec:
-  type: { { .Values.service.type } }
+  type: LoadBalancer
   selector:
     app: mtnx-demo
   ports:
     - nodePort: 31479
-      port: { { .Values.service.port } }
+      port: 8080
       targetPort: 8080
