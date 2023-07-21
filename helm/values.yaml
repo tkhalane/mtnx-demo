@@ -2,7 +2,7 @@ replicaCount: 1
 image:
   repository: tkhalane/mtnx-demo
   pullPolicy: Always
-  tag: 845e2b31f3366cd6772d8da1aaec83208e33417e
+  tag: dc434d8750d6fedef43ef58a25fbae69b7f0d009
 fullnameOverride: mtnx-demo
 serviceAccount:
   create: true
