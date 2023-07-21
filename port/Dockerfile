@@ -28,8 +28,3 @@ ENTRYPOINT ["java","-cp","app:app/lib/*","com.tdk.randmeth.campaigns.CampaignsAp
 
 # run via docker run -d -p 8080:8080 <image-id>
 # http://localhost:8080/api/v1/campaigns
-
-# ADD ./target/campaigns-0.0.1.jar /app/
-# CMD ["java", "-Xmx200m", "-jar", "/app/campaigns.jar"]
-
-# EXPOSE 8080
