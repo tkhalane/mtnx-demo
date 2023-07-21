@@ -1,0 +1,28 @@
+on:
+  workflow_dispatch:
+    inputs:
+      app_name:
+        required: true
+        description: "App Name"
+        type: string
+      replicas:
+        required: true
+        description: "New replica count"
+        type: string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Helm Chart
+        uses: actions/checkout@v3
+      - name: Update Image Version in the related HelmChart values.yaml
+        uses: fjogeleit/yaml-update-action@main
+        with:
+          valueFile: "helm/values.yaml"
+          propertyPath: "replicaCount"
+          value: "${{ inputs.replicas }}"
+          branch: main
+          targetBranch: main
+          createPR: false
+          message: "Update Image Version to ${{ inputs.replicas }}"
