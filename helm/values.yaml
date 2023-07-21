@@ -1,9 +1,8 @@
 replicaCount: 1
 image:
   repository: tkhalane/mtnx-demo
-  # repository: randmeth.azurecr.io/spring-boot-starter-parent-campaigns
   pullPolicy: Always
-  tag: 66b036498ae8912f9655b92ae75c735e7c4a5537
+  tag: 845e2b31f3366cd6772d8da1aaec83208e33417e
 fullnameOverride: mtnx-demo
 serviceAccount:
   create: true
