@@ -187,7 +187,7 @@
        }
     },
     {
-       "identifier": "workload",
+       "identifier": "mtnxRunningService",
        "description": "This blueprint represents a k8s Workload. This includes all k8s objects which can create pods (deployments[replicasets], daemonsets, statefulsets...)",
        "title": "Workload",
        "icon": "Deployment",
@@ -288,8 +288,8 @@
        "relations": {
          "workloadManager": {
            "title": "Manager",
-           "description": "A replicaset's workload. For example, Workload abc-ReplicaSet is managed by Workload xyz-Depolyment",
-           "target": "workload",
+           "description": "A replicaset's mtnxRunningService. For example, Workload abc-ReplicaSet is managed by Workload xyz-Depolyment",
+           "target": "mtnxRunningService",
            "required": false,
            "many": false
          },
@@ -340,15 +340,15 @@
        "mirrorProperties":{
           "containers":{
              "title":"Containers",
-             "path":"workload.containers"
+             "path":"mtnxRunningService.containers"
           },
           "cluster":{
              "title":"Cluster",
-             "path":"workload.Namespace.Cluster.$identifier"
+             "path":"mtnxRunningService.Namespace.Cluster.$identifier"
           },
           "namespace":{
              "title":"Namespace",
-             "path":"workload.Namespace.$title"
+             "path":"mtnxRunningService.Namespace.$title"
           }
        },
        "calculationProperties":{
@@ -362,10 +362,10 @@
              "required":false,
              "many":false
           },
-          "workload":{
+          "mtnxRunningService":{
              "title":"Workload",
-             "description":"The workload responsible for the pod",
-             "target":"workload",
+             "description":"The mtnxRunningService responsible for the pod",
+             "target":"mtnxRunningService",
              "required":false,
              "many":false
           }
@@ -492,9 +492,9 @@
            "required": false,
            "many": false
          },
-         "workload": {
+         "mtnxRunningService": {
            "title": "Workload",
-           "target": "workload",
+           "target": "mtnxRunningService",
            "required": false,
            "many": true
          }
