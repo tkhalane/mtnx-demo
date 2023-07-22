@@ -4,40 +4,17 @@
   icon: DefaultBlueprint
   blueprint: service
   properties:
-    on-call: string
     language: GO
     monitor-links: []
     readme: string
     jira-issues: '1'
-    communication_method: REST API
     snyk-vuln: '0'
     number-of-deployments: 0
-    number-of-pr: 0
     number-of-outages: 0
-    lifecycle: Production
     swagger: https://example.com
-    type: Lambda
-    tier: Mission Critical
     pr-cycle-time: 0
     build-success-rate: 0
     unit-tests-coverage: 0
-    asyncAPI:
-      a: 1
-      b: 2
     code-owners: []
-    internetFacing: false
-    handles-PII: false
-    chaos-mesh: false
-    helmChartYaml: string
     quality_gate_status: Passed
-  relations:
-    asynchronous-dependency:
-      - related_entity_identifier
-      - another_related_entity_identifier
-    synchronous-dependency:
-      - related_entity_identifier
-      - another_related_entity_identifier
-    thirdParties:
-      - related_entity_identifier
-      - another_related_entity_identifier
-    domain: related_entity_identifier
+  relations: {}
