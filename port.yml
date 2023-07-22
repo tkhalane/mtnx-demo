@@ -9,7 +9,7 @@
     ]
     readme: string
     jira-issues: '2'
-    snyk-vuln: '2'
+    snyk-vuln: '0'
     number-of-deployments: 0
     number-of-outages: 0
     swagger: https://example.com
