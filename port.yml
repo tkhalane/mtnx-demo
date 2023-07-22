@@ -5,10 +5,9 @@
   blueprint: service
   properties:
     language: GO
-    monitor-links: [
-    ]
+    monitor-links: []
     readme: string
-    jira-issues: '2'
+    jira-issues: '1'
     snyk-vuln: '0'
     number-of-deployments: 0
     number-of-outages: 0
@@ -18,4 +17,4 @@
     unit-tests-coverage: 0
     code-owners: []
     quality_gate_status: Passed
-
+  relations: {}
