@@ -1,0 +1,80 @@
+[
+    {
+      "identifier": "scaleReplicaCount",
+      "title": "Change Replicas Count",
+      "icon": "Argo",
+      "userInputs": {
+        "properties": {
+          "replicasCount": {
+            "type": "number",
+            "title": "Desired Number of Replicas",
+            "minimum": 2,
+            "maximum": 8
+          }
+        },
+        "required": [
+          "replicasCount"
+        ]
+      },
+      "invocationMethod": {
+        "type": "WEBHOOK",
+        "url": "https://demo.getport.io:3006/api/scaleReplicaCount"
+      },
+      "trigger": "DAY-2",
+      "description": "Adjust the number of replicas for a service that is running."
+    },
+    {
+      "identifier": "rollback",
+      "title": "Rollback Running Service",
+      "icon": "ArgoRollouts",
+      "userInputs": {
+        "properties": {},
+        "required": []
+      },
+      "invocationMethod": {
+        "type": "WEBHOOK",
+        "url": "https://demo.getport.io:3006/api/rollback"
+      },
+      "trigger": "DAY-2",
+      "description": "Rollback a running service to a previous version."
+    },
+    {
+      "identifier": "lock",
+      "title": "Lock/Unlock Deployments",
+      "icon": "GithubActions",
+      "userInputs": {
+        "properties": {
+          "state": {
+            "type": "string",
+            "enum": [
+              "Locked",
+              "Unlocked"
+            ],
+            "title": "Desired State"
+          }
+        },
+        "required": []
+      },
+      "invocationMethod": {
+        "type": "WEBHOOK",
+        "url": "https://demo.getport.io:3006/api/lock"
+      },
+      "trigger": "DAY-2",
+      "description": "Lock deployments of a service and prevent any further changes to the running instances of the service."
+    },
+    {
+      "identifier": "restart",
+      "title": "Restart Running Service",
+      "icon": "Argo",
+      "userInputs": {
+        "properties": {},
+        "required": []
+      },
+      "invocationMethod": {
+        "type": "WEBHOOK",
+        "url": "https://demo.getport.io:3006/api/restart"
+      },
+      "trigger": "DAY-2",
+      "description": "Restart a running service"
+    }
+  ]

@@ -1,0 +1,78 @@
+[
+    {
+      "identifier": "production-readiness",
+      "title": "Production Readiness",
+      "rules": [
+        {
+          "identifier": "high-avalability-g",
+          "title": "High Avalability",
+          "level": "Gold",
+          "query": {
+            "combinator": "and",
+            "conditions": [
+              {
+                "property": "replicaCount",
+                "operator": ">=",
+                "value": "4"
+              }
+            ]
+          }
+        },
+        {
+          "identifier": "resourceUsage-gold",
+          "title": "Resource Usage",
+          "level": "Gold",
+          "query": {
+            "combinator": "and",
+            "conditions": [
+              {
+                "property": "memory",
+                "operator": "<=",
+                "value": "50"
+              },
+              {
+                "property": "cpu",
+                "operator": "<=",
+                "value": "50"
+              }
+            ]
+          }
+        },
+        {
+          "identifier": "high-avalability-b",
+          "title": "High Avalability",
+          "level": "Bronze",
+          "query": {
+            "combinator": "and",
+            "conditions": [
+              {
+                "property": "replicaCount",
+                "operator": ">=",
+                "value": "2"
+              }
+            ]
+          }
+        },
+        {
+          "identifier": "resourceUsage-bronze",
+          "title": "Resource Usage",
+          "level": "Bronze",
+          "query": {
+            "combinator": "and",
+            "conditions": [
+              {
+                "property": "memory",
+                "operator": "<",
+                "value": "90"
+              },
+              {
+                "property": "cpu",
+                "operator": "<",
+                "value": "90"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
