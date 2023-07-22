@@ -1,0 +1,283 @@
+[
+    {
+      "identifier": "dora-metrics",
+      "title": "Dora Metrics",
+      "rules": [
+        {
+          "identifier": "dep-frequncy-low",
+          "title": "Deployment frequency is at least 1 a week",
+          "description": "Deployment frequency is at least 1 a week - Regular deployments ensure a culture of continuous delivery, allowing for rapid iteration and responsiveness to customer needs, while promoting efficient bug fixes and feature updates.",
+          "level": "Bronze",
+          "query": {
+            "combinator": "or",
+            "conditions": [
+              {
+                "operator": ">=",
+                "property": "number-of-deployments",
+                "value": 1
+              }
+            ]
+          }
+        },
+        {
+          "identifier": "unit-tests-coverage",
+          "title": "Unit tests coverage is bigger than 75",
+          "description": "Unit test coverage is required to be greater than 75% to ensure a sufficient level of code coverage and reduce the risk of undetected defects, improving overall software quality and maintainability.",
+          "level": "Bronze",
+          "query": {
+            "combinator": "or",
+            "conditions": [
+              {
+                "operator": ">=",
+                "property": "unit-tests-coverage",
+                "value": 75
+              }
+            ]
+          }
+        },
+        {
+          "identifier": "dep-frequncy-medium",
+          "title": "Deployment frequency is once per a day average",
+          "description": "The 'Deployment Frequency' rule mandates an average of at least one deployment per day, promoting a culture of frequent releases to facilitate rapid iteration, continuous improvement, and responsiveness to customer needs.",
+          "level": "Silver",
+          "query": {
+            "combinator": "or",
+            "conditions": [
+              {
+                "operator": ">=",
+                "property": "number-of-deployments",
+                "value": 7
+              }
+            ]
+          }
+        },
+        {
+          "identifier": "build-success-rate",
+          "title": "Build Success Rate is Bigger than 70%",
+          "description": " 'The Build Success Rate' rule requires that the success rate of builds is greater than 70%, ensuring a high level of reliability and stability in the build process, which contributes to efficient development cycles and timely delivery of software updates.",
+          "level": "Silver",
+          "query": {
+            "combinator": "or",
+            "conditions": [
+              {
+                "operator": ">=",
+                "property": "build-success-rate",
+                "value": 70
+              }
+            ]
+          }
+        },
+        {
+          "identifier": "pr-cycle-time",
+          "title": "PR cycle time is less than 1500 minutes",
+          "description": "The rule states that the cycle time for a pull request (PR) should be less than 1500 minutes, promoting an efficient and streamlined review process for faster collaboration and code integration.",
+          "level": "Silver",
+          "query": {
+            "combinator": "or",
+            "conditions": [
+              {
+                "operator": "<=",
+                "property": "pr-cycle-time",
+                "value": 1500
+              }
+            ]
+          }
+        },
+        {
+          "identifier": "outages-low",
+          "title": "Outages do not happen multiple times a day",
+          "description": "The service aims to minimize outages and ensure that they do not occur multiple times a day, promoting system stability, reliability, and uninterrupted service availability to customers.",
+          "level": "Bronze",
+          "query": {
+            "combinator": "or",
+            "conditions": [
+              {
+                "operator": "<=",
+                "property": "number-of-outages",
+                "value": 10
+              }
+            ]
+          }
+        }, 
+        {
+          "identifier": "pr-freq-low",
+          "title": "PR frequency is at least 1 a week",
+          "level": "Bronze",
+          "query": {
+            "combinator": "or",
+            "conditions": [
+              {
+                "operator": ">=",
+                "property": "number-of-pr",
+                "value": 1
+              }
+            ]
+          }
+        },
+        {
+          "identifier": "pr-freq-medium",
+          "title": "Deployment frequency is once per a day average",
+          "level": "Silver",
+          "query": {
+            "combinator": "or",
+            "conditions": [
+              {
+                "operator": ">=",
+                "property": "number-of-pr",
+                "value": 7
+              }
+            ]
+          }
+        },
+        {
+          "identifier": "pr-freq-elite",
+          "title": "Deployment frequency is multiple times a day",
+          "level": "Gold",
+          "query": {
+            "combinator": "or",
+            "conditions": [
+              {
+                "operator": ">=",
+                "property": "number-of-pr",
+                "value": 10
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "identifier": "Ownership",
+      "title": "Ownership",
+      "rules": [
+        {
+          "identifier": "has-resp-team",
+          "title": "Has responsible team",
+          "description": "The service has a designated responsible team assigned, ensuring clear ownership and accountability for the service's development, maintenance, and support, promoting effective collaboration, timely issue resolution, and efficient decision-making.",
+          "level": "Bronze",
+          "query": {
+            "combinator": "and",
+            "conditions": [
+              {
+                "operator": "isNotEmpty",
+                "property": "$team"
+              }
+            ]
+          }
+        },
+        {
+          "identifier": "has-on-call",
+          "title": "Has on-call?",
+          "level": "Silver",
+          "query": {
+            "combinator": "and",
+            "conditions": [
+              {
+                "operator": "isNotEmpty",
+                "property": "on-call"
+              }
+            ]
+          }
+        },
+        {
+          "identifier": "more-than-1-owner",
+          "title": "Has More than one code owner",
+          "description": "The service has multiple code owners assigned, fostering shared responsibility, collective ownership, and collaborative decision-making, enabling effective code reviews, knowledge sharing, and a distributed expertise in maintaining and enhancing the service's codebase.",
+          "level": "Gold",
+          "query": {
+            "combinator": "and",
+            "conditions": [
+              {
+                "operator": ">",
+                "property": "code-owners-number",
+                "value": 1
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "identifier": "docs",
+      "title": "Documentation",
+      "rules": [
+        {
+          "identifier": "has-readme",
+          "title": "Has README",
+          "description": "The service includes a README file, providing essential documentation and instructions for developers and stakeholders, promoting better understanding, collaboration, and effective onboarding to the service's codebase and functionality.",
+          "level": "Bronze",
+          "query": {
+            "combinator": "and",
+            "conditions": [
+              {
+                "property": "readme",
+                "operator": "isNotEmpty"
+              }
+            ]
+          }
+        },
+        {
+          "identifier": "domain-has-docs",
+          "title": "Has architecture design for domain?",
+          "description": "The service has an architecture design specifically tailored to its domain, providing a well-defined and purposeful structure that aligns with the unique requirements and characteristics of the service's functionality, ensuring scalability, maintainability, and efficient development practices.",
+          "level": "Silver",
+          "query": {
+            "combinator": "and",
+            "conditions": [
+              {
+                "property": "domain-architecture",
+                "operator": "isNotEmpty"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "identifier": "code-maturity",
+      "title": "Code Maturity",
+      "rules": [
+        {
+          "identifier": "unit-tests-coverage",
+          "title": "Unit tests coverage is bigger than 75",
+          "level": "Bronze",
+          "query": {
+            "combinator": "or",
+            "conditions": [
+              {
+                "operator": ">=",
+                "property": "unit-tests-coverage",
+                "value": 75
+              }
+            ]
+          }
+        },
+        {
+          "identifier": "language-supported",
+          "title": "Language is supported in organization",
+          "description": "The service is developed using one of the programming languages supported in the organization, ensuring compatibility, support, and alignment with the organization's technology stack and expertise, enabling seamless integration, collaboration, and shared resources among different services.",
+          "level": "Silver",
+          "query": {
+            "combinator": "or",
+            "conditions": [
+              {
+                "operator": "=",
+                "property": "language",
+                "value": "GO"
+              },
+              {
+                "operator": "=",
+                "property": "language",
+                "value": "Node"
+              },
+              {
+                "operator": "=",
+                "property": "language",
+                "value": "Python"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]

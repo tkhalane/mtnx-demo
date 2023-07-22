@@ -1,0 +1,207 @@
+[
+    {
+      "identifier": "createService",
+      "title": "Scaffold new Service",
+      "icon": "Github",
+      "userInputs": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Service Name",
+            "pattern": "^[A-Za-z_][A-Za-z0-9@_-]*$"
+          },
+          "team": {
+            "type": "string",
+            "title": "Owning Team",
+            "format": "team",
+            "description": "The team who owns that service"
+          },
+          "domain": {
+            "type": "string",
+            "title": "Domain",
+            "blueprint": "domain",
+            "format": "entity"
+          },
+          "repository": {
+            "type": "string",
+            "title": "Repository",
+            "pattern": "[a-zA-Z0-9]",
+            "description": "Choose the name of the repository",
+            "default": "port-microservice-demo-"
+          },
+          "language": {
+            "type": "string",
+            "title": "Language",
+            "enum": [
+              "React",
+              "Node",
+              "GO",
+              "Python"
+            ],
+            "description": "Choose the type of service to create"
+          },
+          "SDK": {
+            "type": "string",
+            "enum": {
+              "jqQuery": "if .form.language == \"Node\" then [\"Node 16\", \"Node 18\"] elif .form.language == \"Python\" then [\"Python 3.8\", \"Python 3.9\"] elif .form.language == \"GO\" then [\"Go 1.16\", \"Go 1.17\"] elif .form.language == \"React\" then [\"React 17.0.1\", \"React 18.0.0\"] else [] end"
+            },
+            "dependsOn": [
+              "language"
+            ]
+          },
+          "communication_method": {
+            "type": "string",
+            "title": "Communication Method",
+            "enum": [
+              "REST API",
+              "GraphQL",
+              "gRPC",
+              "NATS",
+              "Message Queue",
+              "WebSocket"
+            ]
+          },
+          "db": {
+            "type": "string",
+            "title": "Database Name"
+          },
+          "queue": {
+            "type": "string",
+            "title": "Queue Name"
+          },
+          "replicaCount": {
+            "type": "number",
+            "title": "K8s Replica Count",
+            "minimum": 1,
+            "default": 1,
+            "maximum": 4
+          },
+          "description": {
+            "type": "string",
+            "title": "Description",
+            "description": "Service short description for internal documentation"
+          }
+        },
+        "required": [
+          "name",
+          "domain",
+          "team"
+        ]
+      },
+      "invocationMethod": {
+        "type": "WEBHOOK",
+        "url": "https://demo.getport.io:3006/api/createService"
+      },
+      "trigger": "CREATE",
+      "description": "Quickly and easily set up the foundation for a new service. Get a pre-configured starting point that is ready for you to begin building upon."
+    },
+    {
+      "identifier": "scale",
+      "title": "Scale up",
+      "icon": "Argo",
+      "userInputs": {
+        "properties": {
+          "value": {
+            "title": "Value",
+            "description": "This value will determine the scale of number of containers",
+            "type": "number",
+            "default": 1
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "invocationMethod": {
+        "type": "MOCK"
+      },
+      "trigger": "DAY-2",
+      "description": ""
+    },
+    {
+      "identifier": "addS3Bucket",
+      "title": "Open terraform PR to Add S3 Bucket",
+      "icon": "Terraform",
+      "userInputs": {
+        "properties": {
+          "bucket": {
+            "type": "string",
+            "description": "Bucket"
+          },
+          "acl": {
+            "type": "string",
+            "description": "Acl"
+          },
+          "policy": {
+            "type": "object",
+            "description": "Policy"
+          }
+        },
+        "required": []
+      },
+      "invocationMethod": {
+        "type": "WEBHOOK",
+        "url": "https://demo.getport.io:3006/api/addS3Bucket"
+      },
+      "trigger": "DAY-2",
+      "description": "Create a new pull request to add a S3 bucket using Terraform."
+    },
+    {
+      "identifier": "addMongoDatabase",
+      "title": "Open terraform PR to Add Mongo Database",
+      "icon": "Terraform",
+      "userInputs": {
+        "properties": {
+          "privacy": {
+            "type": "string",
+            "description": "Privacy",
+            "enum": [
+              "Private",
+              "Public"
+            ]
+          }
+        },
+        "required": []
+      },
+      "invocationMethod": {
+        "type": "WEBHOOK",
+        "url": "https://demo.getport.io:3006/api/addMongoDatabase"
+      },
+      "trigger": "DAY-2",
+      "description": "Create a new pull request to add a Mongo using Terraform."
+    },
+    {
+      "identifier": "deploy",
+      "title": "Deploy Service",
+      "icon": "GithubActions",
+      "userInputs": {
+        "properties": {
+          "environment": {
+            "type": "string",
+            "format": "entity",
+            "blueprint": "cluster",
+            "title": "Environment"
+          },
+          "branch": {
+            "type": "string",
+            "title": "Branch",
+            "enum": [
+              "main",
+              "development",
+              "hotfix/123",
+              "experimental",
+              "staging",
+              "release/1.2"
+            ]
+          }
+        },
+        "required": []
+      },
+      "invocationMethod": {
+        "type": "WEBHOOK",
+        "url": "https://demo.getport.io:3006/api/deployService"
+      },
+      "trigger": "DAY-2",
+      "description": "Easily deploy a service to a specified environment "
+    }
+]
