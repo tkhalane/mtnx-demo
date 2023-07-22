@@ -1,20 +1,31 @@
-- identifier: some_identifier
-  title: Some Title
+- identifier: mtnx_recharge
+  title: MTNX Recharge
   team: []
   icon: DefaultBlueprint
   blueprint: service
   properties:
     language: GO
-    monitor-links: []
+    monitor-links: [
+        {
+        "https://grafana.com"
+        },
+        {
+           "https://prometheus.com"
+        }
+    ]
     readme: string
     jira-issues: '1'
-    snyk-vuln: '0'
+    snyk-vuln: '2'
     number-of-deployments: 0
     number-of-outages: 0
-    swagger: https://example.com
-    pr-cycle-time: 0
-    build-success-rate: 0
-    unit-tests-coverage: 0
-    code-owners: []
+    swagger: https://petstore.swagger.io/
+    pr-cycle-time: 3
+    build-success-rate: 2
+    unit-tests-coverage: 78
+    code-owners: [
+     {
+      tiisetso.khalane@mtn.com
+     }
+    ]
     quality_gate_status: Passed
   relations: {}
