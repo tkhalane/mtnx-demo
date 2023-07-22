@@ -6,12 +6,7 @@
   properties:
     language: GO
     monitor-links: [
-        {
         "https://grafana.com"
-        },
-        {
-           "https://prometheus.com"
-        }
     ]
     readme: string
     jira-issues: '1'
