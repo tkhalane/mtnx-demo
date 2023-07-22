@@ -17,5 +17,4 @@
     unit-tests-coverage: 0
     code-owners: []
     quality_gate_status: Passed
-  relations:
-    domain: related_entity_identifier
+
