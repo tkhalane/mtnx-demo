@@ -5,10 +5,11 @@
   blueprint: service
   properties:
     language: GO
-    monitor-links: []
+    monitor-links: [
+    ]
     readme: string
-    jira-issues: '1'
-    snyk-vuln: '0'
+    jira-issues: '2'
+    snyk-vuln: '1'
     number-of-deployments: 0
     number-of-outages: 0
     swagger: https://example.com
