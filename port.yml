@@ -18,9 +18,7 @@
     build-success-rate: 2
     unit-tests-coverage: 78
     code-owners: [
-     {
-      tiisetso.khalane@mtn.com
-     }
+       "tiisetso.khalane@mtn.com"
     ]
     quality_gate_status: Passed
   relations: {}
