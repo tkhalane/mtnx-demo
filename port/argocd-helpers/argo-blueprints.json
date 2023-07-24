@@ -88,10 +88,10 @@
     }
   },
  {
-  "identifier": "workload",
+  "identifier": "runningService",
   "description": "This blueprint represents a k8s Workload. This includes all k8s objects which can create pods (deployments[replicasets], daemonsets, statefulsets...)",
-  "title": "Workload",
-  "icon": "Deployment",
+  "title": "Running Service",
+  "icon": "Argo",
   "schema": {
     "properties": {
       "workloadJson": {
