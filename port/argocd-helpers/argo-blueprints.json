@@ -510,7 +510,7 @@
      }
    },
    {
-    "identifier": "service",
+    "identifier": "microservice",
     "description": "This blueprint represents service in our software catalog",
     "title": "Service",
     "icon": "Microservice",
