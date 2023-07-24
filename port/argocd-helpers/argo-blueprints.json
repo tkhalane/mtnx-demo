@@ -1,80 +1,265 @@
 [
     {
-        "identifier": "mtnxRunningService",
-        "title": "MTNX Running Service",
-        "icon": "Argo",
+        "identifier": "service",
+        "description": "This blueprint represents service in our software catalog",
+        "title": "Service",
+        "icon": "Microservice",
         "schema": {
           "properties": {
-            "locked": {
-              "type": "boolean",
-              "title": "Locked",
-              "description": "Indicate if deploying is allow for microservice in a this environment",
-              "default": false
-            },
-            "version": {
-              "title": "Image Tag",
+            "language": {
               "type": "string",
-              "description": "The deployed image tag",
-              "icon": "Git"
+              "icon": "Git",
+              "title": "Language",
+              "default": "Node",
+              "enum": [
+                "GO",
+                "Python",
+                "Node",
+                "React"
+              ],
+              "enumColors": {
+                "GO": "red",
+                "Python": "green",
+                "Node": "blue",
+                "React": "yellow"
+              }
             },
-            "commitSha": {
+            "monitor-links": {
+              "title": "Monitor Tooling",
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "url"
+              },
+              "default": [
+                "https://grafana.com",
+                "https://prometheus.com",
+                "https://datadog.com"
+              ],
+              "icon": "DefaultProperty"
+            },
+            "readme": {
+              "format": "markdown",
               "type": "string",
-              "title": "Commit SHA"
+              "title": "Readme",
+              "icon": "Github"
             },
-            "cpuLimit": {
+            "jira-issues": {
+              "type": "string",
+              "icon": "Jira",
+              "title": "JIRA Issues",
+              "enum": [
+                "1",
+                "2",
+                "4",
+                "5",
+                "8",
+                "12",
+                "19",
+                "22"
+              ],
+              "enumColors": {
+                "1": "green",
+                "2": "green",
+                "4": "green",
+                "5": "orange",
+                "8": "orange",
+                "12": "red",
+                "19": "red",
+                "22": "red"
+              }
+            },
+            "snyk-vuln": {
+              "type": "string",
+              "icon": "Snyk",
+              "title": "Snyk Vulnerabilities",
+              "enum": [
+                "0",
+                "2",
+                "4",
+                "5",
+                "8",
+                "12",
+                "19",
+                "22"
+              ],
+              "enumColors": {
+                "0": "green",
+                "2": "green",
+                "4": "green",
+                "5": "orange",
+                "8": "orange",
+                "12": "red",
+                "19": "red",
+                "22": "red"
+              }
+            },
+            "number-of-deployments": {
               "type": "number",
-              "title": "CPU limit"
+              "title": "Deployment Frequency: deploys / week",
+              "icon": "GithubActions"
             },
-            "memoryLimit": {
+            "number-of-outages": {
               "type": "number",
-              "title": "Memory limit"
+              "icon": "pagerduty",
+              "title": "Number of outages last week"
             },
-            "pullRequest": {
+            "swagger": {
               "type": "string",
               "format": "url",
-              "title": "Merged PR",
+              "spec": "open-api",
+              "icon": "Swagger",
+              "title": "Swagger"
+            },
+            "pr-cycle-time": {
+              "type": "number",
+              "icon": "GitPullRequest",
+              "title": "Pr Cycle Time in Minutes"
+            },
+            "build-success-rate": {
+              "type": "number",
+              "icon": "GithubActions",
+              "title": "Build Success Rate"
+            },
+            "unit-tests-coverage": {
+              "icon": "sonarqube",
+              "type": "number",
+              "title": "Unit Tests Coverage"
+            },
+            "code-owners": {
+              "title": "Code Owners",
               "icon": "Github",
-              "default": "https://github.com"
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "user"
+              }
             },
-            "namespace": {
+            "quality_gate_status": {
+              "title": "Quality Gate Status",
               "type": "string",
-              "title": "Namespace"
-            },
-            "grafana": {
-              "type": "string",
-              "format": "url",
-              "title": "Grafana",
-              "spec": "embedded-url"
-            },
-            "replicaCount": {
-              "type": "number",
-              "title": "Desired Number of Replicas"
-            },
-            "cpu": {
-              "title": "CPU usage(%)",
-              "type": "number"
-            },
-            "memory": {
-              "title": "Memory usage(%)",
-              "type": "number"
+              "icon": "sonarqube",
+              "enum": [
+                "Passed",
+                "Failed"
+              ],
+              "enumColors": {
+                "Passed": "green",
+                "Failed": "red"
+              }
             }
           },
           "required": []
         },
-        "mirrorProperties": {},
-        "calculationProperties": {},
+        "mirrorProperties": {
+          "domain-architecture": {
+            "path": "domain.architecture"
+          }
+        },
+        "calculationProperties": {
+          "github-url": {
+            "title": "Github URL",
+            "icon": "Github",
+            "calculation": "\"https://github.com/port-labs/\" + .identifier",
+            "type": "string",
+            "format": "url"
+          }
+        },
         "relations": {
-          "service": {
-            "title": "Service",
-            "target": "service",
-            "required": true,
-            "many": false
-          },
-          "environment": {
-            "title": "Environment",
-            "target": "cluster",
+          "domain": {
+            "title": "Domain",
+            "target": "domain",
             "required": false,
             "many": false
+          }
+        }
+    }
+    ,
+    {
+        "identifier": "k8s-cluster",
+        "title": "K8s Cluster",
+        "icon": "Cluster",
+        "schema": {
+          "properties": {
+            "namespace": {
+              "type": "string",
+              "title": "k8s namespace"
+            },
+            "cluster_type": {
+              "title": "Type",
+              "type": "string",
+              "description": "The K8S cluster type",
+              "enum": [
+                "EKS",
+                "GKE",
+                "docker-desktop"
+              ]
+            },
+            "kconfig": {
+              "title": "Kconfig File",
+              "type": "string",
+              "description": "The kconfig file"
+            },
+            "k8s-version": {
+              "title": "K8s version",
+              "type": "string"
+            },
+            "readiness-configured": {
+              "type": "boolean",
+              "title": "Readiness Configured"
+            },
+            "liveness-configured": {
+              "type": "boolean",
+              "title": "Liveness Configured"
+            },
+            "cluster-nodes": {
+              "type": "number",
+              "title": "Cluster Nodes"
+            },
+            "mem-cpu-lim-req": {
+              "type": "boolean",
+              "title": "CPU and Memory limits configured"
+            }
+          },
+          "required": []
+        },
+        "mirrorProperties": {
+        },
+        "calculationProperties": {
+          "prometheus": {
+            "title": "Prometheus URL",
+            "icon": "Prometheus",
+            "calculation": "'https://prometheus.' + .identifier",
+            "type": "string",
+            "format": "url"
+          },
+          "alertManager": {
+            "title": "Alert Manager URL",
+            "icon": "Prometheus",
+            "calculation": "'https://alertmanager.' + .identifier",
+            "type": "string",
+            "format": "url"
+          },
+          "argoCD": {
+            "title": "ArgoCD URL",
+            "icon": "Argo",
+            "calculation": "'https://argocd.' + .identifier",
+            "type": "string",
+            "format": "url"
+          },
+          "argoCD-apps": {
+            "title": "ArgoCD-apps URL",
+            "icon": "Argo",
+            "calculation": "'https://argocd-apps.' + .identifier",
+            "type": "string",
+            "format": "url"
+          },
+          "grafana": {
+            "title": "Grafana URL",
+            "icon": "Grafana",
+            "calculation": "'https://grafana.' + .identifier",
+            "type": "string",
+            "format": "url"
           }
         }
     },
@@ -187,10 +372,10 @@
        }
     },
     {
-       "identifier": "mtnxRunningService",
+       "identifier": "workload",
        "description": "This blueprint represents a k8s Workload. This includes all k8s objects which can create pods (deployments[replicasets], daemonsets, statefulsets...)",
-       "title": "Workload",
-       "icon": "Deployment",
+       "title": "Running Service",
+       "icon": "Argo",
        "schema": {
          "properties": {
            "workloadJson": {
@@ -288,8 +473,8 @@
        "relations": {
          "workloadManager": {
            "title": "Manager",
-           "description": "A replicaset's mtnxRunningService. For example, Workload abc-ReplicaSet is managed by Workload xyz-Depolyment",
-           "target": "mtnxRunningService",
+           "description": "A replicaset's workload. For example, Workload abc-ReplicaSet is managed by Workload xyz-Depolyment",
+           "target": "workload",
            "required": false,
            "many": false
          },
@@ -340,15 +525,15 @@
        "mirrorProperties":{
           "containers":{
              "title":"Containers",
-             "path":"mtnxRunningService.containers"
+             "path":"workload.containers"
           },
           "cluster":{
              "title":"Cluster",
-             "path":"mtnxRunningService.Namespace.Cluster.$identifier"
+             "path":"workload.Namespace.Cluster.$identifier"
           },
           "namespace":{
              "title":"Namespace",
-             "path":"mtnxRunningService.Namespace.$title"
+             "path":"workload.Namespace.$title"
           }
        },
        "calculationProperties":{
@@ -362,10 +547,10 @@
              "required":false,
              "many":false
           },
-          "mtnxRunningService":{
+          "workload":{
              "title":"Workload",
-             "description":"The mtnxRunningService responsible for the pod",
-             "target":"mtnxRunningService",
+             "description":"The workload responsible for the pod",
+             "target":"workload",
              "required":false,
              "many":false
           }
@@ -492,9 +677,9 @@
            "required": false,
            "many": false
          },
-         "mtnxRunningService": {
+         "workload": {
            "title": "Workload",
-           "target": "mtnxRunningService",
+           "target": "workload",
            "required": false,
            "many": true
          }

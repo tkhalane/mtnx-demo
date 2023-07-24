@@ -11,6 +11,7 @@ resources: # List of K8s resources to list, watch, and export to Port.
             title: .metadata.name
             blueprint: '"namespace"'
             properties:
+              creationTimestamp: .metadata.creationTimestamp
               labels: .metadata.labels
             relations:
               Cluster: '"{CLUSTER_NAME}"'
@@ -27,14 +28,14 @@ resources: # List of K8s resources to list, watch, and export to Port.
 
   - kind: apps/v1/deployments
     selector:
-      query: .metadata.namespace | startswith("kube") | not
+      query: .metadata.namespace | startswith("mtnx")
     port:
       entity:
         mappings:
           - identifier: .metadata.name + "-Deployment-" + .metadata.namespace + "-" + "{CLUSTER_NAME}"
             title: .metadata.name
             icon: '"Deployment"'
-            blueprint: '"mtnxRunningService"'
+            blueprint: '"workload"'
             properties:
               kind: '"Deployment"'
               workloadJson: .
@@ -51,15 +52,16 @@ resources: # List of K8s resources to list, watch, and export to Port.
               isHealthy: if .spec.replicas == .status.availableReplicas then "Healthy" else "Unhealthy" end
             relations:
               Namespace: .metadata.namespace + "-" + "{CLUSTER_NAME}"
+
   - kind: apps/v1/daemonsets 
     selector:
-      query: .metadata.namespace | startswith("kube") | not 
+      query: .metadata.namespace | startswith("mtnx") 
     port:
       entity:
         mappings:
           - identifier: .metadata.name + "-DaemonSet-" + .metadata.namespace + "-" + "{CLUSTER_NAME}"
             title: .metadata.name
-            blueprint: '"mtnxRunningService"'
+            blueprint: '"workload"'
             properties:
               kind: '"DaemonSet"'
               workloadJson: .
@@ -78,13 +80,13 @@ resources: # List of K8s resources to list, watch, and export to Port.
 
   - kind: apps/v1/statefulsets
     selector:
-      query: .metadata.namespace | startswith("kube") | not
+      query: .metadata.namespace | startswith("mtnx")
     port:
       entity:
         mappings: 
           - identifier: .metadata.name + "-StatefulSet-" + .metadata.namespace + "-" + "{CLUSTER_NAME}"
             title: .metadata.name
-            blueprint: '"mtnxRunningService"'
+            blueprint: '"workload"'
             properties:
               kind: '"StatefulSet"'
               workloadJson: .
@@ -103,7 +105,7 @@ resources: # List of K8s resources to list, watch, and export to Port.
 
   - kind: apps/v1/replicasets
     selector:
-      query: .metadata.namespace | startswith("kube") | not
+      query: .metadata.namespace | startswith("mtnx")
     port:
       entity:
         mappings:
@@ -126,10 +128,10 @@ resources: # List of K8s resources to list, watch, and export to Port.
             relations:
               replicaSetManager: .metadata.ownerReferences[0].name + "-" + .metadata.ownerReferences[0].kind + "-" + .metadata.namespace + "-" + "{CLUSTER_NAME}" // []
 
- # Pods who are owned by replica-sets are connected directly to their deployment
+  # Pods who are owned by replica-sets are connected directly to their deployment
   - kind: v1/pods
     selector:
-      query: (.metadata.ownerReferences[0].kind == "ReplicaSet") and (.metadata.namespace | startswith("kube") | not)
+      query: (.metadata.ownerReferences[0].kind == "ReplicaSet") and (.metadata.namespace | startswith("mtnx"))
     port:
       entity:
         mappings:
@@ -151,7 +153,7 @@ resources: # List of K8s resources to list, watch, and export to Port.
   # Pods that are not managed by replicasets->deployments (daemonsets, statefulsets etc)
   - kind: v1/pods
     selector:
-      query: (.metadata.ownerReferences[0].kind != "ReplicaSet") and (.metadata.namespace | startswith("kube") | not)
+      query: (.metadata.ownerReferences[0].kind != "ReplicaSet") and (.metadata.namespace | startswith("mtnx"))
     port:
       entity:
         mappings:
@@ -166,7 +168,7 @@ resources: # List of K8s resources to list, watch, and export to Port.
               containers: (.spec.containers | map({image, resources})) + .status.containerStatuses | group_by(.image) | map(add)
               conditions: .status.conditions
             relations:
-              mtnxRunningService: .metadata.ownerReferences[0].name + "-" + .metadata.ownerReferences[0].kind + "-" + .metadata.namespace + "-" + "{CLUSTER_NAME}"
+              workload: .metadata.ownerReferences[0].name + "-" + .metadata.ownerReferences[0].kind + "-" + .metadata.namespace + "-" + "{CLUSTER_NAME}"
               Node: (.spec.nodeName) | (split(".")|join("_")) + "-" + "{CLUSTER_NAME}"
               
   - kind: v1/nodes
@@ -203,7 +205,7 @@ resources: # List of K8s resources to list, watch, and export to Port.
               gitPath: .spec.source.path // null
               gitRev: .status.sync.revision // null
             relations:
-              mtnxRunningService: '(.spec.destination.namespace as $namespace | .status.resources | map(select(.kind == "Deployment" or .kind == "StatefulSet" or .kind == "DaemonSet" or .kind == "Rollout" )) | .[] | .name + "-" + .kind + "-" + $namespace + "-{CLUSTER_NAME}") // []'
+              workload: '(.spec.destination.namespace as $namespace | .status.resources | map(select(.kind == "Deployment" or .kind == "StatefulSet" or .kind == "DaemonSet" or .kind == "Rollout" )) | .[] | .name + "-" + .kind + "-" + $namespace + "-{CLUSTER_NAME}") // []'
               argocdProject: .spec.project + "-" + .metadata.namespace + "-" + "{CLUSTER_NAME}"
               destinationNamespace: .spec.destination.namespace + "-" + "{CLUSTER_NAME}"
 
