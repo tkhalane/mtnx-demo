@@ -57,9 +57,7 @@ resources: # List of K8s resources to list, watch, and export to Port.
               conditions: .status.conditions
             relations:
               workload: .metadata.ownerReferences[0].name + "-" + .metadata.ownerReferences[0].kind + "-" + .metadata.namespace + "-" + "{CLUSTER_NAME}"
-              
-  # ArgoCD configuration
-  - kind: argoproj.io/v1alpha1/applications
+
     port:
       entity:
         mappings:
