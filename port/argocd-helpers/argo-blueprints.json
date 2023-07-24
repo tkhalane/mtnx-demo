@@ -470,13 +470,6 @@
           
        },
        "relations":{
-          "Node":{
-             "title":"Node",
-             "description":"The node the pod is running on",
-             "target":"node",
-             "required":false,
-             "many":false
-          },
           "workload":{
              "title":"Workload",
              "description":"The workload responsible for the pod",
