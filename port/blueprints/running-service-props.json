@@ -1,5 +1,5 @@
 {
-  "identifier": "runningService",
+  "identifier": "workload",
   "title": "Running Service",
   "icon": "Argo",
   "schema": {
@@ -61,17 +61,25 @@
     "required": []
   },
   "mirrorProperties": {
+    "cluster": {
+      "title": "Cluster",
+      "path": "Cluster.$title"
+    },
+    "service": {
+      "title": "Cluster",
+      "path": "Service.$title"
+    }
   },
   "calculationProperties": {},
   "relations": {
-    "service": {
+    "Service": {
       "title": "Service",
       "target": "service",
       "required": true,
       "many": false
     },
    "Cluster": {
-    "title": "Namespace",
+    "title": "Cluster",
     "target": "cluster",
     "required": false,
     "many": false
