@@ -94,53 +94,6 @@
      "icon": "Argo",
      "schema": {
       "properties": {
-        "version": {
-          "title": "Image Tag",
-          "type": "string",
-          "description": "The deployed image tag",
-          "icon": "Git"
-        },
-        "commitSha": {
-          "type": "string",
-          "title": "Commit SHA"
-        },
-        "cpuLimit": {
-          "type": "number",
-          "title": "CPU limit"
-        },
-        "memoryLimit": {
-          "type": "number",
-          "title": "Memory limit"
-        },
-        "pullRequest": {
-          "type": "string",
-          "format": "url",
-          "title": "Merged PR",
-          "icon": "Github",
-          "default": "https://github.com"
-        },
-        "namespace": {
-          "type": "string",
-          "title": "Namespace"
-        },
-        "grafana": {
-          "type": "string",
-          "format": "url",
-          "title": "Grafana",
-          "spec": "grafana-url"
-        },
-        "replicaCount": {
-          "type": "number",
-          "title": "Desired Number of Replicas"
-        },
-        "cpu": {
-          "title": "CPU usage(%)",
-          "type": "number"
-        },
-        "memory": {
-          "title": "Memory usage(%)",
-          "type": "number"
-        }
       },
       "required": []
      },
@@ -152,12 +105,6 @@
      },
      "calculationProperties": {},
      "relations": {
-       "Cluster": {
-         "title": "Environment",
-         "target": "cluster",
-         "required": false,
-         "many": false
-       }
      }
   },
   {
