@@ -1,0 +1,597 @@
+[
+    {
+        "identifier": "cluster",
+        "title": "K8s Cluster",
+        "icon": "Cluster",
+        "schema": {
+          "properties": {
+            "namespace": {
+              "type": "string",
+              "title": "k8s namespace"
+            },
+            "cluster_type": {
+              "title": "Type",
+              "type": "string",
+              "description": "The K8S cluster type",
+              "enum": [
+                "EKS",
+                "GKE",
+                "docker-desktop"
+              ]
+            },
+            "kconfig": {
+              "title": "Kconfig File",
+              "type": "string",
+              "description": "The kconfig file"
+            },
+            "k8s-version": {
+              "title": "K8s version",
+              "type": "string"
+            },
+            "readiness-configured": {
+              "type": "boolean",
+              "title": "Readiness Configured"
+            },
+            "liveness-configured": {
+              "type": "boolean",
+              "title": "Liveness Configured"
+            },
+            "cluster-nodes": {
+              "type": "number",
+              "title": "Cluster Nodes"
+            },
+            "mem-cpu-lim-req": {
+              "type": "boolean",
+              "title": "CPU and Memory limits configured"
+            }
+          },
+          "required": []
+        },
+        "mirrorProperties": {
+        },
+        "calculationProperties": {
+          "prometheus": {
+            "title": "Prometheus URL",
+            "icon": "Prometheus",
+            "calculation": "'https://prometheus.' + .identifier",
+            "type": "string",
+            "format": "url"
+          },
+          "alertManager": {
+            "title": "Alert Manager URL",
+            "icon": "Prometheus",
+            "calculation": "'https://alertmanager.' + .identifier",
+            "type": "string",
+            "format": "url"
+          },
+          "argoCD": {
+            "title": "ArgoCD URL",
+            "icon": "Argo",
+            "calculation": "'https://argocd.' + .identifier",
+            "type": "string",
+            "format": "url"
+          },
+          "argoCD-apps": {
+            "title": "ArgoCD-apps URL",
+            "icon": "Argo",
+            "calculation": "'https://argocd-apps.' + .identifier",
+            "type": "string",
+            "format": "url"
+          },
+          "grafana": {
+            "title": "Grafana URL",
+            "icon": "Grafana",
+            "calculation": "'https://grafana.' + .identifier",
+            "type": "string",
+            "format": "url"
+          }
+        }
+    },
+    {
+        "identifier":"namespace",
+        "description":"This blueprint represents a k8s Namespace",
+        "title":"Namespace",
+        "icon":"Environment",
+        "schema":{
+          "properties":{
+              "creationTimestamp":{
+                "type":"string",
+                "title":"Created",
+                "format":"date-time",
+                "description":"When the Namespace was created"
+              },
+              "labels":{
+                "type":"object",
+                "title":"Labels",
+                "description":"Labels of the Namespace"
+              }
+          },
+          "required":[
+              
+          ]
+        },
+        "mirrorProperties":{
+          
+        },
+        "calculationProperties":{
+          
+        },
+        "relations":{
+          "Cluster":{
+              "title":"Cluster",
+              "description":"The namespace's Kubernetes cluster",
+              "target":"cluster",
+              "required":false,
+              "many":false
+          }
+        }
+    },
+    {
+      "identifier": "service",
+      "description": "This blueprint represents service in our software catalog",
+      "title": "Service",
+      "icon": "Microservice",
+      "schema": {
+        "properties": {
+          "language": {
+            "type": "string",
+            "icon": "Git",
+            "title": "Language",
+            "default": "Node",
+            "enum": [
+              "GO",
+              "Java",
+              "Node",
+              "React"
+            ],
+            "enumColors": {
+              "GO": "red",
+              "Java": "green",
+              "Node": "blue",
+              "React": "yellow"
+            }
+          },
+          "monitor-links": {
+            "title": "Monitor Tooling",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "url"
+            },
+            "default": [
+              "https://grafana.com",
+              "https://prometheus.com",
+              "https://datadog.com"
+            ],
+            "icon": "DefaultProperty"
+          },
+          "readme": {
+            "format": "markdown",
+            "type": "string",
+            "title": "Readme",
+            "icon": "Github"
+          },
+          "jira-issues": {
+            "type": "string",
+            "icon": "Jira",
+            "title": "JIRA Issues",
+            "enum": [
+              "1",
+              "2",
+              "4",
+              "5",
+              "8",
+              "12",
+              "19",
+              "22"
+            ],
+            "enumColors": {
+              "1": "green",
+              "2": "green",
+              "4": "green",
+              "5": "orange",
+              "8": "orange",
+              "12": "red",
+              "19": "red",
+              "22": "red"
+            }
+          },
+          "snyk-vuln": {
+            "type": "string",
+            "icon": "Snyk",
+            "title": "Snyk Vulnerabilities",
+            "enum": [
+              "0",
+              "2",
+              "4",
+              "5",
+              "8",
+              "12",
+              "19",
+              "22"
+            ],
+            "enumColors": {
+              "0": "green",
+              "2": "green",
+              "4": "green",
+              "5": "orange",
+              "8": "orange",
+              "12": "red",
+              "19": "red",
+              "22": "red"
+            }
+          },
+          "number-of-deployments": {
+            "type": "number",
+            "title": "Deployment Frequency: deploys / week",
+            "icon": "GithubActions"
+          },
+          "number-of-outages": {
+            "type": "number",
+            "icon": "pagerduty",
+            "title": "Number of outages last week"
+          },
+          "swagger": {
+            "type": "string",
+            "format": "url",
+            "spec": "open-api",
+            "icon": "Swagger",
+            "title": "Swagger"
+          },
+          "pr-cycle-time": {
+            "type": "number",
+            "icon": "GitPullRequest",
+            "title": "Pr Cycle Time in Minutes"
+          },
+          "build-success-rate": {
+            "type": "number",
+            "icon": "GithubActions",
+            "title": "Build Success Rate"
+          },
+          "unit-tests-coverage": {
+            "icon": "sonarqube",
+            "type": "number",
+            "title": "Unit Tests Coverage"
+          },
+          "code-owners": {
+            "title": "Code Owners",
+            "icon": "Github",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "user"
+            }
+          },
+          "quality_gate_status": {
+            "title": "Quality Gate Status",
+            "type": "string",
+            "icon": "sonarqube",
+            "enum": [
+              "Passed",
+              "Failed"
+            ],
+            "enumColors": {
+              "Passed": "green",
+              "Failed": "red"
+            }
+          }
+        },
+        "required": []
+      },
+      "mirrorProperties": {
+        "domain-architecture": {
+          "path": "domain.architecture"
+        }
+      },
+      "calculationProperties": {
+        "github-url": {
+          "title": "Github URL",
+          "icon": "Github",
+          "calculation": "\"https://github.com/port-labs/\" + .identifier",
+          "type": "string",
+          "format": "url"
+        }
+      },
+      "relations": {
+        "domain": {
+          "title": "Domain",
+          "target": "domain",
+          "required": false,
+          "many": false
+        }
+      }
+    },
+    {
+        "identifier": "workloadv2",
+        "description": "This blueprint represents a k8s Workload. This includes all k8s objects which can create pods (deployments[replicasets], daemonsets, statefulsets...)",
+        "title": "RunningServicev2",
+        "icon": "Argo",
+        "schema": {
+          "properties": {
+            "workloadJson": {
+              "title": "Workload Json",
+              "type": "object",
+              "description": "The workloads json"
+            },
+            "availableReplicas": {
+              "type": "number",
+              "title": "Running Replicas",
+              "description": "Current running replica count"
+            },
+            "containers": {
+              "type": "array",
+              "title": "Containers",
+              "default": [],
+              "description": "The containers for each pod instance of the Workload"
+            },
+            "creationTimestamp": {
+              "type": "string",
+              "title": "Created",
+              "format": "date-time",
+              "description": "When the Workload was created"
+            },
+            "labels": {
+              "type": "object",
+              "title": "Labels",
+              "description": "Labels of the Workload"
+            },
+            "replicas": {
+              "type": "number",
+              "title": "Wanted Replicas",
+              "description": "Wanted replica count"
+            },
+            "strategy": {
+              "type": "string",
+              "title": "Strategy",
+              "description": "Rollout Strategy"
+            },
+            "hasPrivileged": {
+              "type": "boolean",
+              "title": "Has Privileged Container"
+            },
+            "hasLatest": {
+              "type": "boolean",
+              "title": "Has 'latest' tag",
+              "description": "Has Container with 'latest' as image tag"
+            },
+            "hasLimits": {
+              "type": "boolean",
+              "title": "All containers have limits"
+            },
+            "isHealthy": {
+              "type": "string",
+              "enum": [
+                "Healthy",
+                "Unhealthy"
+              ],
+              "enumColors": {
+                "Healthy": "green",
+                "Unhealthy": "red"
+              },
+              "title": "Workload Health"
+            },
+            "kind": {
+              "title": "Workload Kind",
+              "description": "The kind of Workload",
+              "type": "string",
+              "enum": [
+                "StatefulSet",
+                "DaemonSet",
+                "Deployment",
+                "ReplicaSet"
+              ]
+            },
+            "strategyConfig": {
+              "type": "object",
+              "title": "Strategy Config",
+              "description": "The workloads rollout strategy"
+            }
+          },
+          "required": []
+        },
+        "mirrorProperties": {
+          "Cluster": {
+            "title": "Cluster",
+            "path": "Namespace.Cluster.$title"
+          },
+          "namespace": {
+            "title": "Namespace",
+            "path": "Namespace.$title"
+          }
+        },
+        "calculationProperties": {},
+        "relations": {
+          "workloadManager": {
+            "title": "Manager",
+            "description": "A replicaset's workload. For example, Workload abc-ReplicaSet is managed by Workload xyz-Depolyment",
+            "target": "workload",
+            "required": false,
+            "many": false
+          },
+          "Namespace": {
+            "title": "Namespace",
+            "target": "namespace",
+            "required": false,
+            "many": false
+          }
+        }
+    },
+    {
+        "identifier":"pod",
+        "description":"This blueprint represents a k8s Pod",
+        "title":"Pod",
+        "icon":"Service",
+        "schema":{
+          "properties":{
+              "conditions":{
+                "type":"array",
+                "title":"Conditions",
+                "default":[
+                    
+                ],
+                "description":"Pod's conditions"
+              },
+              "labels":{
+                "type":"object",
+                "title":"Labels",
+                "description":"Labels of the Pod"
+              },
+              "phase":{
+                "type":"string",
+                "title":"Pod phase",
+                "description":"Pod's running phase"
+              },
+              "startTime":{
+                "type":"string",
+                "title":"Created",
+                "format":"date-time",
+                "description":"Pod's creation date"
+              }
+          },
+          "required":[
+              
+          ]
+        },
+        "mirrorProperties":{
+          "containers":{
+              "title":"Containers",
+              "path":"workload.containers"
+          },
+          "cluster":{
+              "title":"Cluster",
+              "path":"workload.Namespace.Cluster.$identifier"
+          },
+          "namespace":{
+              "title":"Namespace",
+              "path":"workload.Namespace.$title"
+          }
+        },
+        "calculationProperties":{
+          
+        },
+        "relations":{
+          "RunningService":{
+              "title":"Workload",
+              "description":"The workload responsible for the pod",
+              "target":"workload",
+              "required":false,
+              "many":false
+          }
+        }
+    },
+    {
+        "identifier": "argocdProject",
+        "description": "This blueprint ArgoCD Project",
+        "title": "ArgoCD Project",
+        "icon": "Argo",
+        "schema": {
+          "properties": {},
+          "required": []
+        },
+        "mirrorProperties": {
+          "cluster": {
+            "title": "Cluster",
+            "path": "Cluster.$title"
+          }
+        },
+        "calculationProperties": {},
+        "relations": {
+          "Cluster": {
+            "title": "Cluster",
+            "description": "The project's Cluster",
+            "target": "cluster",
+            "required": false,
+            "many": false
+          }
+        }
+      },
+      {
+        "identifier": "argocdRepo",
+        "description": "This blueprint represents a ArgoCD Repository",
+        "title": "ArgoCD Repository",
+        "icon": "Git",
+        "schema": {
+          "properties": {
+            "repoUrl": {
+              "type": "string",
+              "title": "Repository URL",
+              "format": "url",
+              "description": "The link to the repository"
+            },
+            "repoType": {
+              "type": "string",
+              "title": "Repository Type",
+              "description": "The repository type"
+            }
+          },
+          "required": []
+        },
+        "mirrorProperties": {},
+        "calculationProperties": {},
+        "relations": {
+          "Cluster": {
+            "target": "cluster",
+            "required": false,
+            "many": false
+          }
+        }
+      },
+      {
+        "identifier": "argocdApp",
+        "description": "This blueprint represents an Argo CD Application",
+        "title": "Deployment (ArgoCD App)",
+        "icon": "Deployment",
+        "schema": {
+          "properties": {
+            "syncPolicy": {
+              "type": "object",
+              "title": "Sync Policy",
+              "description": "Options for syncing the application with the Git repository"
+            },
+            "gitRepo": {
+              "type": "string",
+              "icon": "Git",
+              "title": "Repository URL",
+              "description": "The URL of the Git repository containing the application source code"
+            },
+            "gitPath": {
+              "type": "string",
+              "title": "Path",
+              "description": "The path within the Git repository where the application manifests are located"
+            },
+            "syncStatus": {
+              "type": "string",
+              "title": "Sync Status",
+              "description": "The sync status of the application"
+            },
+            "gitRev": {
+              "type": "string",
+              "title": "Target Revision",
+              "description": "The Git revision (branch, tag, or commit hash) to deploy"
+            }
+          },
+          "required": []
+        },
+        "mirrorProperties": {
+          "Cluster": {
+            "title": "Cluster",
+            "path": "RunningService.Cluster.$identifier"
+          }
+        },
+        "calculationProperties": {},
+        "relations": {
+          "argocdProject": {
+            "title": "Argo Project",
+            "target": "argocdProject",
+            "required": false,
+            "many": false
+          },
+          "RunningService": {
+            "title": "Workload",
+            "target": "workload",
+            "required": false,
+            "many": false
+          }
+        }
+      }
+   ]
