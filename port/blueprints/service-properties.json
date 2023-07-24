@@ -12,13 +12,13 @@
           "default": "Node",
           "enum": [
             "GO",
-            "Python",
+            "Java",
             "Node",
             "React"
           ],
           "enumColors": {
             "GO": "red",
-            "Python": "green",
+            "Java": "green",
             "Node": "blue",
             "React": "yellow"
           }
