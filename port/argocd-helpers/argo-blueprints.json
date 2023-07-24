@@ -598,30 +598,9 @@
       "required": []
     },
     "mirrorProperties": {
-      "Cluster": {
-        "title": "Cluster",
-        "path": "Namespace.Cluster.$title"
-      },
-      "namespace": {
-        "title": "Namespace",
-        "path": "Namespace.$title"
-      }
     },
     "calculationProperties": {},
     "relations": {
-      "workloadManager": {
-        "title": "Manager",
-        "description": "A replicaset's workload. For example, Workload abc-ReplicaSet is managed by Workload xyz-Depolyment",
-        "target": "workload",
-        "required": false,
-        "many": false
-      },
-      "Namespace": {
-        "title": "Namespace",
-        "target": "namespace",
-        "required": false,
-        "many": false
-      }
     }
   }
 ]
