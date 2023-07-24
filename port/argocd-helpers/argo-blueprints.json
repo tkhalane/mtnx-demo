@@ -91,15 +91,9 @@
      "identifier": "workload",
      "description": "This blueprint represents a k8s Workload. This includes all k8s objects which can create pods (deployments[replicasets], daemonsets, statefulsets...)",
      "title": "Running Service",
-     "icon": "Deployment",
+     "icon": "Argo",
      "schema": {
       "properties": {
-        "locked": {
-          "type": "boolean",
-          "title": "Locked",
-          "description": "Indicate if deploying is allow for microservice in a this environment",
-          "default": false
-        },
         "version": {
           "title": "Image Tag",
           "type": "string",
@@ -203,10 +197,6 @@
         ]
      },
      "mirrorProperties":{
-        "containers":{
-           "title":"Containers",
-           "path":"workload.containers"
-        },
         "cluster":{
            "title":"Cluster",
            "path":"workload.Cluster.$identifier"
@@ -264,7 +254,7 @@
     "mirrorProperties": {
       "Cluster": {
         "title": "Cluster",
-        "path": "cluster.$title"
+        "path": "workload.Cluster.$title"
       }
     },
     "calculationProperties": {},
