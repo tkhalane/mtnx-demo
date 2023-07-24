@@ -35,7 +35,7 @@ resources: # List of K8s resources to list, watch, and export to Port.
           - identifier: .metadata.name + "-Deployment-" + .metadata.namespace + "-" + "{CLUSTER_NAME}"
             title: .metadata.name
             icon: '"Deployment"'
-            blueprint: '"runningService"'
+            blueprint: '"arunningService"'
             properties:
               kind: '"Deployment"'
               workloadJson: .
@@ -61,7 +61,7 @@ resources: # List of K8s resources to list, watch, and export to Port.
         mappings:
           - identifier: .metadata.name + "-DaemonSet-" + .metadata.namespace + "-" + "{CLUSTER_NAME}"
             title: .metadata.name
-            blueprint: '"runningService"'
+            blueprint: '"arunningService"'
             properties:
               kind: '"DaemonSet"'
               workloadJson: .
@@ -86,7 +86,7 @@ resources: # List of K8s resources to list, watch, and export to Port.
         mappings: 
           - identifier: .metadata.name + "-StatefulSet-" + .metadata.namespace + "-" + "{CLUSTER_NAME}"
             title: .metadata.name
-            blueprint: '"runningService"'
+            blueprint: '"arunningService"'
             properties:
               kind: '"StatefulSet"'
               workloadJson: .
@@ -168,7 +168,7 @@ resources: # List of K8s resources to list, watch, and export to Port.
               containers: (.spec.containers | map({image, resources})) + .status.containerStatuses | group_by(.image) | map(add)
               conditions: .status.conditions
             relations:
-              runningService: .metadata.ownerReferences[0].name + "-" + .metadata.ownerReferences[0].kind + "-" + .metadata.namespace + "-" + "{CLUSTER_NAME}"
+              arunningService: .metadata.ownerReferences[0].name + "-" + .metadata.ownerReferences[0].kind + "-" + .metadata.namespace + "-" + "{CLUSTER_NAME}"
               Node: (.spec.nodeName) | (split(".")|join("_")) + "-" + "{CLUSTER_NAME}"
               
   - kind: v1/nodes
@@ -205,7 +205,7 @@ resources: # List of K8s resources to list, watch, and export to Port.
               gitPath: .spec.source.path // null
               gitRev: .status.sync.revision // null
             relations:
-              runningService: '(.spec.destination.namespace as $namespace | .status.resources | map(select(.kind == "Deployment" or .kind == "StatefulSet" or .kind == "DaemonSet" or .kind == "Rollout" )) | .[] | .name + "-" + .kind + "-" + $namespace + "-{CLUSTER_NAME}") // []'
+              arunningService: '(.spec.destination.namespace as $namespace | .status.resources | map(select(.kind == "Deployment" or .kind == "StatefulSet" or .kind == "DaemonSet" or .kind == "Rollout" )) | .[] | .name + "-" + .kind + "-" + $namespace + "-{CLUSTER_NAME}") // []'
               argocdProject: .spec.project + "-" + .metadata.namespace + "-" + "{CLUSTER_NAME}"
               destinationNamespace: .spec.destination.namespace + "-" + "{CLUSTER_NAME}"
 

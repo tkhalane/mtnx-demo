@@ -263,7 +263,7 @@
     }
   },
   {
-    "identifier": "runningService",
+    "identifier": "arunningService",
     "title": "Running Service",
     "icon": "Argo",
     "schema": {
