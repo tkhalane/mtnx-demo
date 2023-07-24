@@ -88,24 +88,101 @@
     }
   },
   {
-     "identifier": "workload",
-     "description": "This blueprint represents a k8s Workload. This includes all k8s objects which can create pods (deployments[replicasets], daemonsets, statefulsets...)",
-     "title": "Running Service",
-     "icon": "Argo",
-     "schema": {
+    "identifier": "workload",
+    "title": "Running Service",
+    "icon": "Argo",
+    "schema": {
       "properties": {
+        "locked": {
+          "type": "boolean",
+          "title": "Locked",
+          "description": "Indicate if deploying is allow for microservice in a this environment",
+          "default": false
+        },
+        "version": {
+          "title": "Image Tag",
+          "type": "string",
+          "description": "The deployed image tag",
+          "icon": "Git"
+        },
+        "commitSha": {
+          "type": "string",
+          "title": "Commit SHA"
+        },
+        "cpuLimit": {
+          "type": "number",
+          "title": "CPU limit"
+        },
+        "memoryLimit": {
+          "type": "number",
+          "title": "Memory limit"
+        },
+        "pullRequest": {
+          "type": "string",
+          "format": "url",
+          "title": "Merged PR",
+          "icon": "Github",
+          "default": "https://github.com"
+        },
+        "namespace": {
+          "type": "string",
+          "title": "Namespace"
+        },
+        "values": {
+          "type": "string",
+          "title": "Helm Values",
+          "format": "yaml"
+        },
+        "new-relic": {
+          "type": "string",
+          "format": "url",
+          "title": "New Relic",
+          "spec": "embedded-url"
+        },
+        "datadog": {
+          "type": "string",
+          "format": "url",
+          "title": "Datadog",
+          "spec": "embedded-url"
+        },
+        "logzio": {
+          "type": "string",
+          "format": "url",
+          "title": "Logz",
+          "spec": "embedded-url"
+        },
+        "replicaCount": {
+          "type": "number",
+          "title": "Desired Number of Replicas"
+        },
+        "cpu": {
+          "title": "CPU usage(%)",
+          "type": "number"
+        },
+        "memory": {
+          "title": "Memory usage(%)",
+          "type": "number"
+        }
       },
       "required": []
-     },
-     "mirrorProperties": {
-       "Cluster": {
-         "title": "Related Environment",
-         "path": "cluster.$title"
-       }
-     },
-     "calculationProperties": {},
-     "relations": {
-     }
+    },
+    "mirrorProperties": {
+    },
+    "calculationProperties": {},
+    "relations": {
+      "service": {
+        "title": "Service",
+        "target": "service",
+        "required": true,
+        "many": false
+      },
+      "environment": {
+        "title": "Related Environment",
+        "target": "cluster",
+        "required": false,
+        "many": false
+      }
+    }
   },
   {
      "identifier":"pod",
