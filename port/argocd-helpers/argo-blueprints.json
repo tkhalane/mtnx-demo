@@ -1,173 +1,5 @@
 [
   {
-    "identifier": "cluster",
-    "title": "K8s Cluster",
-    "icon": "Cluster",
-    "schema": {
-      "properties": {
-        "namespace": {
-          "type": "string",
-          "title": "k8s namespace"
-        },
-        "cluster_type": {
-          "title": "Type",
-          "type": "string",
-          "description": "The K8S cluster type",
-          "enum": [
-            "EKS",
-            "GKE",
-            "docker-desktop"
-          ]
-        },
-        "kconfig": {
-          "title": "Kconfig File",
-          "type": "string",
-          "description": "The kconfig file"
-        },
-        "k8s-version": {
-          "title": "K8s version",
-          "type": "string"
-        },
-        "readiness-configured": {
-          "type": "boolean",
-          "title": "Readiness Configured"
-        },
-        "liveness-configured": {
-          "type": "boolean",
-          "title": "Liveness Configured"
-        },
-        "cluster-nodes": {
-          "type": "number",
-          "title": "Cluster Nodes"
-        },
-        "mem-cpu-lim-req": {
-          "type": "boolean",
-          "title": "CPU and Memory limits configured"
-        }
-      },
-      "required": []
-    },
-    "mirrorProperties": {
-    },
-    "calculationProperties": {
-      "prometheus": {
-        "title": "Prometheus URL",
-        "icon": "Prometheus",
-        "calculation": "'https://prometheus.' + .identifier",
-        "type": "string",
-        "format": "url"
-      },
-      "alertManager": {
-        "title": "Alert Manager URL",
-        "icon": "Prometheus",
-        "calculation": "'https://alertmanager.' + .identifier",
-        "type": "string",
-        "format": "url"
-      },
-      "argoCD": {
-        "title": "ArgoCD URL",
-        "icon": "Argo",
-        "calculation": "'https://argocd.' + .identifier",
-        "type": "string",
-        "format": "url"
-      },
-      "argoCD-apps": {
-        "title": "ArgoCD-apps URL",
-        "icon": "Argo",
-        "calculation": "'https://argocd-apps.' + .identifier",
-        "type": "string",
-        "format": "url"
-      },
-      "grafana": {
-        "title": "Grafana URL",
-        "icon": "Grafana",
-        "calculation": "'https://grafana.' + .identifier",
-        "type": "string",
-        "format": "url"
-      }
-    }
-  },
-  {
-    "identifier": "runningService",
-    "title": "Running Service",
-    "icon": "Argo",
-    "schema": {
-      "properties": {
-        "locked": {
-          "type": "boolean",
-          "title": "Locked",
-          "description": "Indicate if deploying is allow for microservice in a this environment",
-          "default": false
-        },
-        "version": {
-          "title": "Image Tag",
-          "type": "string",
-          "description": "The deployed image tag",
-          "icon": "Git"
-        },
-        "commitSha": {
-          "type": "string",
-          "title": "Commit SHA"
-        },
-        "cpuLimit": {
-          "type": "number",
-          "title": "CPU limit"
-        },
-        "memoryLimit": {
-          "type": "number",
-          "title": "Memory limit"
-        },
-        "pullRequest": {
-          "type": "string",
-          "format": "url",
-          "title": "Merged PR",
-          "icon": "Github",
-          "default": "https://github.com"
-        },
-        "namespace": {
-          "type": "string",
-          "title": "Namespace"
-        },
-        "grafana": {
-          "type": "string",
-          "format": "url",
-          "title": "Grafana",
-          "spec": "embedded-url"
-        },
-        "replicaCount": {
-          "type": "number",
-          "title": "Desired Number of Replicas"
-        },
-        "cpu": {
-          "title": "CPU usage(%)",
-          "type": "number"
-        },
-        "memory": {
-          "title": "Memory usage(%)",
-          "type": "number"
-        }
-      },
-      "required": []
-    },
-    "mirrorProperties": {
-    },
-    "calculationProperties": {},
-    "relations": {
-      "service": {
-        "title": "Service",
-        "target": "service",
-        "required": true,
-        "many": false
-      },
-     "Cluster": {
-      "title": "Namespace",
-      "target": "cluster",
-      "required": false,
-      "many": false
-     }
-    }
-  },
-  {
     "identifier": "service",
     "description": "This blueprint represents service in our software catalog",
     "title": "Service",
@@ -340,6 +172,174 @@
         "required": true,
         "many": false
       }
+    }
+  },
+  {
+    "identifier": "cluster",
+    "title": "K8s Cluster",
+    "icon": "Cluster",
+    "schema": {
+      "properties": {
+        "namespace": {
+          "type": "string",
+          "title": "k8s namespace"
+        },
+        "cluster_type": {
+          "title": "Type",
+          "type": "string",
+          "description": "The K8S cluster type",
+          "enum": [
+            "EKS",
+            "GKE",
+            "docker-desktop"
+          ]
+        },
+        "kconfig": {
+          "title": "Kconfig File",
+          "type": "string",
+          "description": "The kconfig file"
+        },
+        "k8s-version": {
+          "title": "K8s version",
+          "type": "string"
+        },
+        "readiness-configured": {
+          "type": "boolean",
+          "title": "Readiness Configured"
+        },
+        "liveness-configured": {
+          "type": "boolean",
+          "title": "Liveness Configured"
+        },
+        "cluster-nodes": {
+          "type": "number",
+          "title": "Cluster Nodes"
+        },
+        "mem-cpu-lim-req": {
+          "type": "boolean",
+          "title": "CPU and Memory limits configured"
+        }
+      },
+      "required": []
+    },
+    "mirrorProperties": {
+    },
+    "calculationProperties": {
+      "prometheus": {
+        "title": "Prometheus URL",
+        "icon": "Prometheus",
+        "calculation": "'https://prometheus.' + .identifier",
+        "type": "string",
+        "format": "url"
+      },
+      "alertManager": {
+        "title": "Alert Manager URL",
+        "icon": "Prometheus",
+        "calculation": "'https://alertmanager.' + .identifier",
+        "type": "string",
+        "format": "url"
+      },
+      "argoCD": {
+        "title": "ArgoCD URL",
+        "icon": "Argo",
+        "calculation": "'https://argocd.' + .identifier",
+        "type": "string",
+        "format": "url"
+      },
+      "argoCD-apps": {
+        "title": "ArgoCD-apps URL",
+        "icon": "Argo",
+        "calculation": "'https://argocd-apps.' + .identifier",
+        "type": "string",
+        "format": "url"
+      },
+      "grafana": {
+        "title": "Grafana URL",
+        "icon": "Grafana",
+        "calculation": "'https://grafana.' + .identifier",
+        "type": "string",
+        "format": "url"
+      }
+    }
+  },
+  {
+    "identifier": "runningService",
+    "title": "Running Service",
+    "icon": "Argo",
+    "schema": {
+      "properties": {
+        "locked": {
+          "type": "boolean",
+          "title": "Locked",
+          "description": "Indicate if deploying is allow for microservice in a this environment",
+          "default": false
+        },
+        "version": {
+          "title": "Image Tag",
+          "type": "string",
+          "description": "The deployed image tag",
+          "icon": "Git"
+        },
+        "commitSha": {
+          "type": "string",
+          "title": "Commit SHA"
+        },
+        "cpuLimit": {
+          "type": "number",
+          "title": "CPU limit"
+        },
+        "memoryLimit": {
+          "type": "number",
+          "title": "Memory limit"
+        },
+        "pullRequest": {
+          "type": "string",
+          "format": "url",
+          "title": "Merged PR",
+          "icon": "Github",
+          "default": "https://github.com"
+        },
+        "namespace": {
+          "type": "string",
+          "title": "Namespace"
+        },
+        "grafana": {
+          "type": "string",
+          "format": "url",
+          "title": "Grafana",
+          "spec": "embedded-url"
+        },
+        "replicaCount": {
+          "type": "number",
+          "title": "Desired Number of Replicas"
+        },
+        "cpu": {
+          "title": "CPU usage(%)",
+          "type": "number"
+        },
+        "memory": {
+          "title": "Memory usage(%)",
+          "type": "number"
+        }
+      },
+      "required": []
+    },
+    "mirrorProperties": {
+    },
+    "calculationProperties": {},
+    "relations": {
+      "service": {
+        "title": "Service",
+        "target": "service",
+        "required": true,
+        "many": false
+      },
+     "Cluster": {
+      "title": "Namespace",
+      "target": "cluster",
+      "required": false,
+      "many": false
+     }
     }
   }
 ]
