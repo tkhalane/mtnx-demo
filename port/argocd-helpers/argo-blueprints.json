@@ -88,7 +88,7 @@
     }
   },
   {
-    "identifier": "workload",
+    "identifier": "runningService",
     "title": "Running Service",
     "icon": "Argo",
     "schema": {
