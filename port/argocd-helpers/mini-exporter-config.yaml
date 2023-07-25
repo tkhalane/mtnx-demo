@@ -1,6 +1,7 @@
 # Base Kubernetes configuration
 
 resources: # List of K8s resources to list, watch, and export to Port.
+
   - kind: v1/namespaces
     selector:
       query: .metadata.name | contains("kube-system")
@@ -36,9 +37,9 @@ resources: # List of K8s resources to list, watch, and export to Port.
               containers: (.spec.template.spec.containers | map({name, image, resources}))
               isHealthy: if .spec.replicas == .status.availableReplicas then "Healthy" else "Unhealthy" end
             relations:
-              Cluster: .metadata.namespace + "-" + "{CLUSTER_NAME}"
-  
-  # Pods that are not managed by replicasets->deployments (daemonsets, statefulsets etc)
+              Cluster: "{CLUSTER_NAME}"
+
+   # Pods that are not managed by replicasets->deployments (daemonsets, statefulsets etc)
   - kind: v1/pods
     selector:
       query: (.metadata.ownerReferences[0].kind != "ReplicaSet") and (.metadata.namespace | startswith("kube") | not)
@@ -57,20 +58,5 @@ resources: # List of K8s resources to list, watch, and export to Port.
               conditions: .status.conditions
             relations:
               workload: .metadata.ownerReferences[0].name + "-" + .metadata.ownerReferences[0].kind + "-" + .metadata.namespace + "-" + "{CLUSTER_NAME}"
-
-    port:
-      entity:
-        mappings:
-          - identifier: .metadata.name + "-" + .metadata.namespace + "-" + "{CLUSTER_NAME}"
-            blueprint: '"argocdApp"'
-            title: .metadata.name
-            properties:
-              status: .status.health.status
-              syncStatus: .status.sync.status
-              syncPolicy: .spec.syncPolicy // null
-              gitRepo: .spec.source.repoURL// null
-              gitPath: .spec.source.path // null
-              gitRev: .status.sync.revision // null
-            relations:
-              RunningService: '(.spec.destination.namespace as $namespace | .status.resources | map(select(.kind == "Deployment" or .kind == "StatefulSet" or .kind == "DaemonSet" or .kind == "Rollout" )) | .[] | .name + "-" + .kind + "-" + $namespace + "-{CLUSTER_NAME}") // []'
-
+              Node: (.spec.nodeName) | (split(".")|join("_")) + "-" + "{CLUSTER_NAME}"
+     
