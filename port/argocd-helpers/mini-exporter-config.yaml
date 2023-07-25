@@ -11,7 +11,7 @@ resources: # List of K8s resources to list, watch, and export to Port.
           - identifier: '"{CLUSTER_NAME}"'
             title: '"{CLUSTER_NAME}"'
             blueprint: '"cluster"'
-
+  - 
   - kind: apps/v1/deployments
     selector:
       query: .metadata.namespace | startswith("kube") | not
