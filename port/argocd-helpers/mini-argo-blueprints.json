@@ -176,13 +176,9 @@
       "required": []
     },
     "mirrorProperties": {
-      "Cluster": {
-        "title": "Cluster",
-        "path": "Namespace.Cluster.$title"
-      },
-      "namespace": {
-        "title": "Namespace",
-        "path": "Namespace.$title"
+      "cluster": {
+        "title": "cluster",
+        "path": "Cluster.$title"
       }
     },
     "calculationProperties": {},
@@ -239,30 +235,19 @@
        ]
     },
     "mirrorProperties":{
+       "Workload":{
+          "title":"Running Service",
+          "path":"workload.Cluster.$identifier"
+       },
        "containers":{
-          "title":"Containers",
-          "path":"workload.containers"
-       },
-       "cluster":{
-          "title":"Cluster",
-          "path":"workload.Namespace.Cluster.$identifier"
-       },
-       "namespace":{
-          "title":"Namespace",
-          "path":"workload.Namespace.$title"
+        "title":"Containers",
+        "path":"workload.containers"
        }
     },
     "calculationProperties":{
        
     },
     "relations":{
-       "Node":{
-          "title":"Node",
-          "description":"The node the pod is running on",
-          "target":"node",
-          "required":false,
-          "many":false
-       },
        "workload":{
           "title":"Workload",
           "description":"The workload responsible for the pod",
@@ -271,6 +256,5 @@
           "many":false
        }
     }
- }
-
+  }
 ]
