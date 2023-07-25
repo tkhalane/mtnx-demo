@@ -28,7 +28,7 @@ resources: # List of K8s resources to list, watch, and export to Port.
 
   - kind: apps/v1/deployments
     selector:
-      query: .metadata.namespace | startswith("kube") | not
+      query: .metadata.namespace | startswith("mtnx") 
     port:
       entity:
         mappings:
@@ -55,7 +55,7 @@ resources: # List of K8s resources to list, watch, and export to Port.
 
   - kind: apps/v1/daemonsets 
     selector:
-      query: .metadata.namespace | startswith("kube") | not 
+      query: .metadata.namespace | startswith("mtnx") 
     port:
       entity:
         mappings:
@@ -80,7 +80,7 @@ resources: # List of K8s resources to list, watch, and export to Port.
 
   - kind: apps/v1/statefulsets
     selector:
-      query: .metadata.namespace | startswith("kube") | not
+      query: .metadata.namespace | startswith("mtnx") 
     port:
       entity:
         mappings: 
@@ -105,7 +105,7 @@ resources: # List of K8s resources to list, watch, and export to Port.
 
   - kind: apps/v1/replicasets
     selector:
-      query: .metadata.namespace | startswith("kube") | not
+      query: .metadata.namespace | startswith("mtnx") 
     port:
       entity:
         mappings:
@@ -131,7 +131,7 @@ resources: # List of K8s resources to list, watch, and export to Port.
   # Pods who are owned by replica-sets are connected directly to their deployment
   - kind: v1/pods
     selector:
-      query: (.metadata.ownerReferences[0].kind == "ReplicaSet") and (.metadata.namespace | startswith("kube") | not)
+      query: (.metadata.ownerReferences[0].kind == "ReplicaSet") and (.metadata.namespace | startswith("mtnx") )
     port:
       entity:
         mappings:
@@ -153,7 +153,7 @@ resources: # List of K8s resources to list, watch, and export to Port.
   # Pods that are not managed by replicasets->deployments (daemonsets, statefulsets etc)
   - kind: v1/pods
     selector:
-      query: (.metadata.ownerReferences[0].kind != "ReplicaSet") and (.metadata.namespace | startswith("kube") | not)
+      query: (.metadata.ownerReferences[0].kind != "ReplicaSet") and (.metadata.namespace | startswith("mtnx"))
     port:
       entity:
         mappings:
@@ -208,17 +208,6 @@ resources: # List of K8s resources to list, watch, and export to Port.
               workload: '(.spec.destination.namespace as $namespace | .status.resources | map(select(.kind == "Deployment" or .kind == "StatefulSet" or .kind == "DaemonSet" or .kind == "Rollout" )) | .[] | .name + "-" + .kind + "-" + $namespace + "-{CLUSTER_NAME}") // []'
               argocdProject: .spec.project + "-" + .metadata.namespace + "-" + "{CLUSTER_NAME}"
               destinationNamespace: .spec.destination.namespace + "-" + "{CLUSTER_NAME}"
-
-  - kind: argoproj.io/v1alpha1/appproject
-    port:
-      entity:
-        mappings:
-          - identifier: .metadata.name + "-" + .metadata.namespace + "-" + "{CLUSTER_NAME}"
-            title: .metadata.name
-            blueprint: '"argocdProject"'
-            properties:
-            relations:
-              Namespace: .metadata.namespace + "-" + "{CLUSTER_NAME}"
 
   - kind: v1/secrets
     selector:

@@ -279,7 +279,45 @@
               "type": "object",
               "title": "Strategy Config",
               "description": "The workloads rollout strategy"
-            }
+            },
+            "commitSha": {
+                "type": "string",
+                "title": "Commit SHA"
+              },
+              "cpuLimit": {
+                "type": "number",
+                "title": "CPU limit"
+              },
+              "memoryLimit": {
+                "type": "number",
+                "title": "Memory limit"
+              },
+              "pullRequest": {
+                "type": "string",
+                "format": "url",
+                "title": "Merged PR",
+                "icon": "Github",
+                "default": "https://github.com"
+              },
+              "grafana": {
+                "type": "string",
+                "format": "url",
+                "title": "Grafana",
+                "spec": "embedded-url"
+              },
+              "replicaCount": {
+                "type": "number",
+                "title": "Desired Number of Replicas"
+              },
+              "cpu": {
+                "title": "CPU usage(%)",
+                "type": "number"
+              },
+              "memory": {
+                "title": "Memory usage(%)",
+                "type": "number"
+              }
+
           },
           "required": []
         },
@@ -380,63 +418,6 @@
            }
         }
      },
-     {
-        "identifier": "argocdProject",
-        "description": "This blueprint ArgoCD Project",
-        "title": "ArgoCD Project",
-        "icon": "Argo",
-        "schema": {
-          "properties": {},
-          "required": []
-        },
-        "mirrorProperties": {
-          "Cluster": {
-            "title": "Cluster",
-            "path": "Namespace.Cluster.$title"
-          }
-        },
-        "calculationProperties": {},
-        "relations": {
-          "Namespace": {
-            "title": "Namespace",
-            "description": "The project's Namespace",
-            "target": "namespace",
-            "required": false,
-            "many": false
-          }
-        }
-      },
-      {
-        "identifier": "argocdRepo",
-        "description": "This blueprint represents a ArgoCD Repository",
-        "title": "ArgoCD Repository",
-        "icon": "Git",
-        "schema": {
-          "properties": {
-            "repoUrl": {
-              "type": "string",
-              "title": "Repository URL",
-              "format": "url",
-              "description": "The link to the repository"
-            },
-            "repoType": {
-              "type": "string",
-              "title": "Repository Type",
-              "description": "The repository type"
-            }
-          },
-          "required": []
-        },
-        "mirrorProperties": {},
-        "calculationProperties": {},
-        "relations": {
-          "Namespace": {
-            "target": "namespace",
-            "required": false,
-            "many": false
-          }
-        }
-      },
       {
         "identifier": "argocdApp",
         "description": "This blueprint represents an Argo CD Application",
@@ -492,12 +473,6 @@
           "destinationNamespace": {
             "title": "Destination Namespace",
             "target": "namespace",
-            "required": false,
-            "many": false
-          },
-          "argocdProject": {
-            "title": "Argo Project",
-            "target": "argocdProject",
             "required": false,
             "many": false
           },
