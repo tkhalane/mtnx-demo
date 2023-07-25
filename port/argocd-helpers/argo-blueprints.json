@@ -459,10 +459,6 @@
             "title": "Cluster",
             "path": "destinationNamespace.Cluster.$title"
           },
-          "Namespace": {
-            "title": "Namespace",
-            "path": "argocdProject.Namespace.$title"
-          },
           "DestinationNamespace": {
             "title": "Cluster",
             "path": "destinationNamespace.$title"
