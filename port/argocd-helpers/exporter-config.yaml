@@ -209,6 +209,17 @@ resources: # List of K8s resources to list, watch, and export to Port.
               argocdProject: .spec.project + "-" + .metadata.namespace + "-" + "{CLUSTER_NAME}"
               destinationNamespace: .spec.destination.namespace + "-" + "{CLUSTER_NAME}"
 
+  - kind: argoproj.io/v1alpha1/appproject
+    port:
+      entity:
+        mappings:
+          - identifier: .metadata.name + "-" + .metadata.namespace + "-" + "{CLUSTER_NAME}"
+            title: .metadata.name
+            blueprint: '"argocdProject"'
+            properties:
+            relations:
+              Namespace: .metadata.namespace + "-" + "{CLUSTER_NAME}"
+
   - kind: v1/secrets
     selector:
       query: '.metadata.labels // {} | contains({ "argocd.argoproj.io/secret-type": "repository" })'

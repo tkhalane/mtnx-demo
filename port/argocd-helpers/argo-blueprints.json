@@ -418,6 +418,63 @@
            }
         }
      },
+     {
+        "identifier": "argocdProject",
+        "description": "This blueprint ArgoCD Project",
+        "title": "ArgoCD Project",
+        "icon": "Argo",
+        "schema": {
+          "properties": {},
+          "required": []
+        },
+        "mirrorProperties": {
+          "Cluster": {
+            "title": "Cluster",
+            "path": "Namespace.Cluster.$title"
+          }
+        },
+        "calculationProperties": {},
+        "relations": {
+          "Namespace": {
+            "title": "Namespace",
+            "description": "The project's Namespace",
+            "target": "namespace",
+            "required": false,
+            "many": false
+          }
+        }
+      },
+      {
+        "identifier": "argocdRepo",
+        "description": "This blueprint represents a ArgoCD Repository",
+        "title": "ArgoCD Repository",
+        "icon": "Git",
+        "schema": {
+          "properties": {
+            "repoUrl": {
+              "type": "string",
+              "title": "Repository URL",
+              "format": "url",
+              "description": "The link to the repository"
+            },
+            "repoType": {
+              "type": "string",
+              "title": "Repository Type",
+              "description": "The repository type"
+            }
+          },
+          "required": []
+        },
+        "mirrorProperties": {},
+        "calculationProperties": {},
+        "relations": {
+          "Namespace": {
+            "target": "namespace",
+            "required": false,
+            "many": false
+          }
+        }
+      },
       {
         "identifier": "argocdApp",
         "description": "This blueprint represents an Argo CD Application",
@@ -459,6 +516,10 @@
             "title": "Cluster",
             "path": "destinationNamespace.Cluster.$title"
           },
+          "Namespace": {
+            "title": "Namespace",
+            "path": "argocdProject.Namespace.$title"
+          },
           "DestinationNamespace": {
             "title": "Cluster",
             "path": "destinationNamespace.$title"
@@ -469,6 +530,12 @@
           "destinationNamespace": {
             "title": "Destination Namespace",
             "target": "namespace",
+            "required": false,
+            "many": false
+          },
+          "argocdProject": {
+            "title": "Argo Project",
+            "target": "argocdProject",
             "required": false,
             "many": false
           },
