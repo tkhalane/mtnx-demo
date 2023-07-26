@@ -39,3 +39,5 @@ jobs:
     #       targetBranch: main
     #       createPR: false
     #       message: "Update Image Version to ${{ env.IMAGE_TAG }}"
+
+    #Building with jib actually push to directory.

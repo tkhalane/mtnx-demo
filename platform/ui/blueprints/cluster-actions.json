@@ -1,0 +1,59 @@
+[
+    {
+      "identifier": "create-cluster",
+      "title": "Create a K8s cluster",
+      "userInputs": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "The name of the cluster"
+          },
+          "provider": {
+            "type": "string",
+            "title": "Provider",
+            "default": "aws",
+            "description": "The provider where the cluster is hosted",
+            "enum": [
+              "aws",
+              "azure"
+            ]
+          },
+          "node-size": {
+            "type": "string",
+            "title": "Node Size",
+            "default": "small",
+            "description": "The size of the nodes",
+            "enum": [
+              "small",
+              "medium",
+              "large"
+            ]
+          },
+          "min-node-count": {
+            "type": "string",
+            "title": "Minimum number of nodes",
+            "default": "1",
+            "description": "The minimun number of nodes (autoscaler might increase this number)"
+          }
+        },
+        "required": [
+          "name",
+          "provider",
+          "node-size",
+          "min-node-count"
+        ]
+      },
+      "invocationMethod": {
+        "type": "GITHUB",
+        "org": "tkhalane",
+        "repo": "mtnx-demo",
+        "workflow": "create-cluster.yml",
+        "omitPayload": true,
+        "omitUserInputs": false,
+        "reportWorkflowStatus": true
+      },
+      "trigger": "CREATE",
+      "description": "Create a new cluster."
+    }
+  ]
