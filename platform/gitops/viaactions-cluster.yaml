@@ -1,0 +1,15 @@
+---
+apiVersion: mtnx.com/v1alpha1
+kind: ClusterClaim
+metadata:
+  name: viaactions
+  namespace: infra
+spec:
+  id: viaactions
+  compositionSelector:
+    matchLabels:
+      provider: civo
+      cluster: ck-all
+  parameters:
+    nodeSize: small
+    minNodeCount: 1
