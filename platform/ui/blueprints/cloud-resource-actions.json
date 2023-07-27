@@ -86,7 +86,7 @@
    {
     "identifier": "create_aws_db",
     "title": "AWS: Request A New Postgres DB",
-    "icon": "AWS",
+    "icon": "Azure",
     "userInputs": {
       "properties": {
         "region": {
