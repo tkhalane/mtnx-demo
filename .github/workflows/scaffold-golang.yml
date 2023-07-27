@@ -26,7 +26,7 @@ jobs:
           operation: PATCH_RUN
           runId: ${{ fromJson(inputs.port_payload).context.runId }}
           logMessage: "Scaffolding a new repository from Cookiecutter template 🏃‍♂️"
-      - uses: tkhalane/cookiecutter-gha@v7
+      - uses: tkhalane/cookiecutter-gha@v8
         with:
           portClientId: ${{ secrets.PORT_CLIENT_ID }}
           portClientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
@@ -38,3 +38,14 @@ jobs:
           cookiecutterTemplate: https://github.com/tkhalane/cookiecutter-springboot
           blueprintIdentifier: "microservice"
           organizationName: tkhalane
+
+          # - scaffold repo, push to it github
+          # - create helm repo for the new project
+          #   - replace all template and values with input from user, set hardcoded namespace
+          #   - commit and push helm chart
+          # - create ArgoCD application
+          #   - source is the helm chart of the new guy
+          # - trigger a docker image build for the new created repo.
+          #   - It has a docker file. Do we build normal or with JIB?
+          #   - update helm chart with new build tag
+          # - argo cd should trigger a deployment
