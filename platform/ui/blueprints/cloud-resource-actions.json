@@ -37,7 +37,7 @@
    },
    {
     "identifier": "create_aws_serveless",
-    "title": "AWS: Serverless(Lambda,DynamoDB,S3)",
+    "title": "AWS: Serverless(DynamoDB,S3)",
     "icon": "AWS",
     "userInputs": {
       "properties": {
@@ -78,7 +78,7 @@
    {
     "identifier": "create_aws_db",
     "title": "AWS: Request A New Postgres DB",
-    "icon": "Azure",
+    "icon": "AWS",
     "userInputs": {
       "properties": {
         "name": {

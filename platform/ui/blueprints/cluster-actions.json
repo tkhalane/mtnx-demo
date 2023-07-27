@@ -2,7 +2,7 @@
     {
       "identifier": "create-cluster",
       "title": "Request A New K8S Cluster",
-      "icon": "cluster",
+      "icon": "Cluster",
       "userInputs": {
         "properties": {
           "name": {
