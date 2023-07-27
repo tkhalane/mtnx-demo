@@ -1,7 +1,7 @@
 [
     {
       "identifier": "create-cluster",
-      "title": "Create a K8s cluster",
+      "title": "Request A New K8S Cluster",
       "userInputs": {
         "properties": {
           "name": {
@@ -54,6 +54,6 @@
         "reportWorkflowStatus": true
       },
       "trigger": "CREATE",
-      "description": "Create a new cluster."
+      "description": "Quickly and easily request a new cluster in either AWS or Azure. The Cluster comes preconfigured with all necessary connectivity and security controls"
     }
   ]

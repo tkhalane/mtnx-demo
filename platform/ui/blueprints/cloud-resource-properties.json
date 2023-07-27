@@ -1,0 +1,53 @@
+{
+    "identifier": "cloud_res",
+    "title": "Cloud Resource",
+    "icon": "AWS",
+    "schema": {
+      "properties": {
+        "Provider": {
+            "type": "string",
+            "icon": "Cloud",
+            "title": "Provider",
+            "enum": [
+              "AWS",
+              "Azure",
+              "GCP"
+            ]
+        },
+        "service": {
+            "type": "string",
+            "icon": "Cloud",
+            "title": "Service",
+            "enum": [
+              "EC2",
+              "S3",
+              "Lambda",
+              "Cosmos MongoDB",
+              "Azure Functions",
+              "VPC",
+              "Postgres"
+            ]
+        },
+        "url": {
+            "type": "string",
+            "title": "URL to Resource",
+            "format": "url",
+            "description": "the link to the cloud resource"
+        },
+        "IaC": {
+        "type": "string",
+        "title": "IaC",
+        "icon": "Terraform",
+        "enum": [
+            "Bicep",
+            "Crossplane",
+            "Terraform"
+        ]
+        }
+      },
+      "required": []
+    },
+    "mirrorProperties": {},
+    "calculationProperties": {},
+    "relations": {}
+  }

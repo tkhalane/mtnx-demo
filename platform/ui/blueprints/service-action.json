@@ -1,7 +1,7 @@
 [
     {
       "identifier": "createService",
-      "title": "Scaffold new Service",
+      "title": "Create A New Service",
       "icon": "Github",
       "userInputs": {
         "properties": {
@@ -162,10 +162,16 @@
     },
     {
       "identifier": "deploy",
-      "title": "Deploy Service",
+      "title": "Deploy Application",
       "icon": "GithubActions",
       "userInputs": {
         "properties": {
+          "service": {
+            "title": "Service",
+            "type": "string",
+            "blueprint": "service",
+            "format": "entity"
+          },
           "environment": {
             "type": "string",
             "format": "entity",
@@ -185,11 +191,21 @@
             ]
           }
         },
-        "required": []
+        "required": [
+          "service"
+        ],
+        "order": [
+          "service"
+        ]
       },
       "invocationMethod": {
-        "type": "WEBHOOK",
-        "url": "https://demo.getport.io:3006/api/deployService"
+        "type": "GITHUB",
+        "omitPayload": false,
+        "omitUserInputs": true,
+        "reportWorkflowStatus": true,
+        "org": "tkhalane",
+        "repo": "mtnx-demo",
+        "workflow": "deploy.yml"
       },
       "trigger": "DAY-2",
       "description": "Easily deploy a service to a specified environment "

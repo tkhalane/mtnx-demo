@@ -1,0 +1,106 @@
+[
+   {
+    "identifier": "create_dynamo_db",
+    "title": "Azure: Request A New Mongo DB",
+    "userInputs": {
+      "properties": {
+        "name": {
+          "title": "name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "invocationMethod": {
+      "type": "GITHUB",
+      "omitPayload": true,
+      "omitUserInputs": false,
+      "reportWorkflowStatus": true,
+      "org": "tkhalane",
+      "repo": "mtnx",
+      "workflow": "create-mongo-azure.yml"
+    },
+    "trigger": "CREATE",
+    "requiredApproval": false
+   },
+   {
+    "identifier": "create_vm_db",
+    "title": "Azure: Request A New VM",
+    "userInputs": {
+      "properties": {
+        "region": {
+          "title": "region",
+          "type": "string"
+        }
+      },
+      "required": [
+        "region"
+      ]
+    },
+    "invocationMethod": {
+      "type": "GITHUB",
+      "omitPayload": true,
+      "omitUserInputs": false,
+      "reportWorkflowStatus": true,
+      "org": "tkhalane",
+      "repo": "mtnx",
+      "workflow": "create-vm-azure.yml"
+    },
+    "trigger": "CREATE",
+    "requiredApproval": false
+   },
+   {
+    "identifier": "create_aws_serveless",
+    "title": "AWS: Request Serverless Stack (Lambda, DynamoDB,S3 Bucket)",
+    "userInputs": {
+      "properties": {
+        "region": {
+          "title": "region",
+          "type": "string"
+        }
+      },
+      "required": [
+        "region"
+      ]
+    },
+    "invocationMethod": {
+      "type": "GITHUB",
+      "omitPayload": true,
+      "omitUserInputs": false,
+      "reportWorkflowStatus": true,
+      "org": "tkhalane",
+      "repo": "mtnx",
+      "workflow": "create-aws-s3-dynamodb.yml"
+    },
+    "trigger": "CREATE",
+    "requiredApproval": false
+   },
+   {
+    "identifier": "create_aws_db",
+    "title": "AWS: Request A New Postgres DB",
+    "userInputs": {
+      "properties": {
+        "region": {
+          "title": "region",
+          "type": "string"
+        }
+      },
+      "required": [
+        "region"
+      ]
+    },
+    "invocationMethod": {
+      "type": "GITHUB",
+      "omitPayload": true,
+      "omitUserInputs": false,
+      "reportWorkflowStatus": true,
+      "org": "tkhalane",
+      "repo": "mtnx",
+      "workflow": "create-aws-postgres.yml"
+    },
+    "trigger": "CREATE",
+    "requiredApproval": false
+   }
+]
