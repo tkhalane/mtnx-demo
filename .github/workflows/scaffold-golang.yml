@@ -36,7 +36,7 @@ jobs:
           portUserInputs: ${{ toJson(fromJson(inputs.port_payload).payload.properties.options) }}
           #   cookiecutterTemplate: ${{ fromJson(inputs.port_payload).payload.properties.template }}
           cookiecutterTemplate: https://github.com/tkhalane/cookiecutter-springboot
-          blueprintIdentifier: "microservice"
+          blueprintIdentifier: "service"
           organizationName: tkhalane
 
           # - scaffold repo, push to it github
