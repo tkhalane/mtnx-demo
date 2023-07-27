@@ -1,7 +1,7 @@
 {
     "identifier": "cloud_res",
     "title": "Cloud Resource",
-    "icon": "AWS",
+    "icon": "Cloud",
     "schema": {
       "properties": {
         "Provider": {

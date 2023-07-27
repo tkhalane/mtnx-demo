@@ -1,7 +1,8 @@
 [
    {
-    "identifier": "create_dynamo_db",
-    "title": "Azure: Request A New Mongo DB",
+    "identifier": "create_cosmos_db",
+    "title": "Azure: Request A New Cosmos DB",
+    "icon": "Azure",
     "userInputs": {
       "properties": {
         "name": {
@@ -20,14 +21,16 @@
       "reportWorkflowStatus": true,
       "org": "tkhalane",
       "repo": "mtnx",
-      "workflow": "create-mongo-azure.yml"
+      "workflow": "create-cosmos-azure.yml"
     },
     "trigger": "CREATE",
-    "requiredApproval": false
+    "requiredApproval": false,
+    "description": "Safely request a fully managed NoSQL and relational database for modern app development"
    },
    {
     "identifier": "create_vm_db",
     "title": "Azure: Request A New VM",
+    "icon": "Azure",
     "userInputs": {
       "properties": {
         "region": {
@@ -49,11 +52,13 @@
       "workflow": "create-vm-azure.yml"
     },
     "trigger": "CREATE",
+    "description": "Need a new VM to deploy and Application? Safely request a new VM to be provisioned for you. The VM comes preconfigured with all necessary connectivity and security patches",
     "requiredApproval": false
    },
    {
     "identifier": "create_aws_serveless",
     "title": "AWS: Request Serverless Stack (Lambda, DynamoDB,S3 Bucket)",
+    "icon": "AWS",
     "userInputs": {
       "properties": {
         "region": {
@@ -75,11 +80,13 @@
       "workflow": "create-aws-s3-dynamodb.yml"
     },
     "trigger": "CREATE",
-    "requiredApproval": false
+    "requiredApproval": false,
+    "description": "Quickly spin up a new serverless stack in AWS. This request will provision a new Lambda function, a dynamodb table, and a s3 bucket"
    },
    {
     "identifier": "create_aws_db",
     "title": "AWS: Request A New Postgres DB",
+    "icon": "AWS",
     "userInputs": {
       "properties": {
         "region": {
@@ -101,6 +108,7 @@
       "workflow": "create-aws-postgres.yml"
     },
     "trigger": "CREATE",
-    "requiredApproval": false
+    "requiredApproval": false,
+    "description": "Request a new Postgress Database for your microservices"
    }
 ]
