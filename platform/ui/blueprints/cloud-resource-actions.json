@@ -1,41 +1,21 @@
 [
    {
-    "identifier": "create_cosmos_db",
-    "title": "Azure: Request A New Cosmos DB",
+    "identifier": "create_vm_db",
+    "title": "Azure: Request A New VM",
     "icon": "Azure",
     "userInputs": {
       "properties": {
         "name": {
           "title": "name",
           "type": "string"
-        }
-      },
-      "required": [
-        "name"
-      ]
-    },
-    "invocationMethod": {
-      "type": "GITHUB",
-      "omitPayload": true,
-      "omitUserInputs": false,
-      "reportWorkflowStatus": true,
-      "org": "tkhalane",
-      "repo": "mtnx",
-      "workflow": "create-cosmos-azure.yml"
-    },
-    "trigger": "CREATE",
-    "requiredApproval": false,
-    "description": "Safely request a fully managed NoSQL and relational database for modern app development"
-   },
-   {
-    "identifier": "create_vm_db",
-    "title": "Azure: Request A New VM",
-    "icon": "Azure",
-    "userInputs": {
-      "properties": {
+        },
         "region": {
           "title": "region",
-          "type": "string"
+          "type": "string",
+          "enum": [
+            "EU",
+            "US"
+          ]
         }
       },
       "required": [
@@ -48,7 +28,7 @@
       "omitUserInputs": false,
       "reportWorkflowStatus": true,
       "org": "tkhalane",
-      "repo": "mtnx",
+      "repo": "mtnx-demo",
       "workflow": "create-vm-azure.yml"
     },
     "trigger": "CREATE",
@@ -57,13 +37,25 @@
    },
    {
     "identifier": "create_aws_serveless",
-    "title": "AWS: Request Serverless Stack (Lambda, DynamoDB,S3 Bucket)",
+    "title": "AWS: Serverless(Lambda,DynamoDB,S3)",
     "icon": "AWS",
     "userInputs": {
       "properties": {
+        "dbname": {
+          "title": "name",
+          "type": "string"
+        },
+        "s3bucketname": {
+          "title": "s3bucketname",
+          "type": "string"
+        },
         "region": {
           "title": "region",
-          "type": "string"
+          "type": "string",
+          "enum": [
+            "EU",
+            "US"
+          ]
         }
       },
       "required": [
@@ -76,7 +68,7 @@
       "omitUserInputs": false,
       "reportWorkflowStatus": true,
       "org": "tkhalane",
-      "repo": "mtnx",
+      "repo": "mtnx-demo",
       "workflow": "create-aws-s3-dynamodb.yml"
     },
     "trigger": "CREATE",
@@ -89,13 +81,26 @@
     "icon": "Azure",
     "userInputs": {
       "properties": {
-        "region": {
-          "title": "region",
+        "name": {
+          "title": "name",
+          "type": "string"
+        },
+        "version": {
+          "title": "version",
+          "type": "string",
+          "enum": [
+            "11",
+            "12"
+          ]
+        },
+        "storageGB": {
+          "title": "storageGB",
           "type": "string"
         }
       },
       "required": [
-        "region"
+        "version",
+        "name"
       ]
     },
     "invocationMethod": {
@@ -104,7 +109,7 @@
       "omitUserInputs": false,
       "reportWorkflowStatus": true,
       "org": "tkhalane",
-      "repo": "mtnx",
+      "repo": "mtnx-demo",
       "workflow": "create-aws-postgres.yml"
     },
     "trigger": "CREATE",
