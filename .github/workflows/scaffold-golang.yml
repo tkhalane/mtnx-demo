@@ -26,7 +26,7 @@ jobs:
           operation: PATCH_RUN
           runId: ${{ fromJson(inputs.port_payload).context.runId }}
           logMessage: "Scaffolding a new repository from Cookiecutter template 🏃‍♂️"
-      - uses: tkhalane/cookiecutter-gha@v10
+      - uses: tkhalane/cookiecutter-gha@v11
         with:
           portClientId: ${{ secrets.PORT_CLIENT_ID }}
           portClientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
