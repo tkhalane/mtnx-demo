@@ -22,28 +22,20 @@
             "blueprint": "domain",
             "format": "entity"
           },
-          "repository": {
-            "type": "string",
-            "title": "Repository",
-            "pattern": "[a-zA-Z0-9]",
-            "description": "Choose the name of the repository",
-            "default": "port-microservice-demo-"
-          },
           "language": {
             "type": "string",
             "title": "Language",
             "enum": [
-              "React",
+              "Angular",
               "Node",
-              "GO",
-              "Python"
+              "Java"
             ],
             "description": "Choose the type of service to create"
           },
           "SDK": {
             "type": "string",
             "enum": {
-              "jqQuery": "if .form.language == \"Node\" then [\"Node 16\", \"Node 18\"] elif .form.language == \"Python\" then [\"Python 3.8\", \"Python 3.9\"] elif .form.language == \"GO\" then [\"Go 1.16\", \"Go 1.17\"] elif .form.language == \"React\" then [\"React 17.0.1\", \"React 18.0.0\"] else [] end"
+              "jqQuery": "if .form.language == \"Node\" then [\"Node 16\", \"Node 18\"] elif .form.language == \"Java\" then [\"JDK 16\", \"JDK 17\"] elif .form.language == \"Angular\" then [\"Angular 14\", \"Angular 15\"] else [] end"
             },
             "dependsOn": [
               "language"
@@ -55,19 +47,12 @@
             "enum": [
               "REST API",
               "GraphQL",
-              "gRPC",
-              "NATS",
-              "Message Queue",
-              "WebSocket"
+              "gRPC"
             ]
           },
           "db": {
             "type": "string",
             "title": "Database Name"
-          },
-          "queue": {
-            "type": "string",
-            "title": "Queue Name"
           },
           "replicaCount": {
             "type": "number",
@@ -89,8 +74,13 @@
         ]
       },
       "invocationMethod": {
-        "type": "WEBHOOK",
-        "url": "https://demo.getport.io:3006/api/createService"
+        "type": "GITHUB",
+        "omitPayload": false,
+        "omitUserInputs": true,
+        "reportWorkflowStatus": true,
+        "org": "tkhalane",
+        "repo": "mtnx-demo",
+        "workflow": "scaffold-golang.yml"
       },
       "trigger": "CREATE",
       "description": "Quickly and easily set up the foundation for a new service. Get a pre-configured starting point that is ready for you to begin building upon."

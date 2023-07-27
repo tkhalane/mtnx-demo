@@ -2,7 +2,7 @@
   title: MTNX Recharge
   team: []
   icon: DefaultBlueprint
-  blueprint: service
+  blueprint: service 
   properties:
     language: GO
     monitor-links: [
