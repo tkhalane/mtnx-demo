@@ -1,32 +1,17 @@
-name: Create a cluster
+name: Create a vm in azure
 on:
   workflow_dispatch:
     inputs:
       name:
         required: true
-        description: "The name of the cluster"
-      provider:
+        description: "The name of the vm"
+      region:
         required: true
-        description: "The provider where the cluster is hosted"
-        default: "civo"
-      cluster:
-        required: true
-        description: "The type of the cluster"
-        default: "ck-all"
-      node-size:
-        required: true
-        description: "The size of the nodes"
-        default: "small"
-      min-node-count:
-        required: true
-        description: "The minimun number of nodes (autoscaler might increase this number)"
-        default: "1"
+        description: "The region where the vm is hosted"
+
 env:
   name: ${{ inputs.name }}
-  provider: ${{ inputs.provider }}
-  cluster: ${{ inputs.cluster }}
-  node-size: ${{ inputs.node-size }}
-  min-node-count: ${{ inputs.min-node-count }}
+  region: ${{ inputs.region }}
 jobs:
   deploy-app:
     runs-on: ubuntu-latest
@@ -35,16 +20,16 @@ jobs:
         with:
           persist-credentials: false
           fetch-depth: 0
-      - name: Create cluster
+      - name: Create VM
         run: |
-          chmod +x platform/helpers/create-cluster.sh
-          ./platform/helpers/create-cluster.sh ${{ env.name }} ${{ env.provider }} ${{ env.cluster }} ${{ env.node-size }} ${{ env.min-node-count }}
+          chmod +x platform/helpers/create-vm-azure.sh
+          ./platform/helpers/create-vm-azure.sh ${{ env.name }} ${{ env.region }}
       - name: Commit changes
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add .
-          git commit -m "Create cluster ${{ env.name }}"
+          git commit -m "Create vm in azure ${{ env.name }}"
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:

@@ -1,12 +1,12 @@
-apiVersion: innoq.com/v1alpha1
+apiVersion: mtnx.com/v1alpha1
 kind: DatabaseClaim
 metadata:
-  name: my-db
-  namespace: default
+  name: NAME
+  namespace: infra
 spec:
   parameters:
-    storageGB: 20
-    version: "11"
+    storageGB: SIZE
+    version: 11
   writeConnectionSecretToRef:
     name: db-conn
 

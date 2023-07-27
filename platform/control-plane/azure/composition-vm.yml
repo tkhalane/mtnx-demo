@@ -4,7 +4,7 @@ metadata:
   name: crossplane-quickstart-vm-with-network
 spec:
   compositeTypeRef:
-    apiVersion: custom-api.example.org/v1alpha1
+    apiVersion: mtnx.com/v1alpha1
     kind: XVirtualMachine
   resources:
     - name: quickstart-vm

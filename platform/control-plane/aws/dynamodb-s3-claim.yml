@@ -1,7 +1,7 @@
-apiVersion: custom-api.example.org/v1alpha1
+apiVersion: mtnx.com/v1alpha1
 kind: custom-database
 metadata:
-  name: claimed-eu-database
+  name: NAME
   namespace: test
 spec:
-  region: "EU"
+  region: REGION

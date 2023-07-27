@@ -1,7 +1,0 @@
-apiVersion: custom-api.example.org/v1alpha1
-kind: VirtualMachine
-metadata:
-  name: claimed-eu-virtualmachine
-  namespace: test
-spec:
-  region: "EU"
