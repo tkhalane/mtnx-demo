@@ -67,7 +67,7 @@ terraform plan --var-file="ctrl-plane-variables.tfvars"
 terraform apply \
     --var k8s_version=$K8S_VERSION
 
-az aks get-credentials --admin --name controlplane --resource-group platform-engineering-sg
+az aks get-credentials --admin --name controlplane --resource-group platform-engineering-rg
 
 # config in /Users/tiisetsokhalane/.kube/config
 # other options
@@ -95,8 +95,7 @@ cd ../..
 # Deploy Ingress Controller #
 #############################
 
-kubectl apply \
-    --filename https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.0/deploy/static/provider/cloud/deploy.yaml
+kubectl apply  --filename https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.8.0/deploy/static/provider/cloud/deploy.yaml
 
 export INGRESS_HOST=$(kubectl \
     --namespace ingress-nginx \
@@ -149,11 +148,11 @@ kubectl create namespace argocd
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
-# password = KuT9MLefVE8IZoNe replaced with Password01#
+# password = 0KY0eDqH-x-oGWpk replaced with Password01#
 #In order to access the server UI you have the following options:
 
 #1. 
-kubectl port-forward service/argo-cd-argocd-server -n argocd 8080:443
+kubectl port-forward service/argocd-server -n argocd 8080:443
 
 
 
@@ -167,11 +166,14 @@ kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}
 kubectl get svc argocd-server -n argocd -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
 
 https://20.231.250.3/settings
+https://20.240.22.241/settings the IP is external IP of the argo cd server
 # after installing argocd via brew, and running the above, logged in with
-export LB_HOST=above ip
+export LB_HOST=20.240.22.241
 argocd login --insecure --username admin --password Password01# --grpc-web argocd.$LB_HOST.nip.io
 # to deploy from git
-argocd app create randmeth-campaigns --repo https://github.com/tkhalane/mtnx-demo.git --path helm --dest-server https://kubernetes.default.svc --dest-namespace mtnx
+argocd app create mtnx-recharge --repo https://github.com/tkhalane/mtnx-demo.git --path helm --dest-server https://kubernetes.default.svc --dest-namespace mtnx-apps
+
+
 
 #azure devops quirks
 # used this token to create a repository on argocd ui following this https://argo-cd.readthedocs.io/en/stable/user-guide/private-repositories/

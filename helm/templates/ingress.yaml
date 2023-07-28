@@ -1,8 +1,8 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: mtnx-demo
-  namespace: mtnx
+  name: mtnx-recharge
+  namespace: mtnx-apps
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
@@ -15,7 +15,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: mtnx-demo
+                name: mtnx-recharge
                 port:
                   number: 8080
 

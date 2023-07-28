@@ -35,7 +35,7 @@ data "azurerm_subscription" "main" {}
 
 resource "null_resource" "kubeconfig" {
   provisioner "local-exec" {
-    command = "KUBECONFIG=$PWD/kubeconfig az aks get-credentials --name ${var.cluster_name} --resource-group platform-engineering-sg --file $PWD/kubeconfig"
+    command = "KUBECONFIG=$PWD/kubeconfig az aks get-credentials --name ${var.cluster_name} --resource-group ${var.resource_group} --file $PWD/kubeconfig"
   }
   depends_on = [
     azurerm_kubernetes_cluster.main,

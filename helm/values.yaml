@@ -3,7 +3,7 @@ image:
   repository: tkhalane/mtnx-demo
   pullPolicy: Always
   tag: 8f6a6416b2f23199a000a541b19432edff9b2b5c
-fullnameOverride: mtnx-demo
+fullnameOverride: mtnx-recharge
 serviceAccount:
   create: true
   annotations: {}

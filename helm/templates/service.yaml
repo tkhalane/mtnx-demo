@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: mtnx-demo
-  namespace: mtnx
+  name: mtnx-recharge
+  namespace: mtnx-apps
 spec:
   type: LoadBalancer
   selector:
-    app: mtnx-demo
+    app: mtnx-recharge
   ports:
     - nodePort: 31479
       port: 8080

@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+    environment: "false"
+  name: mtnx-infra
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+    environment: "false"
+  name: mtnx-apps

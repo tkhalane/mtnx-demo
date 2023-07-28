@@ -1,15 +1,16 @@
 provider "azurerm" {
-  features {}
-}
-
-terraform {
-  backend "azurerm" {
-    resource_group_name  = "platform-engineering-sg"
-    storage_account_name = "platformengineeringsa" 
-    container_name       = "platformengineeringcnt"
-    key                  = "terraform.tfstate"
+  features {
   }
 }
+
+# terraform {
+#   backend "azurerm" {
+#     resource_group_name = "platform-engineering-sg"
+#     # storage_account_name = "platformengineeringsa"
+#     # container_name = "platformengineeringcnt"
+#     key = "terraform.tfstate"
+#   }
+# }
 
 resource "azurerm_kubernetes_cluster" "main" {
   name                = var.cluster_name
@@ -29,22 +30,22 @@ resource "azurerm_kubernetes_cluster" "main" {
   }
 }
 
-# resource "azurerm_storage_account" "state" {
-#   name                     = var.storage_account
-#   resource_group_name      = var.resource_group
-#   location                 = var.region
-#   account_tier             = "Standard"
-#   account_replication_type = "LRS"
-#   # allow_blob_public_access = true
-# }
+resource "azurerm_storage_account" "state" {
+  name                     = var.storage_account
+  resource_group_name      = var.resource_group
+  location                 = var.region
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
+  # allow_blob_public_access = true
+}
 
-# resource "azurerm_storage_container" "state" {
-#   name                  = var.container_name
-#   storage_account_name  = azurerm_storage_account.state.name
-#   container_access_type = "blob"
-# }
+resource "azurerm_storage_container" "state" {
+  name                  = var.container_name
+  storage_account_name  = azurerm_storage_account.state.name
+  container_access_type = "blob"
+}
 
-# resource "azurerm_resource_group" "main" {
-#   name     = var.resource_group != "" ? var.resource_group : "${random_string.main.result}"
-#   location = var.region
-# }
+resource "azurerm_resource_group" "main" {
+  name     = var.resource_group != "" ? var.resource_group : "${random_string.main.result}"
+  location = var.region
+}

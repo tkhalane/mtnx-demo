@@ -3,12 +3,12 @@ kind: Deployment
 metadata:
   name: {{ include "helm.fullname" .}}
   labels:
-    app: mtnx-demo
-  namespace: mtnx
+    app: mtnx-recharge
+  namespace: mtnx-apps
 spec:
   selector:
     matchLabels:
-      app: mtnx-demo
+      app: mtnx-recharge
   replicas: {{.Values.replicaCount}}
   strategy:
     rollingUpdate:
@@ -18,7 +18,7 @@ spec:
   template:
     metadata:
       labels:
-        app: mtnx-demo
+        app: mtnx-recharge
     spec:
       containers:
         - name: {{ include "helm.fullname" .}}
