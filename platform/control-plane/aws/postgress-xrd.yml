@@ -32,7 +32,7 @@ spec:
                 type: object
                 properties:
                   storageGB:
-                    type: integer
+                    type: string
                   version:
                     type: string
                     enum:
