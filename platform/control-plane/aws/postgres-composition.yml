@@ -1,11 +1,11 @@
 apiVersion: apiextensions.crossplane.io/v1
 kind: Composition
 metadata:
-  name: xdatabases.aws.innoq.com
+  name: xdatabases.aws.mtnx.com
 spec:
   writeConnectionSecretsToNamespace: crossplane-system
   compositeTypeRef:
-    apiVersion: innoq.com/v1alpha1
+    apiVersion: mtnx.com/v1alpha1
     kind: XDatabase
   resources:
   - name: rdsinstance

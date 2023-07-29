@@ -1,4 +1,4 @@
-apiVersion: innoq.com/v1alpha1
+apiVersion: mtnx.com/v1alpha1
 kind: DatabaseClaim
 metadata:
   name: my-db

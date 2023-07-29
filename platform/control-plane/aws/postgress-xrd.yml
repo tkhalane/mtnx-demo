@@ -1,14 +1,14 @@
 apiVersion: apiextensions.crossplane.io/v1
 kind: CompositeResourceDefinition
 metadata:
-  name: xdatabases.innoq.com
+  name: xdatabases.mtnx.com
 spec:
-  group: innoq.com
+  group: mtnx.com
   names:
     kind: XDatabase
     plural: xdatabases
   defaultCompositionRef:
-    name: xdatabases.aws.innoq.com
+    name: xdatabases.aws.mtnx.com
   claimNames:
     kind: DatabaseClaim
     plural: databaseclaims
