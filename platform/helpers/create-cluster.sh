@@ -4,7 +4,7 @@ CLUSTER=$3
 NODE_SIZE=$4
 MIN_NODE_COUNT=$5
 
-FILE_PATH=platform/gitops/${NAME}-cluster.yaml
+FILE_PATH=platform/resources/${NAME}-cluster.yaml
 
 cp platform/api/cluster-template.yaml $FILE_PATH
 yq --inplace ".metadata.name = \"${NAME}\"" $FILE_PATH
