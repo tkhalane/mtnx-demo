@@ -5,7 +5,6 @@ metadata:
   namespace: mtnx-apps
 spec:
   parameters:
-    storageGB: SIZE
     version: VERSION
   writeConnectionSecretToRef:
     name: db-conn
