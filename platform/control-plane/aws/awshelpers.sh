@@ -1,8 +1,8 @@
 # start
 
-az account set --subscription 85933884-f6aa-4035-a09c-03e9776d31cd
-az aks get-credentials --admin --name controlplane --resource-group platform-engineering-sg
-kubectl apply  --filename https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.8.0/deploy/static/provider/cloud/deploy.yaml
+# az account set --subscription 85933884-f6aa-4035-a09c-03e9776d31cd
+# az aks get-credentials --admin --name controlplane --resource-group platform-engineering-sg
+# kubectl apply  --filename https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.8.0/deploy/static/provider/cloud/deploy.yaml
 
 
 helm repo add \
@@ -26,7 +26,7 @@ crossplane-stable/crossplane \
 kubectl api-resources  | grep crossplane
 
 # 1) install provider
-kubectl apply -f aws-provider.yml
+kubectl apply -f aws/aws-provider.yml
 # 2) Verify the provider installed 
 kubectl get providers
 # 3) View installed CRDs from the Provider
