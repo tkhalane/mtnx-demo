@@ -5,10 +5,6 @@ on:
       name:
         required: true
         description: "The name of the postgres db"
-      storageGB:
-        required: false
-        description: "The size in GB"
-        default: "20"
       version:
         type: string
         required: true
@@ -16,7 +12,7 @@ on:
         default: "11"
 env:
   name: ${{ inputs.name }}
-  storageGB: ${{ inputs.storageGB }}
+  storageGB: 20
   version: ${{ inputs.version }}
 jobs:
   deploy-app:
