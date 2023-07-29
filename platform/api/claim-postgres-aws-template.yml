@@ -2,7 +2,7 @@ apiVersion: mtnx.com/v1alpha1
 kind: DatabaseClaim
 metadata:
   name: NAME
-  namespace: infra
+  namespace: mtnx-apps
 spec:
   parameters:
     storageGB: SIZE

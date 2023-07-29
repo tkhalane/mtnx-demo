@@ -3,7 +3,7 @@ apiVersion: mtnx.com/v1alpha1
 kind: ClusterClaim
 metadata:
   name: NAME
-  namespace: infra
+  namespace: mtnx-apps
 spec:
   id: NAME
   compositionSelector:

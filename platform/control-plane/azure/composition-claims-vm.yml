@@ -2,6 +2,6 @@ apiVersion: mtnx.com/v1alpha1
 kind: VirtualMachine
 metadata:
   name: NAME
-  namespace: infra
+  namespace: mtnx-apps
 spec:
   region: REGION
