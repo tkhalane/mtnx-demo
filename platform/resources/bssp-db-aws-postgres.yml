@@ -1,0 +1,11 @@
+apiVersion: mtnx.com/v1alpha1
+kind: DatabaseClaim
+metadata:
+  name: bssp-db
+  namespace: mtnx-apps
+spec:
+  parameters:
+    version: ""
+  writeConnectionSecretToRef:
+    name: db-conn
+#The developer can only set the storage size and the engine version.
