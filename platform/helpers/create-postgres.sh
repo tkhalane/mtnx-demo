@@ -1,6 +1,5 @@
 NAME=$1
-STORAGEGB=$2
-VERSION=$3
+VERSION=$2
 
 FILE_PATH=platform/resources/${NAME}-aws-postgres.yml
 
