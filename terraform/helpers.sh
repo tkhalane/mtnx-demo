@@ -171,8 +171,10 @@ https://20.240.22.241/settings the IP is external IP of the argo cd server
 export LB_HOST=20.240.22.241
 argocd login --insecure --username admin --password Password01# --grpc-web argocd.$LB_HOST.nip.io
 # to deploy from git
-argocd app create mtnx-recharge --repo https://github.com/tkhalane/mtnx-demo.git --path helm --dest-server https://kubernetes.default.svc --dest-namespace mtnx-apps
-
+argocd app create mtnx-recharge --repo https://github.com/tkhalane/mtnx-demo.git --path helm \
+ --dest-server https://kubernetes.default.svc --dest-namespace mtnx-apps --project mtnx-apps
+argocd app create mtnx-platform --repo https://github.com/tkhalane/mtnx-demo.git --path platform/resources \
+ --dest-server https://kubernetes.default.svc --dest-namespace mtnx-infra --project mtnx-infra
 
 
 #azure devops quirks

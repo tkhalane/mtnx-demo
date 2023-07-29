@@ -24,14 +24,27 @@ jobs:
         run: |
           chmod +x platform/helpers/create-vm-azure.sh
           ./platform/helpers/create-vm-azure.sh ${{ env.name }} ${{ env.region }}
-      - name: Commit changes
-        run: |
-          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add .
-          git commit -m "Create vm in azure ${{ env.name }}"
-      - name: Push changes
-        uses: ad-m/github-push-action@master
+      # - name: Commit changes
+      #   run: |
+      #     git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      #     git config --local user.name "github-actions[bot]"
+      #     git add .
+      #     git commit -m "Create vm in azure ${{ env.name }}"
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v5
         with:
-          github_token: ${{ secrets.ORG_TOKEN }}
-          branch: ${{ github.ref }}
+          token: ${{ secrets.ORG_TOKEN }}
+          commit-message: New VM Request from Devs
+          committer: GitHub <noreply@github.com>
+          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+          signoff: false
+          branch: azure-vm-request-${{ env.name }}
+          delete-branch: true
+          title: "New VM Request"
+
+      # - name: Push changes
+      #   uses: ad-m/github-push-action@master
+      #   with:
+      #     github_token: ${{ secrets.ORG_TOKEN }}
+      #     branch: ${{ github.ref }}
