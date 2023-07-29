@@ -1,5 +1,57 @@
 [
-   {
+  {
+    "identifier": "create_aws_db",
+    "title": "AWS: Request A New Postgres DB",
+    "icon": "AWS",
+    "userInputs": {
+      "properties": {
+        "name": {
+          "title": "name",
+          "type": "string"
+        },
+        "version": {
+          "icon": "DefaultProperty",
+          "title": "version",
+          "type": "string",
+          "enum": [
+            "\"11\"",
+            "\"12\""
+          ],
+          "enumColors": {
+            "\"11\"": "lightGray",
+            "\"12\"": "lightGray"
+          }
+        },
+        "storageGB": {
+          "icon": "DefaultProperty",
+          "title": "storageGB",
+          "type": "number"
+        }
+      },
+      "required": [
+        "version",
+        "name"
+      ],
+      "order": [
+        "name",
+        "version",
+        "storageGB"
+      ]
+    },
+    "invocationMethod": {
+      "type": "GITHUB",
+      "omitPayload": true,
+      "omitUserInputs": false,
+      "reportWorkflowStatus": true,
+      "org": "tkhalane",
+      "repo": "mtnx-demo",
+      "workflow": "create-aws-postgres.yml"
+    },
+    "trigger": "CREATE",
+    "description": "Request a new Postgress Database for your microservices",
+    "requiredApproval": false
+  },
+  {
     "identifier": "create_vm_db",
     "title": "Azure: Request A New VM",
     "icon": "Azure",
@@ -34,8 +86,8 @@
     "trigger": "CREATE",
     "description": "Need a new VM to deploy and Application? Safely request a new VM to be provisioned for you. The VM comes preconfigured with all necessary connectivity and security patches",
     "requiredApproval": false
-   },
-   {
+  },
+  {
     "identifier": "create_aws_serveless",
     "title": "AWS: Serverless(DynamoDB,S3)",
     "icon": "AWS",
@@ -72,48 +124,7 @@
       "workflow": "create-aws-s3-dynamodb.yml"
     },
     "trigger": "CREATE",
-    "requiredApproval": false,
-    "description": "Quickly spin up a new serverless stack in AWS. This request will provision a new Lambda function, a dynamodb table, and a s3 bucket"
-   },
-   {
-    "identifier": "create_aws_db",
-    "title": "AWS: Request A New Postgres DB",
-    "icon": "AWS",
-    "userInputs": {
-      "properties": {
-        "name": {
-          "title": "name",
-          "type": "string"
-        },
-        "version": {
-          "title": "version",
-          "type": "string",
-          "enum": [
-            "11",
-            "12"
-          ]
-        },
-        "storageGB": {
-          "title": "storageGB",
-          "type": "string"
-        }
-      },
-      "required": [
-        "version",
-        "name"
-      ]
-    },
-    "invocationMethod": {
-      "type": "GITHUB",
-      "omitPayload": true,
-      "omitUserInputs": false,
-      "reportWorkflowStatus": true,
-      "org": "tkhalane",
-      "repo": "mtnx-demo",
-      "workflow": "create-aws-postgres.yml"
-    },
-    "trigger": "CREATE",
-    "requiredApproval": false,
-    "description": "Request a new Postgress Database for your microservices"
-   }
+    "description": "Quickly spin up a new serverless stack in AWS. This request will provision a new Lambda function, a dynamodb table, and a s3 bucket",
+    "requiredApproval": false
+  }
 ]

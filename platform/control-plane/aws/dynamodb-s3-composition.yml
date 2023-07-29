@@ -14,7 +14,7 @@ spec:
         apiVersion: s3.aws.upbound.io/v1beta1
         kind: Bucket
         metadata:
-          name: crossplane-quickstart-bucket
+          name: mtnx-apps-bucket
         spec:
           forProvider:
             name: default
@@ -32,7 +32,7 @@ spec:
         apiVersion: dynamodb.aws.upbound.io/v1beta1
         kind: Table
         metadata:
-          name: crossplane-quickstart-database
+          name: mtnx-apps-database
         spec:
           forProvider:
             writeCapacity: 1
@@ -48,5 +48,5 @@ spec:
           transforms:
             - type: map
               map: 
-                EU: "eu-north-1"
+                EU: "eu-west-1"
                 US: "us-east-2"
