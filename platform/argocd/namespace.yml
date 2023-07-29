@@ -4,7 +4,7 @@ kind: Namespace
 metadata:
   annotations:
     environment: "false"
-  name: mtnx-infra
+  name: mtnx-platform
 ---
 apiVersion: v1
 kind: Namespace
@@ -12,3 +12,10 @@ metadata:
   annotations:
     environment: "false"
   name: mtnx-apps
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+    environment: "false"
+  name: mtnx-cloudresources

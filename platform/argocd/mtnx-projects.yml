@@ -1,0 +1,16 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: mtnx-apps
+  namespace: mtnx-apps
+spec:
+  description: "MTNX GitOps Projects"
+  destinations:
+    - namespace: argocd
+      server: https://kubernetes.default.svc  # Replace with your cluster's API server URL
+  sourceRepos:
+    - 'https://github.com/tkhalane/mtnx-demo' # Add the repositories you want to sync in this project
+  clusterResourceWhitelist:
+    - group: ""  # Allow all Kubernetes core resources
+      kind: ""

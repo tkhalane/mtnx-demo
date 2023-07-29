@@ -1,0 +1,32 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mtnx-recharge
+spec:
+  destination:
+    name: ''
+    namespace: mtnx-apps
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: helm
+    repoURL: 'https://github.com/tkhalane/mtnx-demo'
+    targetRevision: HEAD
+  sources: []
+  project: mtnx-apps
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mtnx-platform
+spec:
+  destination:
+    name: ''
+    namespace: mtnx-cloudresources
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: platform/resources
+    repoURL: 'https://github.com/tkhalane/mtnx-demo'
+    targetRevision: HEAD
+  sources: []
+  project: mtnx-apps

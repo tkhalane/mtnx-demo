@@ -131,13 +131,6 @@ az aks show --resource-group <resource-group-name> --name <aks-cluster-name> --q
 # If you have set up an Ingress resource without a Load Balancer service, you can use port-forwarding to access your application. Run the following command in your terminal:
 kubectl port-forward service/myapp-service <local-port>:<target-port>
 
-# to view the nginx configuration
-
-kubectl logs ingress-nginx-controller-86b55bb769-qb258 -n ingress-nginx
-#or
-kubectl exec -it ingress-nginx-controller-86b55bb769-qb258 -n ingress-nginx -- /bin/sh
-cd /etc/nginx/
-cat nginx.conf
 
 http://20.241.133.148:8080/api/v1/campaigns
 
@@ -147,12 +140,22 @@ helm repo add argo https://argoproj.github.io/argo-helm
 kubectl create namespace argocd
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
+# to view the nginx configuration
+
+kubectl logs ingress-nginx-controller-86b55bb769-qb258 -n ingress-nginx
+#or
+kubectl exec -it ingress-nginx-controller-86b55bb769-qb258 -n ingress-nginx -- /bin/sh
+cd /etc/nginx/
+cat nginx.conf
+
+
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
-# password = 0KY0eDqH-x-oGWpk replaced with Password01#
+# password = WDK8WxYmNs28aNZp replaced with Password01#
 #In order to access the server UI you have the following options:
 
 #1. 
 kubectl port-forward service/argocd-server -n argocd 8080:443
+
 
 
 
@@ -165,17 +168,23 @@ kubectl port-forward service/argocd-server -n argocd 8080:443
 kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
 kubectl get svc argocd-server -n argocd -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
 
+
 https://20.231.250.3/settings
-https://20.240.22.241/settings the IP is external IP of the argo cd server
+https://20.240.11.145/settings the IP is external IP of the argo cd server
 # after installing argocd via brew, and running the above, logged in with
 export LB_HOST=20.240.22.241
-argocd login --insecure --username admin --password Password01# --grpc-web argocd.$LB_HOST.nip.io
-# to deploy from git
-argocd app create mtnx-recharge --repo https://github.com/tkhalane/mtnx-demo.git --path helm \
- --dest-server https://kubernetes.default.svc --dest-namespace mtnx-apps --project mtnx-apps
-argocd app create mtnx-platform --repo https://github.com/tkhalane/mtnx-demo.git --path platform/resources \
- --dest-server https://kubernetes.default.svc --dest-namespace mtnx-infra --project mtnx-infra
+argocd login --insecure --username admin --password Password01# --grpc-web argocd.localhost.nip.io
 
+
+# to deploy from git
+argocd app project mtnx-apps --repo https://github.com/tkhalane/mtnx-demo.git --dest-server https://kubernetes.default.svc 
+
+argocd app create mtnx-recharge --repo https://github.com/tkhalane/mtnx-demo.git --path helm --dest-server https://kubernetes.default.svc --dest-namespace mtnx-apps --project mtnx-apps
+argocd app create mtnx-platform --repo https://github.com/tkhalane/mtnx-demo.git --path platform/resources --dest-server https://kubernetes.default.svc --dest-namespace mtnx-apps --project mtnx-apps
+
+
+# to add AKS cluster to argocd
+argocd cluster add civoplatformcluster
 
 #azure devops quirks
 # used this token to create a repository on argocd ui following this https://argo-cd.readthedocs.io/en/stable/user-guide/private-repositories/
@@ -193,3 +202,6 @@ argocd app create randmeth-campaigns \
 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
 
 git remote set-url origin https://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@github.com/tkhalane/randmeth-campaigns.git
+
+controlplanesub
+#civoplatformcluster
