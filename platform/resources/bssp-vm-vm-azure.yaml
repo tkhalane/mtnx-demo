@@ -1,0 +1,7 @@
+apiVersion: mtnx.com/v1alpha1
+kind: VirtualMachine
+metadata:
+  name: bssp-vm
+  namespace: mtnx-apps
+spec:
+  region: EU
