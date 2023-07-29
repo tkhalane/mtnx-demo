@@ -20,6 +20,7 @@ spec:
           engine: postgres
           skipFinalSnapshotBeforeDeletion: true
           publiclyAccessible: true
+          allocatedStorage: 20
         writeConnectionSecretToRef:
           namespace: crossplane-system
     patches:
@@ -29,8 +30,6 @@ spec:
       - type: string
         string:
           fmt: "%s-postgresql"
-    - fromFieldPath: "spec.parameters.storageGB"
-      toFieldPath: "spec.forProvider.allocatedStorage"
     - fromFieldPath: "spec.parameters.version"
       toFieldPath: "spec.forProvider.engineVersion"
     connectionDetails:

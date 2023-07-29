@@ -21,11 +21,6 @@
             "\"11\"": "lightGray",
             "\"12\"": "lightGray"
           }
-        },
-        "storageGB": {
-          "icon": "DefaultProperty",
-          "title": "storageGB",
-          "type": "number"
         }
       },
       "required": [
@@ -34,8 +29,7 @@
       ],
       "order": [
         "name",
-        "version",
-        "storageGB"
+        "version"
       ]
     },
     "invocationMethod": {

@@ -31,8 +31,6 @@ spec:
               parameters:
                 type: object
                 properties:
-                  storageGB:
-                    type: integer
                   version:
                     type: string
                     enum:
@@ -40,6 +38,6 @@ spec:
                     - "12"
                     default: "12"
                 required:
-                - storageGB
+                - version
             required:
             - parameters
