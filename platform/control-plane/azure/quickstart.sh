@@ -11,7 +11,7 @@ kubectl get crds
 
 ### FOR AZURE ###
 kubectl apply -f azure/kConfig.yml 
-kubectl apply -f provider-config.yml
+
 kubectl get providers
 
 # create service principal, and store output in azure-credentials.json
@@ -19,7 +19,7 @@ az login
 az ad sp create-for-rbac \
 --sdk-auth \
 --role Owner \
---scopes /subscriptions/a6a80a92-beac-4723-8a08-46e2e7da64f9
+--scopes /subscriptions/85933884-f6aa-4035-a09c-03e9776d31cd
 
 # create k8s secret
 
