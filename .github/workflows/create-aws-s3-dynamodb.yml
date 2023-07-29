@@ -27,7 +27,7 @@ jobs:
       - name: Create AWS Serverless
         run: |
           chmod +x platform/helpers/create-aws-serverless.sh
-          ./platform/helpers/create-aws-serverless.sh ${{ env.name }} ${{ env.s3bucketname }} ${{ env.region }}
+          ./platform/helpers/create-aws-serverless.sh ${{ env.name }} ${{ env.region }} ${{ env.s3bucketname }}
       - name: Commit changes
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"

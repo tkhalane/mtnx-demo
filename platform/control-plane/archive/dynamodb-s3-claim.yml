@@ -5,3 +5,4 @@ metadata:
   namespace: test
 spec:
   region: REGION
+  
