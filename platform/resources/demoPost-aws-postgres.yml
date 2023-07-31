@@ -1,0 +1,11 @@
+apiVersion: mtnx.com/v1alpha1
+kind: DatabaseClaim
+metadata:
+  name: demoPost
+  namespace: mtnx-apps
+spec:
+  parameters:
+    version: "11"
+  writeConnectionSecretToRef:
+    name: db-conn
+#The developer can only set the storage size and the engine version.
