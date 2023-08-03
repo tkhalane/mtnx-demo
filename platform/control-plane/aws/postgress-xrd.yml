@@ -7,8 +7,6 @@ spec:
   names:
     kind: XDatabase
     plural: xdatabases
-  defaultCompositionRef:
-    name: xdatabases.aws.mtnx.com
   claimNames:
     kind: DatabaseClaim
     plural: databaseclaims

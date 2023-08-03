@@ -1,7 +1,7 @@
 apiVersion: apiextensions.crossplane.io/v1
 kind: Composition
 metadata:
-  name: xdatabases.aws.mtnx.com
+  name: postgres-xdatabases
 spec:
   writeConnectionSecretsToNamespace: crossplane-system
   compositeTypeRef:
