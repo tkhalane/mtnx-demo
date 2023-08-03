@@ -10,7 +10,7 @@ spec:
   resources:
   - name: rdsinstance
     base:
-      apiVersion: database.aws.crossplane.io/v1beta1
+      apiVersion: rds.aws.upbound.io/v1beta1
       kind: RDSInstance
       spec:
         forProvider:
