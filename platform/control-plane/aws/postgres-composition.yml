@@ -11,7 +11,7 @@ spec:
   - name: rdsinstance
     base:
       apiVersion: rds.aws.upbound.io/v1beta1
-      kind: RDSInstance
+      kind: Instance
       spec:
         forProvider:
           region: eu-central-1
