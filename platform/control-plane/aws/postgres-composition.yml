@@ -1,12 +1,12 @@
 apiVersion: apiextensions.crossplane.io/v1
 kind: Composition
 metadata:
-  name: postgres-xdatabases
+  name: xpostgressqlinstance.aws.mtnx.com
 spec:
   writeConnectionSecretsToNamespace: crossplane-system
   compositeTypeRef:
     apiVersion: mtnx.com/v1alpha1
-    kind: XDatabase
+    kind: XPostgreSQLInstance
   resources:
   - name: rdsinstance
     base:
@@ -18,9 +18,14 @@ spec:
           dbInstanceClass: db.t2.small
           masterUsername: masteruser
           engine: postgres
+          engineVersion: "12"
           skipFinalSnapshotBeforeDeletion: true
-          publiclyAccessible: true
+          publiclyAccessible: false
           allocatedStorage: 20
+          autoGeneratePassword: true
+          passwordSecretRef:
+            namespace: crossplane-system
+            key: password
         writeConnectionSecretToRef:
           namespace: crossplane-system
     patches:
@@ -33,7 +38,11 @@ spec:
     - fromFieldPath: "spec.parameters.version"
       toFieldPath: "spec.forProvider.engineVersion"
     connectionDetails:
-    - fromConnectionSecretKey: username
-    - fromConnectionSecretKey: password
-    - fromConnectionSecretKey: endpoint
-    - fromConnectionSecretKey: port
+        - fromFieldPath: "status.atProvider.endpoint"
+          name: endpoint
+        - fromFieldPath: "status.atProvider.address"
+          name: host
+        - fromFieldPath: "spec.forProvider.username"
+          name: username
+        - fromConnectionSecretKey: "attribute.password"
+          name: password

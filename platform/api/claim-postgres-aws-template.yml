@@ -1,5 +1,5 @@
 apiVersion: mtnx.com/v1alpha1
-kind: DatabaseClaim
+kind: PostgreSQLInstance
 metadata:
   name: NAME
   namespace: mtnx-apps
@@ -8,5 +8,7 @@ spec:
     version: VERSION
   writeConnectionSecretToRef:
     name: db-conn
+
+
 
 #The developer can only set the storage size and the engine version.
