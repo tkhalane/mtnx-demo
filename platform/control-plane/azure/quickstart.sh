@@ -10,7 +10,7 @@ kubectl get crds
 
 
 ### FOR AZURE ###
-kubectl apply -f azure/kConfig.yml 
+kubectl apply -f azure/azure-providers.yml 
 
 kubectl get providers
 
@@ -27,7 +27,7 @@ kubectl create secret generic azure-secret -n crossplane-system --from-file=cred
 
 kubectl describe secret azure-secret -n crossplane-system
 
-kubectl apply -f provider-config.yml
+kubectl apply -f azure/provider-config.yml
 
 kubectl describe linuxvirtualmachine | grep "At Provider\|Location"
 
