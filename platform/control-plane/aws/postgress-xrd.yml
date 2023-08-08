@@ -1,15 +1,12 @@
 apiVersion: apiextensions.crossplane.io/v1
 kind: CompositeResourceDefinition
 metadata:
-  name: xpostgressqlinstance.mtnx.com
+  name: postgresdbs.mtnx.com
 spec:
   group: mtnx.com
   names:
-    kind: XPostgreSQLInstance
-    plural: xpostgresqlinstances
-  claimNames:
-    kind: PostgreSQLInstance
-    plural: postgresqlinstances
+    kind: postgresdb
+    plural: postgresdbs
   connectionSecretKeys:
   - username
   - password
@@ -37,5 +34,8 @@ spec:
                     default: "12"
                 required:
                 - version
-            required:
+            required: 
             - parameters
+  claimNames:
+    kind: postgresdb
+    plural: postgresdb

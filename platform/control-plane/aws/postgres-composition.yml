@@ -1,12 +1,12 @@
 apiVersion: apiextensions.crossplane.io/v1
 kind: Composition
 metadata:
-  name: xpostgressqlinstance.aws.mtnx.com
-spec:
+  name: mtnx-postgresql
+spec: 
   writeConnectionSecretsToNamespace: crossplane-system
   compositeTypeRef:
     apiVersion: mtnx.com/v1alpha1
-    kind: XPostgreSQLInstance
+    kind: postgresdb
   resources:
   - name: rdsinstance
     base:
