@@ -3,7 +3,7 @@ kind: Composition
 metadata:
   name: mtnx-postgresql
 spec: 
-  writeConnectionSecretsToNamespace: crossplane-system
+  # writeConnectionSecretsToNamespace: crossplane-system
   compositeTypeRef:
     apiVersion: mtnx.com/v1alpha1
     kind: postgresdb
@@ -12,9 +12,11 @@ spec:
     base:
       apiVersion: rds.aws.upbound.io/v1beta1
       kind: Instance
+      metadata:
+        name: mtnx-postgresql-db
       spec:
         forProvider:
-          region: eu-central-1
+          region: "eu-north-1"
           dbInstanceClass: db.t2.small
           masterUsername: masteruser
           engine: postgres
@@ -23,11 +25,11 @@ spec:
           publiclyAccessible: false
           allocatedStorage: 20
           autoGeneratePassword: true
-          passwordSecretRef:
-            namespace: crossplane-system
-            key: password
-        writeConnectionSecretToRef:
-          namespace: crossplane-system
+          # passwordSecretRef:
+          #   namespace: crossplane-system
+          #   key: password
+        # writeConnectionSecretToRef:
+        #   namespace: crossplane-system
     patches:
     - fromFieldPath: "metadata.uid"
       toFieldPath: "spec.writeConnectionSecretToRef.name"
