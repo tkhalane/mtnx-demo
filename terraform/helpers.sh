@@ -165,19 +165,19 @@ kubectl port-forward service/argocd-server -n argocd 8080:443
 
 #2, alternatively 
 #To access the Argo CD web UI from outside the cluster, you need to expose the service.
-kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
-kubectl get svc argocd-server -n argocd -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
+kubectl patch svc argo-cd-argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
+kubectl get svc argo-cd-argocd-server  -n argocd -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
 
 
 https://20.231.250.3/settings
-https://20.240.11.145/settings the IP is external IP of the argo cd server
+https://212.2.245.214/settings the IP is external IP of the argo cd server
 # after installing argocd via brew, and running the above, logged in with
 export LB_HOST=20.240.22.241
-argocd login --insecure --username admin --password Password01# --grpc-web argocd.localhost.nip.io
+argocd login --insecure --username admin --password Password01# --grpc-web argocd.212.2.245.214.nip.io
 
 
 # to deploy from git
-argocd app project mtnx-apps --repo https://github.com/tkhalane/mtnx-demo.git --dest-server https://kubernetes.default.svc 
+
 
 argocd app create mtnx-recharge --repo https://github.com/tkhalane/mtnx-demo.git --path helm --dest-server https://kubernetes.default.svc --dest-namespace mtnx-apps --project mtnx-apps
 argocd app create mtnx-platform --repo https://github.com/tkhalane/mtnx-demo.git --path platform/resources --dest-server https://kubernetes.default.svc --dest-namespace mtnx-apps --project mtnx-apps
