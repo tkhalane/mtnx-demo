@@ -1,0 +1,10 @@
+apiVersion: mtnx.com/v1alpha1
+kind: postgresdb
+metadata:
+  name: restest
+  namespace: mtnx-apps
+spec:
+  parameters:
+    version: "11"
+  writeConnectionSecretToRef:
+    name: db-conn
