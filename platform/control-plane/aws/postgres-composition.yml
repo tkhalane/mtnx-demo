@@ -6,7 +6,7 @@ spec:
   writeConnectionSecretsToNamespace: crossplane-system
   compositeTypeRef:
     apiVersion: mtnx.com/v1alpha1
-    kind: mtnx-sqldb
+    kind: sqldatabase
   resources:
   - name: rdsinstance
     base:

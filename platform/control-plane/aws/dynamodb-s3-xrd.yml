@@ -1,9 +1,3 @@
-# The XRD group becomes the composite resource apiVersion .
-# The XRD kind is the composite resource kind
-# The XRD API spec defines the composite resource spec .
-# The XRD properties section defines the options for the composite resource spec .
-# The one option is region and it can be either EU or US .
-
 apiVersion: apiextensions.crossplane.io/v1
 kind: CompositeResourceDefinition
 metadata:
@@ -34,3 +28,4 @@ spec:
   claimNames:
     kind: custom-database
     plural: custom-databases
+ 

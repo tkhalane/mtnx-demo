@@ -1,5 +1,5 @@
 apiVersion: mtnx.com/v1alpha1
-kind: mtnx-sqldb
+kind: mtnx-sqldatabase
 metadata:
   name: NAME
   namespace: mtnx-apps
@@ -8,5 +8,4 @@ spec:
     version: VERSION
   writeConnectionSecretToRef:
     name: NAME
-    namespace: mtnx-apps
 

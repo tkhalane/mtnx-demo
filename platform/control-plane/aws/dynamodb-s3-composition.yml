@@ -1,5 +1,3 @@
-# A composite resource is actually a custom Kubernetes API type you define. The platform team controls the kind, API endpoint and version.
-# With this spec.compositeTypeRef Crossplane only allows composite resources from the API group mtnx.com that are of kind: database to use this template to create resources.
 apiVersion: apiextensions.crossplane.io/v1
 kind: Composition
 metadata:
