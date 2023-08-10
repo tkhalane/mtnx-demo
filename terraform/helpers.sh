@@ -100,7 +100,7 @@ kubectl apply  --filename https://raw.githubusercontent.com/kubernetes/ingress-n
 export INGRESS_HOST=$(kubectl \
     --namespace ingress-nginx \
     get svc ingress-nginx-controller \
-    --output jsonpath="{.status.loadBalancer.ingress[0].ip}")
+    --output jsonpath="{.status.loadBalancer.ingress.ip}")
 
 echo $INGRESS_HOST
 
@@ -150,7 +150,7 @@ cat nginx.conf
 
 
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
-# password = WDK8WxYmNs28aNZp replaced with Password01#
+# password = 76ebwkMLjhcihGiX replaced with Password01#
 #In order to access the server UI you have the following options:
 
 #1. 
@@ -174,6 +174,7 @@ https://212.2.245.214/settings the IP is external IP of the argo cd server
 # after installing argocd via brew, and running the above, logged in with
 export LB_HOST=20.240.22.241
 argocd login --insecure --username admin --password Password01# --grpc-web argocd.212.2.245.214.nip.io
+argocd login --insecure --username admin --password Password01# --grpc-web argocd.localhost.nip.io
 
 
 # to deploy from git

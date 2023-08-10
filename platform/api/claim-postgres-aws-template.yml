@@ -7,5 +7,6 @@ spec:
   parameters:
     version: VERSION
   writeConnectionSecretToRef:
-    name: db-conn
+    name: NAME
     namespace: mtnx-apps
+

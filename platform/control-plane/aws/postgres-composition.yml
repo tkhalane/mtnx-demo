@@ -3,7 +3,7 @@ kind: Composition
 metadata:
   name: mtnx-postgresql
 spec: 
-  # writeConnectionSecretsToNamespace: crossplane-system
+  writeConnectionSecretsToNamespace: crossplane-system
   compositeTypeRef:
     apiVersion: mtnx.com/v1alpha1
     kind: postgresdb
@@ -16,12 +16,12 @@ spec:
         name: mtnx-postgresql-db
       spec:
         forProvider:
-          region: "eu-north-1"
+          region: us-west-1
           # dbInstanceClass: db.t2.small
           instanceClass: db.t2.small
           masterUsername: masteruser
           engine: postgres
-          engineVersion: "12"
+          engineVersion: "13.7"
           skipFinalSnapshotBeforeDeletion: true
           publiclyAccessible: false
           allocatedStorage: 20
@@ -31,22 +31,17 @@ spec:
             name: postgres-secret
             key: password
         writeConnectionSecretToRef:
+          name: rds-postgres-consecret
           namespace: crossplane-system
     patches:
-    - fromFieldPath: "metadata.uid"
+    - fromFieldPath: "metadata.name"
       toFieldPath: "spec.writeConnectionSecretToRef.name"
       transforms:
       - type: string
         string:
           fmt: "%s-postgresql"
-    - fromFieldPath: "spec.parameters.version"
-      toFieldPath: "spec.forProvider.engineVersion"
     connectionDetails:
-        - fromFieldPath: "status.atProvider.endpoint"
-          name: endpoint
-        - fromFieldPath: "status.atProvider.address"
-          name: host
-        - fromFieldPath: "spec.forProvider.username"
-          name: username
-        - fromConnectionSecretKey: "attribute.password"
-          name: password
+        - fromConnectionSecretKey: username
+        - fromConnectionSecretKey: password
+        - fromConnectionSecretKey: endpoint
+        - fromConnectionSecretKey: port

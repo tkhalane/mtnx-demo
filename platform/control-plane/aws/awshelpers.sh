@@ -23,10 +23,12 @@ crossplane-stable/crossplane \
 --create-namespace
 
 # check api API epdoints
+kubectl get pods -n crossplane-system
+
 kubectl api-resources  | grep crossplane
 
 # 1) install provider
-kubectl apply -f aws/aws-provider.yml
+kubectl apply -f platform/control-plane/aws/aws-provider.yml
 # 2) Verify the provider installed 
 kubectl get providers
 # 3) View installed CRDs from the Provider
@@ -34,10 +36,7 @@ kubectl get providers
 # 4) generate a Kubernetes Secret from AWS key-pair and then configure the Provider to use it.
 
 
-kubectl create secret \
-generic aws-secret \
--n crossplane-system \
---from-file=creds=./masepa.txt
+kubectl create secret generic aws-secret -n crossplane-system --from-file=creds=./masepa.txt
 
 # 5)View secret
 
