@@ -1,7 +1,0 @@
-apiVersion: mtnx.com/v1alpha1
-kind: custom-database
-metadata:
-  name: arch-prep-s3-ddb
-  namespace: mtnx-apps
-spec:
-  region: EU
