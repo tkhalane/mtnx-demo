@@ -1,0 +1,36 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata:
+  name: nosqldatabases.mtnx.com
+spec:
+  group: mtnx.com
+  names:
+    kind: nosqldatabase
+    plural: nosqldatabases
+  versions:
+  - name: v1alpha1
+    served: true
+    referenceable: true
+    schema:
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            properties:
+              parameters:
+                type: object
+                properties:
+                  version:
+                    type: string
+                    enum:
+                    - "5"
+                    - "6"
+                    default: "6"
+                required:
+                - version
+            required: 
+            - parameters
+  claimNames:
+    kind: mtnx-nosqldatabase
+    plural: mtnx-nosqldatabases

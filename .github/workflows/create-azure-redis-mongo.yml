@@ -1,0 +1,37 @@
+name: Create AZURE NoSql
+on:
+  workflow_dispatch:
+    inputs:
+      dbname:
+        required: true
+        description: "The name of the db and s"
+      redisversion:
+        required: true
+        description: "The version of redis"
+env:
+  name: ${{ inputs.dbname }}
+  version: ${{ inputs.redisversion }}
+
+jobs:
+  deploy-app:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Create AWS Serverless
+        run: |
+          chmod +x platform/helpers/create-azure-redis-mongo.sh
+          ./platform/helpers/create-azure-redis-mongo.sh ${{ env.name }} ${{ env.region }} ${{ env.s3bucketname }}
+      - name: Commit changes
+        run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add .
+          git commit -m "Create redis and mongo in azure ${{ env.name }}"
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.ORG_TOKEN }}
+          branch: ${{ github.ref }}

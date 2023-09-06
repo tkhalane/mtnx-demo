@@ -1,0 +1,14 @@
+---
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: provider-azure-cosmosdb
+spec:
+  package: xpkg.upbound.io/upbound/provider-azure-cosmosdb:v0.36.0
+---
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: provider-azure-cache
+spec:
+  package: xpkg.upbound.io/upbound/provider-azure-cache:v0.36.0
