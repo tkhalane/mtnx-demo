@@ -1,0 +1,8 @@
+apiVersion: mtnx.com/v1alpha1
+kind: mtnx-cosmos-mongodb
+metadata:
+  name: via-port
+  namespace: mtnx-apps
+spec:
+  'throughput:': THROUGHPUT
+  throughput: "500"
