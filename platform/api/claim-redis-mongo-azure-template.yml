@@ -1,5 +1,5 @@
 apiVersion: mtnx.com/v1alpha1
-kind: custom-database
+kind: mtnx-nosqldatabase
 metadata:
   name: NAME
   namespace: mtnx-apps
