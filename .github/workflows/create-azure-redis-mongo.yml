@@ -6,7 +6,9 @@ on:
         required: true
         description: "The name of the db and s"
       redisversion:
+        type: string
         required: true
+        default: "6"
         description: "The version of redis"
 env:
   name: ${{ inputs.dbname }}
@@ -23,7 +25,7 @@ jobs:
       - name: Create AWS Serverless
         run: |
           chmod +x platform/helpers/create-azure-redis-mongo.sh
-          ./platform/helpers/create-azure-redis-mongo.sh ${{ env.name }} ${{ env.region }} ${{ env.s3bucketname }}
+          ./platform/helpers/create-azure-redis-mongo.sh ${{ env.name }} ${{ env.version }}
       - name: Commit changes
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
