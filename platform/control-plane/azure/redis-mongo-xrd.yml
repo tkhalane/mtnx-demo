@@ -18,19 +18,14 @@ spec:
           spec:
             type: object
             properties:
-              parameters:
-                type: object
-                properties:
-                  version:
-                    type: string
-                    enum:
-                    - "5"
-                    - "6"
-                    default: "6"
-                required:
-                - version
-            required: 
-            - parameters
+              version:
+                type: string
+                enum:
+                - "5"
+                - "6"
+                default: "6"
+            required:
+            - version
   claimNames:
     kind: mtnx-nosqldatabase
     plural: mtnx-nosqldatabases
