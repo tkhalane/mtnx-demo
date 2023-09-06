@@ -1,0 +1,10 @@
+apiVersion: cosmosdb.azure.upbound.io/v1beta1
+kind: MongoDatabase
+metadata:
+  labels:
+    mtnx.com/nosql-db: mtnid-mongo
+  name: mtnx-mongo-database
+spec:
+  forProvider:
+    accountName: mtnx-mongo
+    resourceGroupName: platform-engineering-sg

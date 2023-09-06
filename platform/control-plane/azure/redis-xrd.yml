@@ -1,0 +1,28 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata:
+  name: mtnxrediscache.mtnx.com
+spec:
+  group: mtnx.com
+  names:
+    kind: MtnxRedisCache
+    plural: mtnxrediscaches
+  versions:
+  - name: v1alpha1
+    served: true
+    referenceable: true
+    schema:
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            properties:
+              version:
+                type: string
+                default: "6"
+            required:
+            - version
+  claimNames:
+    kind: mtnx-redis-cache
+    plural: mtnx-redis-caches

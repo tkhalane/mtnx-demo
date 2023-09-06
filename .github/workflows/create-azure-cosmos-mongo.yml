@@ -1,17 +1,18 @@
-name: Create a vm in azure
+name: Create AZURE Cosmos Mongo DB
 on:
   workflow_dispatch:
     inputs:
-      name:
+      dbname:
         required: true
-        description: "The name of the vm"
-      region:
+        description: "The name of the db and s"
+      throughput:
+        type: number
         required: true
-        description: "The region where the vm is hosted"
-
+        description: "The db and collection throughput"
 env:
-  name: ${{ inputs.name }}
-  region: ${{ inputs.region }}
+  name: ${{ inputs.dbname }}
+  throughput: ${{ inputs.throughput }}
+
 jobs:
   deploy-app:
     runs-on: ubuntu-latest
@@ -20,10 +21,10 @@ jobs:
         with:
           persist-credentials: false
           fetch-depth: 0
-      - name: Create VM
+      - name: Create Azure Cosmos DB
         run: |
-          chmod +x platform/helpers/create-vm-azure.sh
-          ./platform/helpers/create-vm-azure.sh ${{ env.name }} ${{ env.region }}
+          chmod +x platform/helpers/create-azure-cosmos-mongo.sh
+          ./platform/helpers/create-azure-cosmos-mongo.sh ${{ env.name }} ${{ env.throughput }}
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v5
@@ -33,6 +34,6 @@ jobs:
           committer: GitHub <noreply@github.com>
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           signoff: false
-          branch: azure-vm-request-${{ env.name }}
+          branch: azure-cosmos-mongodb-request-${{ env.name }}
           delete-branch: true
-          title: "New VM Request"
+          title: "New Cosmos for MongoDB Request"

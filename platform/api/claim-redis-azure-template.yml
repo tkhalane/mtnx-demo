@@ -1,0 +1,7 @@
+apiVersion: mtnx.com/v1alpha1
+kind: mtnx-redis-cache
+metadata:
+  name: NAME
+  namespace: mtnx-apps
+spec:
+  version: VERSION

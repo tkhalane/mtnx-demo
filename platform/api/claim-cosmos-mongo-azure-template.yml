@@ -1,7 +1,7 @@
 apiVersion: mtnx.com/v1alpha1
-kind: mtnx-nosqldatabase
+kind: mtnx-cosmos-mongodb
 metadata:
   name: NAME
   namespace: mtnx-apps
 spec:
-  version: VERSION
+  throughput:: THROUGHPUT

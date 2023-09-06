@@ -33,5 +33,13 @@ kubectl apply -f platform/control-plane/azure/provider-config.yml
 kubectl describe linuxvirtualmachine | grep "At Provider\|Location"
 
 
+# troublshoot
+
+# check resources
+
+kubectl get managed  
+
+kubectl describe rediscache.cache.azure.upbound.io/example-secondary
+
 Unable to create application: application spec for testcross is invalid: InvalidSpecError: Unable to get cluster:
  rpc error: code = NotFound desc = cluster "controlplane-dns-rch2tfg7.hcp.swedencentral.azmk8s.io" not found

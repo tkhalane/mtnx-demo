@@ -1,10 +1,10 @@
-name: Create AZURE NoSql
+name: Create AZURE Redis
 on:
   workflow_dispatch:
     inputs:
-      dbname:
+      name:
         required: true
-        description: "The name of the db and s"
+        description: "The name of the redis cache"
       redisversion:
         type: string
         required: true
@@ -22,16 +22,16 @@ jobs:
         with:
           persist-credentials: false
           fetch-depth: 0
-      - name: Create AWS Serverless
+      - name: Create Azure Redis
         run: |
-          chmod +x platform/helpers/create-azure-redis-mongo.sh
-          ./platform/helpers/create-azure-redis-mongo.sh ${{ env.name }} ${{ env.version }}
+          chmod +x platform/helpers/create-azure-redis.sh
+          ./platform/helpers/create-azure-redis.sh ${{ env.name }} ${{ env.version }}
       - name: Commit changes
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add .
-          git commit -m "Create redis and mongo in azure ${{ env.name }}"
+          git commit -m "Create redis in azure ${{ env.name }}"
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:

@@ -1,0 +1,17 @@
+apiVersion: cache.azure.upbound.io/v1beta1
+kind: RedisCache
+metadata:
+  name: example-secondary
+spec:
+  forProvider:
+    capacity: 1
+    enableNonSslPort: false
+    family: P
+    location: East US
+    redisConfiguration:
+      - maxmemoryDelta: 2
+        maxmemoryPolicy: allkeys-lru
+        maxmemoryReserved: 2
+    redisVersion: "6"
+    resourceGroupName: platform-engineering-sg
+    skuName: Premium

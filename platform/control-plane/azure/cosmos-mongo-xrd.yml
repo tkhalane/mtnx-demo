@@ -1,12 +1,12 @@
 apiVersion: apiextensions.crossplane.io/v1
 kind: CompositeResourceDefinition
 metadata:
-  name: nosqldatabases.mtnx.com
+  name: mtnxcosmosmongodb.mtnx.com
 spec:
   group: mtnx.com
   names:
-    kind: nosqldatabase
-    plural: nosqldatabases
+    kind: MtnxCosmosMongoDB
+    plural: mtnxcosmosmongodbs
   versions:
   - name: v1alpha1
     served: true
@@ -18,14 +18,11 @@ spec:
           spec:
             type: object
             properties:
-              version:
-                type: string
-                enum:
-                - "5"
-                - "6"
-                default: "6"
+              throughput:
+                type: number
+                default: 500
             required:
-            - version
+            - throughput
   claimNames:
-    kind: mtnx-nosqldatabase
-    plural: mtnx-nosqldatabases
+    kind: mtnx-cosmos-mongodb
+    plural: mtnx-cosmos-mongodbs
