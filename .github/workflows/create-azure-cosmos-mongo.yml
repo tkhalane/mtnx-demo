@@ -26,7 +26,7 @@ jobs:
           chmod +x platform/helpers/create-azure-cosmos-mongo.sh
            inputTp="${{ inputs.throughput }}"
            throughPut=$(node -p "parseFloat('$inputTp')")
-          ./platform/helpers/create-azure-cosmos-mongo.sh ${{ env.name }} $throughPut
+          ./platform/helpers/create-azure-cosmos-mongo.sh ${{ env.name }} 500
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v5
