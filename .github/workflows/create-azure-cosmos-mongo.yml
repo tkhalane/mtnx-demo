@@ -24,7 +24,9 @@ jobs:
       - name: Create Azure Cosmos DB
         run: |
           chmod +x platform/helpers/create-azure-cosmos-mongo.sh
-          ./platform/helpers/create-azure-cosmos-mongo.sh ${{ env.name }} ${{ env.throughput }}
+           inputTp="${{ inputs.throughput }}"
+           throughPut=$(node -p "parseFloat('$inputTp')")
+          ./platform/helpers/create-azure-cosmos-mongo.sh ${{ env.name }} $throughPut
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v5
