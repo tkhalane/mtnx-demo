@@ -1,0 +1,8 @@
+apiVersion: mtnx.com/v1alpha1
+kind: mtnx-cosmosmongodb
+metadata:
+  name: lol
+  namespace: mtnx-apps
+spec:
+  throughput: "400"
+  version: 400
