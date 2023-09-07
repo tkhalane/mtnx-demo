@@ -5,14 +5,14 @@ on:
       name:
         required: true
         description: "The name of the redis cache"
-      redisversion:
+      version:
         type: string
         required: true
         default: "6"
         description: "The version of redis"
 env:
   name: ${{ inputs.name }}
-  version: ${{ inputs.redisversion }}
+  version: ${{ inputs.version }}
 
 jobs:
   deploy-app:
