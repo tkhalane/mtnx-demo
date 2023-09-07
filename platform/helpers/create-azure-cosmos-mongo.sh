@@ -1,5 +1,6 @@
 NAME=$1
-THROUGHPUT=$2
+T=$2
+THROUGHPUT=$((T))
 
 FILE_PATH=platform/resources/${NAME}-cosmos-mongo.yaml
 

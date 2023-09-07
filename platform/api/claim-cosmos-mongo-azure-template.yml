@@ -4,4 +4,4 @@ metadata:
   name: NAME
   namespace: mtnx-apps
 spec:
-  throughput:: THROUGHPUT
+  throughput: THROUGHPUT
