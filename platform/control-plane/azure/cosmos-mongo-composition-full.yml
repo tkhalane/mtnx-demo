@@ -1,18 +1,18 @@
 apiVersion: apiextensions.crossplane.io/v1
 kind: Composition
 metadata:
-  name: mtnx-cosmos-for-mongo
+  name: cosmos-for-mongo
 spec:
   compositeTypeRef:
     apiVersion: mtnx.com/v1alpha1
-    kind: MtnxCosmosMongoDB
+    kind: cosmosmongodb
   resources:
-    - name: account-name
+    - name: accountName
       base:
         apiVersion: cosmosdb.azure.upbound.io/v1beta1
         kind: Account
         metadata:
-          name: mtnx-cosmos-account
+          name: mtnx-apps-cosmosaccount
         spec:
           forProvider:
             capabilities:
@@ -28,14 +28,14 @@ spec:
             location: West Europe
             offerType: Standard
             resourceGroupName: platform-engineering-sg
-    - name: cosmosmongo-db
+    - name: cosmosMongoDb
       base:
         apiVersion: cosmosdb.azure.upbound.io/v1beta1
         kind: MongoDatabase
         metadata:
           labels:
             mtnx.com/nosql-db: mtnid-mongo
-          name: mtnx-cosmos-mongo
+          name: mtnx-apps-cosmosmongo
         spec:
           writeConnectionSecretToRef:
             name: mongo-db-connection
@@ -45,15 +45,15 @@ spec:
             accountNameSelector:
               matchControllerRef: true
             resourceGroupName: platform-engineering-sg
-      patches:
-        - fromFieldPath: "spec.throughput"
-          toFieldPath: "spec.forProvider.throughput"
-    - name: cosmosmongo-collection
+      # patches:
+      #   - fromFieldPath: "spec.throughput"
+      #     toFieldPath: "spec.forProvider.throughput"
+    - name: mongoCollection
       base:
         apiVersion: cosmosdb.azure.upbound.io/v1beta1
         kind: MongoCollection
         metadata:
-          name: mtnx-mongo-collection
+          name: mtnx-apps-mongocollection
         spec:
           forProvider:
             accountNameSelector:
@@ -68,6 +68,6 @@ spec:
             resourceGroupName: platform-engineering-sg
             shardKey: uniqueKey
             throughput: 400
-      patches:
-        - fromFieldPath: "spec.throughput"
-          toFieldPath: "spec.forProvider.throughput"
+      # patches:
+      #   - fromFieldPath: "spec.throughput"
+      #     toFieldPath: "spec.forProvider.throughput"

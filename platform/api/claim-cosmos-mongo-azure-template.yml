@@ -1,5 +1,5 @@
 apiVersion: mtnx.com/v1alpha1
-kind: mtnx-cosmos-mongodb
+kind: mtnx-cosmosmongodb
 metadata:
   name: NAME
   namespace: mtnx-apps

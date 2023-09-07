@@ -1,12 +1,12 @@
 apiVersion: apiextensions.crossplane.io/v1
 kind: CompositeResourceDefinition
 metadata:
-  name: mtnxcosmosmongodb.mtnx.com
+  name: cosmosmongodbs.mtnx.com
 spec:
   group: mtnx.com
   names:
-    kind: MtnxCosmosMongoDB
-    plural: mtnxcosmosmongodbs
+    kind: cosmosmongodb
+    plural: cosmosmongodbs
   versions:
   - name: v1alpha1
     served: true
@@ -24,5 +24,5 @@ spec:
             required:
             - throughput
   claimNames:
-    kind: mtnx-cosmos-mongodb
-    plural: mtnx-cosmos-mongodbs
+    kind: mtnx-cosmosmongodb
+    plural: mtnx-cosmosmongodbs
