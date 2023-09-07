@@ -4,4 +4,4 @@ metadata:
   name: test-again
   namespace: mtnx-apps
 spec:
-  throughput: "0"
+  throughput: "500"
