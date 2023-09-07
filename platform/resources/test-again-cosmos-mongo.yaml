@@ -1,0 +1,7 @@
+apiVersion: mtnx.com/v1alpha1
+kind: mtnx-cosmos-mongodb
+metadata:
+  name: test-again
+  namespace: mtnx-apps
+spec:
+  throughput: "0"
