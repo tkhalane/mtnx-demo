@@ -1,5 +1,5 @@
 apiVersion: mtnx.com/v1alpha1
-kind: mtnx-redis-cache
+kind: mtnx-rediscache
 metadata:
   name: NAME
   namespace: mtnx-apps

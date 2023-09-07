@@ -33,6 +33,11 @@ kubectl apply -f platform/control-plane/azure/provider-config.yml
 kubectl describe linuxvirtualmachine | grep "At Provider\|Location"
 
 
+kubectl get xrd  
+kubectl get composition
+kubectl get claim -n mtnx-apps  
+kubectl get composite                                  
+
 # troublshoot
 
 # check resources

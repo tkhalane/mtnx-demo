@@ -1,18 +1,18 @@
 apiVersion: apiextensions.crossplane.io/v1
 kind: Composition
 metadata:
-  name: mtnx-redis
+  name: mtnx-redis-cache
 spec:
   compositeTypeRef:
     apiVersion: mtnx.com/v1alpha1
-    kind: MtnxRedisCache
+    kind: rediscache
   resources:
-    - name: redis-cache
+    - name: mtnxRedisCache 
       base:
         apiVersion: cache.azure.upbound.io/v1beta1
         kind: RedisCache
         metadata:
-          name: mtnx-cache
+          name: mtnx-apps-cache
         spec:
           forProvider:
             capacity: 1
@@ -26,7 +26,7 @@ spec:
             redisVersion: "6"
             resourceGroupName: platform-engineering-sg
             skuName: Premium
-      patches:
-        - fromFieldPath: "spec.version"
-          toFieldPath: "spec.forProvider.redisVersion"
-          
+      # patches:
+      #   - fromFieldPath: "spec.version"
+      #     toFieldPath: "spec.forProvider.redisVersion"
+           
