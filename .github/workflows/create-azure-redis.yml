@@ -11,7 +11,7 @@ on:
         default: "6"
         description: "The version of redis"
 env:
-  name: ${{ inputs.dbname }}
+  name: ${{ inputs.name }}
   version: ${{ inputs.redisversion }}
 
 jobs:
