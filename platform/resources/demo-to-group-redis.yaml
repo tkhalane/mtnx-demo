@@ -1,0 +1,7 @@
+apiVersion: mtnx.com/v1alpha1
+kind: mtnx-rediscache
+metadata:
+  name: demo-to-group
+  namespace: mtnx-apps
+spec:
+  version: "5"
