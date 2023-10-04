@@ -1,0 +1,7 @@
+apiVersion: mtnx.com/v1alpha1
+kind: mtnx-rediscache
+metadata:
+  name: wed-prep
+  namespace: mtnx-apps
+spec:
+  version: "6"
