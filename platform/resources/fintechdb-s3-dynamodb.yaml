@@ -1,7 +1,0 @@
-apiVersion: mtnx.com/v1alpha1
-kind: custom-database
-metadata:
-  name: fintechdb
-  namespace: mtnx-apps
-spec:
-  region: EU

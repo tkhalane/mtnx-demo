@@ -1,7 +1,0 @@
-apiVersion: mtnx.com/v1alpha1
-kind: mtnx-cosmosmongodb
-metadata:
-  name: fintechdemo
-  namespace: mtnx-apps
-spec:
-  throughput: 400
