@@ -1,7 +1,0 @@
-apiVersion: mtnx.com/v1alpha1
-kind: mtnx-rediscache
-metadata:
-  name: ccoe-demo
-  namespace: mtnx-apps
-spec:
-  version: "6"
