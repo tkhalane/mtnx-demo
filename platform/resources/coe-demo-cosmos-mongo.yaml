@@ -1,0 +1,7 @@
+apiVersion: mtnx.com/v1alpha1
+kind: mtnx-cosmosmongodb
+metadata:
+  name: coe-demo
+  namespace: mtnx-apps
+spec:
+  throughput: 500
