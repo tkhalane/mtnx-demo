@@ -151,8 +151,8 @@ cat nginx.conf
 
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 # password = 76ebwkMLjhcihGiX replaced with Password01#
-#In order to access the server UI you have the following options:
-
+#In order to access the server UI you have the flowing options:
+# nc-kJC1qpSSJ1o1R
 #1. 
 kubectl port-forward service/argocd-server -n argocd 8080:443
 
@@ -182,9 +182,8 @@ argocd login --insecure --username admin --password Password01# --grpc-web argoc
 
 argocd app create mtnx-recharge --repo https://github.com/tkhalane/mtnx-demo.git --path helm --dest-server https://kubernetes.default.svc --dest-namespace mtnx-apps --project mtnx-apps
 argocd app create mtnx-platform --repo https://github.com/tkhalane/mtnx-demo.git --path platform/resources --dest-server https://kubernetes.default.svc --dest-namespace mtnx-apps --project mtnx-apps
+argocd login localhost:8080 --username admin --password <your_password --insecure
 
-
-# to add AKS cluster to argocd
 argocd cluster add civoplatformcluster
 
 #azure devops quirks
