@@ -22,6 +22,7 @@ az ad sp create-for-rbac \
 --role Owner \
 --scopes /subscriptions/85933884-f6aa-4035-a09c-03e9776d31cd
 
+
 # create k8s secret
 
 kubectl create secret generic azure-secret -n crossplane-system --from-file=creds=./azure-credentials.json
@@ -45,6 +46,6 @@ kubectl get composite
 kubectl get managed  
 
 kubectl describe rediscache.cache.azure.upbound.io/example-secondary
-
-Unable to create application: application spec for testcross is invalid: InvalidSpecError: Unable to get cluster:
- rpc error: code = NotFound desc = cluster "controlplane-dns-rch2tfg7.hcp.swedencentral.azmk8s.io" not found
+ kubectl api-resources | grep sgt 
+# Unable to create application: application spec for testcross is invalid: InvalidSpecError: Unable to get cluster:
+# rpc error: code = NotFound desc = cluster "controlplane-dns-rch2tfg7.hcp.swedencentral.azmk8s.io" not found

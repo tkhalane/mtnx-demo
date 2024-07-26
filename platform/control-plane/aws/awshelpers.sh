@@ -36,7 +36,7 @@ kubectl get providers
 # 4) generate a Kubernetes Secret from AWS key-pair and then configure the Provider to use it.
 
 
-kubectl create secret generic aws-secret -n crossplane-system --from-file=creds=./masepa.txt
+kubectl create secret generic aws-secret -n crossplane-system --from-file=creds=./lol.txt
 
 # 5)View secret
 
