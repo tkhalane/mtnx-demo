@@ -46,6 +46,14 @@ kubectl get composite
 kubectl get managed  
 
 kubectl describe rediscache.cache.azure.upbound.io/example-secondary
- kubectl api-resources | grep sgt 
+kubectl api-resources | grep sgt 
 # Unable to create application: application spec for testcross is invalid: InvalidSpecError: Unable to get cluster:
+
+
 # rpc error: code = NotFound desc = cluster "controlplane-dns-rch2tfg7.hcp.swedencentral.azmk8s.io" not found
+
+kubectl get composite
+kubectl describe  table.dynamodb.aws.upbound.io/sgt-wealthbonus-qdj7b-nds8s
+kubectl get managed  
+kubectl api-resources
+ kubectl get claim -n mtnx-apps
